@@ -191,12 +191,12 @@ export const Desktop = (): JSX.Element => {
           {/* Background lines */}
           <div className="absolute inset-0 overflow-visible">
             <img 
-              src="/Page2Line(left).svg" 
+              src="/Page2line(left).svg" 
               alt="Left line" 
               className="absolute left-[-70px] top-20 h-[300px] w-[800px] object-cover"
             />
             <img 
-              src="/Page2Line(right).svg" 
+              src="/Page2line(right).svg" 
               alt="Right line" 
               className="absolute right-[-70px] bottom-10 h-[300px] w-[800px] object-cover"
             />
