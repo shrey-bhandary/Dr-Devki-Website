@@ -206,10 +206,10 @@ export const Desktop = (): JSX.Element => {
             {/* Icons */}
             <div className="flex gap-4 mb-8">
               <div className="w-12 h-12 rounded-full bg-[linear-gradient(90deg,rgba(152,77,149,1)_0%,rgba(211,156,192,1)_100%)] flex items-center justify-center">
-                <img src="public/phone.svg" alt="Phone" className="w-5 h-5" />
+                <img src="/phone.svg" alt="Phone" className="w-5 h-5" />
               </div>
               <div className="w-12 h-12 rounded-full bg-[linear-gradient(90deg,rgba(152,77,149,1)_0%,rgba(211,156,192,1)_100%)] flex items-center justify-center">
-                <img src="public/message.svg" alt="Message" className="w-5 h-5" />
+                <img src="/message.svg" alt="Message" className="w-5 h-5" />
               </div>
             </div>
 
