@@ -109,17 +109,17 @@ export const Desktop = (): JSX.Element => {
           {/* Large gradient spot behind image grid */}
           <div className="absolute top-[30%] right-[-20%] w-[1100px] h-[500px] rounded-full bg-[radial-gradient(circle,rgba(211,156,192,0.3)_0%,rgba(152,77,149,0.2)_40%,transparent_80%)] blur-xl pointer-events-none" />
           
-          <div className="w-[50%] flex flex-col justify-center relative">
+          <div className="w-[50%] flex flex-col justify-center relative animate-slide-up">
             {/* Text gradient spots */}
             <div className="absolute bottom-[-10%] left-[-40%] w-[900px] h-[500px] rounded-full bg-[radial-gradient(circle,rgba(211,156,192,0.3)_0%,rgba(152,77,149,0.2)_40%,transparent_80%)] blur-xl pointer-events-none" />
             
-            <h1 className="text-[58px] leading-[64px] font-inter font-semibold text-[#2b2b2b] relative z-10">
+            <h1 className="text-[58px] leading-[64px] font-inter font-semibold text-[#2b2b2b] relative z-10 animate-slide-up [animation-delay:0.2s]">
               Just your gyneac,<br/>gone digital
             </h1>
-            <p className="w-[559px] mt-6 font-inter font-light text-[#747474] text-base leading-relaxed relative z-10">
+            <p className="w-[559px] mt-6 font-inter font-light text-[#747474] text-base leading-relaxed relative z-10 animate-slide-up [animation-delay:0.4s]">
               Keep scrolling to know how I can help you.
             </p>
-            <Button className="mt-8 w-fit pl-6 pr-2 py-2 relative overflow-hidden group rounded-[50px] transition-all duration-300">
+            <Button className="mt-8 w-fit pl-6 pr-2 py-2 relative overflow-hidden group rounded-[50px] transition-all duration-300 animate-scale-in [animation-delay:0.6s]">
               <div className="absolute inset-0 w-full bg-[#2B2B2B]" />
               <div className="absolute inset-0 w-0 bg-gradient-to-r from-[rgba(152,77,149,1)] to-[rgba(211,156,192,1)] transition-all duration-300 ease-in-out group-hover:w-full" />
               <span className="font-inter font-light text-[#F5F5F5] text-base group-hover:text-white transition-colors duration-300 relative z-10">
@@ -137,19 +137,19 @@ export const Desktop = (): JSX.Element => {
             <img 
               src="/HeroLine.png" 
               alt="Decorative line" 
-              className="absolute top-[28%] right-[-10%] w-[1000px] h-[600px] z-0 opacity-100 animate-slide-in"
+              className="absolute top-[28%] right-[-10%] w-[1000px] h-[600px] z-0 opacity-100 animate-slide-in [animation-delay:0.8s] animate-float"
             />
             <div className="absolute right-0 flex gap-6 z-10">
               {/* First Column */}
-              <div className="flex flex-col gap-6 mt-[50px]">
-                <div className="w-[300px] h-[430px] bg-gray-100 rounded-[30px] overflow-hidden shadow-lg">
+              <div className="flex flex-col gap-6 mt-[50px] animate-slide-up [animation-delay:1s]">
+                <div className="w-[300px] h-[430px] bg-gray-100 rounded-[30px] overflow-hidden shadow-lg animate-scale-in [animation-delay:1.2s] hover:animate-float">
                   <img 
                     src="/FirstCol(1).jpg" 
                     alt="Clinic Interior" 
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                   />
                 </div>
-                <div className="w-[300px] h-[430px] bg-gray-100 rounded-[30px] overflow-hidden shadow-lg">
+                <div className="w-[300px] h-[430px] bg-gray-100 rounded-[30px] overflow-hidden shadow-lg animate-scale-in [animation-delay:1.4s] hover:animate-float">
                   <img 
                     src="/FirstCol(2).jpg" 
                     alt="Clinic Consultation" 
@@ -159,22 +159,22 @@ export const Desktop = (): JSX.Element => {
               </div>
               
               {/* Second Column */}
-              <div className="flex flex-col gap-6 -mt-[465px]">
-                <div className="w-[312px] h-[414px] bg-gray-100 rounded-[30px] overflow-hidden shadow-lg">
+              <div className="flex flex-col gap-6 -mt-[465px] animate-slide-up [animation-delay:1.1s]">
+                <div className="w-[312px] h-[414px] bg-gray-100 rounded-[30px] overflow-hidden shadow-lg animate-scale-in [animation-delay:1.3s] hover:animate-float">
                   <img 
                     src="/SecondCol(1).jpg" 
                     alt="Medical Equipment" 
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                   />
                 </div>
-                <div className="w-[312px] h-[415px] bg-gray-100 rounded-[30px] overflow-hidden shadow-lg">
+                <div className="w-[312px] h-[415px] bg-gray-100 rounded-[30px] overflow-hidden shadow-lg animate-scale-in [animation-delay:1.5s] hover:animate-float">
                   <img 
                     src="/SecondCol(2).jpg" 
                     alt="Clinic Reception" 
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                   />
                 </div>
-                <div className="w-[312px] h-[414px] bg-gray-100 rounded-[30px] overflow-hidden shadow-lg">
+                <div className="w-[312px] h-[414px] bg-gray-100 rounded-[30px] overflow-hidden shadow-lg animate-scale-in [animation-delay:1.7s] hover:animate-float">
                   <img 
                     src="/SecondCol(3).jpg" 
                     alt="Clinic Reception" 
