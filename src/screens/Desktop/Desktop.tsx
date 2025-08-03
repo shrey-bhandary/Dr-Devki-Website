@@ -255,17 +255,81 @@ export const Desktop = (): JSX.Element => {
             Trusted By People
           </h2>
 
-          <Card className="w-full h-[577px] bg-[#f5eeed] rounded-[50px] relative">
-            <CardContent className="p-0">
-              <div className="absolute top-[238px] left-[34px] bg-[#eedae6] w-3.5 h-3.5 rounded-[7px] rotate-[177.50deg]" />
-              <div className="absolute top-[260px] left-[34px] bg-[#eedae6] w-3.5 h-3.5 rounded-[7px] rotate-[177.50deg]" />
-              <div className="absolute top-[282px] left-[34px] bg-[#eedae6] w-3.5 h-3.5 rounded-[7px] rotate-[177.50deg]" />
-              <div className="absolute top-[304px] left-[34px] bg-[#eedae6] w-3.5 h-3.5 rounded-[7px] rotate-[177.50deg]" />
-              <div className="absolute top-[326px] left-[33px] bg-[#964a94] w-3.5 h-3.5 rounded-[7px] rotate-[177.50deg]" />
+          <div className="px-8 max-w-[1300px] mx-auto">
+            <div className="grid grid-cols-4 gap-6 auto-rows-[minmax(160px,_auto)]">
+              {/* 1. Purple Gradient Block (Tall) */}
+              <div className="col-span-1 row-span-1 rounded-[40px] overflow-hidden shadow-md">
+                <img
+                  src="/Testimonial(1).svg"
+                  alt="Testimonial 1"
+                  className="w-full h-full object-cover transition-transform hover:scale-[1.01]"
+                />
+              </div>
 
-              <div className="absolute w-[768px] h-[485px] top-[46px] right-16 bg-gray-300 rounded-[50px]" />
-            </CardContent>
-          </Card>
+              {/* 2. Sonali Bansode */}
+              <div className="col-span-1 row-span-2 rounded-[30px] overflow-hidden shadow-sm">
+                <img
+                  src="/Testimonial(2).svg"
+                  alt="Testimonial 2"
+                  className="w-full h-full object-cover transition-transform hover:scale-[1.01]"
+                />
+              </div>
+
+              {/* 3. Anil Poojari (Tall block) */}
+              <div className="col-span-2 row-span-2 rounded-[30px] overflow-hidden shadow-sm">
+                <img
+                  src="/Testimonial(3).svg"
+                  alt="Testimonial 3"
+                  className="w-full h-full object-cover transition-transform hover:scale-[1.01]"
+                />
+              </div>
+
+              {/* 4. Image of 2 women (top-right) */}
+              <div className="col-span-1 row-span-1 rounded-[30px] overflow-hidden shadow-sm">
+                <img
+                  src="/Testimonial(4).svg"
+                  alt="Testimonial 4"
+                  className="w-full h-full object-cover transition-transform hover:scale-[1.01]"
+                />
+              </div>
+
+              {/* 5. Image of nurses (middle row) */}
+              <div className="col-span-1 row-span-1 rounded-[30px] overflow-hidden shadow-sm">
+                <img
+                  src="/Testimonial(5).svg"
+                  alt="Testimonial 5"
+                  className="w-full h-full object-cover transition-transform hover:scale-[1.01]"
+                />
+              </div>
+
+              {/* 6. Alok Pardeshi (2-column wide) */}
+              <div className="col-span-2 row-span-1 rounded-[30px] overflow-hidden shadow-sm">
+                <img
+                  src="/Testimonial(6).svg"
+                  alt="Testimonial 6"
+                  className="w-full h-full object-cover transition-transform hover:scale-[1.01]"
+                />
+              </div>
+
+              {/* 7. Priyanka Lingawale (short right) */}
+              <div className="col-span-1 row-span-1 rounded-[30px] overflow-hidden shadow-sm">
+                <img
+                  src="/Testimonial(7).svg"
+                  alt="Testimonial 7"
+                  className="w-full h-full object-cover transition-transform hover:scale-[1.01]"
+                />
+              </div>
+
+              {/* 8. Anil Vazirani (tall, bottom-right) */}
+              <div className="col-span-1 row-span-2 rounded-[30px] overflow-hidden shadow-sm">
+                <img
+                  src="/Testimonial(8).svg"
+                  alt="Testimonial 8"
+                  className="w-full h-full object-cover transition-transform hover:scale-[1.01]"
+                />
+              </div>
+            </div>
+          </div>
         </section>
 
         {/* Gallery Section */}

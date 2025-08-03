@@ -1,0 +1,15 @@
+<svg width="300" height="600" viewBox="0 0 300 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="300" height="600" rx="30" fill="#f8f9fa"/>
+  <text x="20" y="40" font-family="Inter, sans-serif" font-size="16" font-weight="600" fill="#2b2b2b">Sonali Bansode</text>
+  <text x="20" y="70" font-family="Inter, sans-serif" font-size="14" fill="#666">
+    <tspan x="20" dy="0">I want to sincerely thank you</tspan>
+    <tspan x="20" dy="18">for your exceptional support.</tspan>
+    <tspan x="20" dy="18">Truly appreciate the time you</tspan>
+    <tspan x="20" dy="18">took to listen, explain and</tspan>
+    <tspan x="20" dy="18">guide me.</tspan>
+    <tspan x="20" dy="18">Thank you for everything ❤️</tspan>
+    <tspan x="20" dy="18">And her support staff...</tspan>
+  </text>
+  <circle cx="150" cy="400" r="80" fill="#e0e0e0"/>
+  <text x="120" y="410" font-family="Inter, sans-serif" font-size="48" fill="#666">👤</text>
+</svg>

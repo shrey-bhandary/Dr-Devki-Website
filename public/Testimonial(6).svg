@@ -1,0 +1,12 @@
+<svg width="600" height="300" viewBox="0 0 600 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="600" height="300" rx="30" fill="#f8f9fa"/>
+  <text x="30" y="40" font-family="Inter, sans-serif" font-size="16" font-weight="600" fill="#2b2b2b">Alok Pardeshi</text>
+  <text x="30" y="70" font-family="Inter, sans-serif" font-size="14" fill="#666">
+    <tspan x="30" dy="0">Excellent Doctor... Explain each and everything with lots</tspan>
+    <tspan x="30" dy="18">of information.. I like positive attitude of her... Lots of Thnx</tspan>
+    <tspan x="30" dy="18">to My family doctor Mr.Masarani For suggesting</tspan>
+    <tspan x="30" dy="18">me Better doctor... Highly Recommended.....</tspan>
+  </text>
+  <circle cx="450" cy="150" r="60" fill="#e0e0e0"/>
+  <text x="420" y="165" font-family="Inter, sans-serif" font-size="40" fill="#666">👨</text>
+</svg>

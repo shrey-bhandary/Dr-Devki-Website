@@ -1,0 +1,12 @@
+<svg width="300" height="300" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="300" height="300" rx="30" fill="#fef7f7"/>
+  <text x="20" y="30" font-family="Inter, sans-serif" font-size="14" font-weight="600" fill="#2b2b2b">Priyanka Lingawale</text>
+  <text x="20" y="60" font-family="Inter, sans-serif" font-size="12" fill="#666">
+    <tspan x="20" dy="0">One of the best gynae ❤️</tspan>
+    <tspan x="20" dy="16">Dr Is very down to heart. She</tspan>
+    <tspan x="20" dy="16">always guides with positive</tspan>
+    <tspan x="20" dy="16">vibes.</tspan>
+  </text>
+  <circle cx="150" cy="200" r="50" fill="#e0e0e0"/>
+  <text x="130" y="215" font-family="Inter, sans-serif" font-size="30" fill="#666">👩</text>
+</svg>

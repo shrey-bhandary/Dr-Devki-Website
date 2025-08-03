@@ -1,0 +1,15 @@
+<svg width="600" height="400" viewBox="0 0 600 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="600" height="400" rx="30" fill="#f8f9fa"/>
+  <text x="30" y="40" font-family="Inter, sans-serif" font-size="16" font-weight="600" fill="#2b2b2b">Anil Poojari</text>
+  <text x="30" y="70" font-family="Inter, sans-serif" font-size="14" fill="#666">
+    <tspan x="30" dy="0">Excellent.....</tspan>
+    <tspan x="30" dy="18">Dr. Devki Potwar is one of the best doctor me n my wife</tspan>
+    <tspan x="30" dy="18">have ever met... Extended support at the time over the</tspan>
+    <tspan x="30" dy="18">phone, messages...</tspan>
+    <tspan x="30" dy="18">Kind and Cares a lot... she remembers every small thing</tspan>
+    <tspan x="30" dy="18">in my case, so never need to explain things that needs to be taken</tspan>
+    <tspan x="30" dy="18">care of... would highly recommend 😊</tspan>
+  </text>
+  <circle cx="450" cy="200" r="100" fill="#e0e0e0"/>
+  <text x="400" y="220" font-family="Inter, sans-serif" font-size="60" fill="#666">👥</text>
+</svg>

@@ -1,0 +1,15 @@
+<svg width="300" height="300" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="purpleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#b84bb8;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8e3c8e;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="300" height="300" rx="40" fill="url(#purpleGradient)"/>
+  <text x="50" y="120" font-family="Inter, sans-serif" font-size="32" font-weight="600" fill="white">Liked</text>
+  <text x="50" y="160" font-family="Inter, sans-serif" font-size="32" font-weight="600" fill="white">our service!</text>
+  <g transform="translate(50, 200)">
+    <rect width="120" height="32" rx="16" fill="rgba(255,255,255,0.2)" stroke="white" stroke-width="1"/>
+    <text x="15" y="22" font-family="Inter, sans-serif" font-size="12" fill="white">⭐ Leave us a review</text>
+  </g>
+</svg>
