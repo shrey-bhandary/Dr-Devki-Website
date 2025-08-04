@@ -6,6 +6,14 @@ module.exports = {
   ],
   theme: {
     extend: {
+      animationDelay: {
+        0: "0ms",
+        200: "200ms",
+        400: "400ms",
+        600: "600ms",
+        800: "800ms",
+        1000: "1000ms",
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -59,9 +67,25 @@ module.exports = {
         inter: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
       },
       keyframes: {
+        "fade-up": {
+          "0%": { opacity: "0", transform: "translateY(20px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
         "stroke-draw": {
-          "0%": { strokeDashoffset: "1000" },
-          "100%": { strokeDashoffset: "0" },
+          "0%": {
+            strokeDashoffset: "1",
+          },
+          "100%": {
+            strokeDashoffset: "0",
+          },
+        },
+        "stroke-draw-reverse": {
+          "0%": {
+            strokeDashoffset: "-1",
+          },
+          "100%": {
+            strokeDashoffset: "0",
+          },
         },
         marquee: {
           "0%": { transform: "translateX(-50%)" },
@@ -93,7 +117,9 @@ module.exports = {
         },
       },
       animation: {
-        "stroke-draw": "stroke-draw 1.8s ease-out forwards",
+        "fade-up": "fade-up 1.5s ease-out forwards",
+        "stroke-draw": "stroke-draw 1s ease-out forwards",
+        "stroke-draw-reverse": "stroke-draw-reverse 1s ease-out forwards",
         marquee: "marquee 130s linear infinite",
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",

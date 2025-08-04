@@ -1,5 +1,7 @@
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 import { ChevronRightIcon, MailIcon, PhoneIcon } from "lucide-react";
 import React, { useState } from "react";
 import { Button } from "../../components/ui/button";
@@ -81,6 +83,9 @@ export const Desktop = (): JSX.Element => {
 
   const [activeNav, setActiveNav] = React.useState("Home");
 
+  const linesRef = useRef(null);
+  const isLinesInView = useInView(linesRef, { once: true, margin: "-10% 0px" });
+
   return (
     <div className="bg-[#FFFFFF] flex flex-row justify-center w-full font-inter">
       <div className="bg-[#FFFFFF] w-full max-w-[1440px] relative">
@@ -90,8 +95,7 @@ export const Desktop = (): JSX.Element => {
           data-aos-duration="1000"
           data-aos-delay="200"
           data-aos-easing="ease-in-out"
-          className="fixed top-[30px] left-0 right-0 z-50 flex justify-center"
-        >
+          className="fixed top-[30px] left-0 right-0 z-50 flex justify-center">
           <div className="flex w-[200px] h-[50px] items-center justify-center px-4 py-2 bg-[#F5F5F5] rounded-[50px] absolute left-16">
             <img
               src="/Dr Devki Logo.png"
@@ -114,8 +118,7 @@ export const Desktop = (): JSX.Element => {
                       activeNav === item.label
                         ? "rounded-[50px] bg-[linear-gradient(90deg,rgba(152,77,149,1)_0%,rgba(211,156,192,1)_100%)] text-white font-inter font-light px-4 py-2 text-base hover:bg-[linear-gradient(90deg,rgba(152,77,149,0.9)_0%,rgba(211,156,192,0.9)_100%)]"
                         : "rounded-[50px] bg-transparent text-[#2b2b2b] font-inter font-light px-4 py-2 text-base hover:bg-[linear-gradient(90deg,rgba(152,77,149,1)_0%,rgba(211,156,192,1)_100%)] hover:text-white transition-all duration-200"
-                    }
-                  >
+                    }>
                     {item.label}
                   </Button>
                 </NavigationMenuItem>
@@ -149,8 +152,7 @@ export const Desktop = (): JSX.Element => {
             data-aos-duration="4000"
             data-aos-delay="100"
             data-aos-easing="ease-in-out"
-            className="w-[50%] flex flex-col justify-center relative"
-          >
+            className="w-[50%] flex flex-col justify-center relative">
             {/* Text gradient spots */}
             <div className="absolute bottom-[-10%] left-[-40%] w-[900px] h-[500px] rounded-full bg-[radial-gradient(circle,rgba(211,156,192,0.3)_0%,rgba(152,77,149,0.2)_40%,transparent_100%)] blur-xl pointer-events-none" />
 
@@ -178,64 +180,100 @@ export const Desktop = (): JSX.Element => {
           <div className="w-[50%] relative h-[850px] overflow-visible z-10">
             {/* Animated HeroLine */}
             <svg
-              viewBox="0 0 1440 200"
+              viewBox="0 0 806 1011"
               xmlns="http://www.w3.org/2000/svg"
-              className="absolute top-[-10%] right-[-10%] w-[1000px] h-[600px] z-0"
-            >
+              className="absolute top-[-10%] right-[-12%] w-[850px] h-[1011px] z-0">
+              <defs>
+                <linearGradient
+                  id="heroLineGradient"
+                  x1="197.596"
+                  y1="991.298"
+                  x2="788.872"
+                  y2="260.086"
+                  gradientUnits="userSpaceOnUse">
+                  <stop stopColor="#984D95" />
+                  <stop offset="1" stopColor="#D39CC0" />
+                </linearGradient>
+              </defs>
+
               <path
-                d="/HeroLine.svg" // replace with your actual path
-                stroke="#984D95"
-                strokeWidth="3"
+                d="M166.566 966.207C163.078 919.628 184.205 779.685 263.581 738.325C346.866 694.927 400.175 717.895 561.199 658.585C723.294 598.881 820.737 368.208 846.099 306.361"
+                stroke="url(#heroLineGradient)"
+                strokeWidth="27"
+                strokeLinecap="round"
                 fill="none"
-                strokeDasharray="1000"
-                strokeDashoffset="1000"
-                className="animate-stroke-draw"
+                pathLength="1"
+                strokeDasharray="1"
+                strokeDashoffset="1"
+                className="animate-stroke-draw-reverse animation-delay-200"
               />
             </svg>
 
             <div className="absolute right-0 flex gap-6 z-10">
-              {/* First Column */}
-              <div className="flex flex-col gap-6 mt-[50px]">
-                <div className="w-[300px] h-[430px] bg-gray-100 rounded-[30px] overflow-hidden shadow-lg">
+              {/* Left Column */}
+              <motion.div
+                initial={{ y: -300, opacity: 0 }}
+                animate={{
+                  y: [-1000, -900, 40, -10, 0],
+                  opacity: [0, 0.5, 1, 1, 1],
+                }}
+                transition={{
+                  duration: 6, // total animation time
+                  times: [0.1, 0.4, 0.7, 0.85, 1], // ⏳ phase split: slow fade → fast roll
+                  ease: "easeInOut",
+                }}
+                className="flex flex-col gap-6 mt-[50px] animation-delay-0">
+                <div className="w-[300px] h-[410px] bg-gray-100 rounded-[30px] overflow-hidden shadow-lg">
                   <img
-                    src="/FirstCol(1).jpg"
+                    src="/FirstCol(1).svg"
                     alt="Clinic Interior"
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                   />
                 </div>
-                <div className="w-[300px] h-[430px] bg-gray-100 rounded-[30px] overflow-hidden shadow-lg">
+                <div className="w-[300px] h-[410px] bg-gray-100 rounded-[30px] overflow-hidden shadow-lg">
                   <img
-                    src="/FirstCol(2).jpg"
+                    src="/FirstCol(2).svg"
                     alt="Clinic Consultation"
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                   />
                 </div>
-              </div>
+              </motion.div>
 
-              {/* Second Column */}
-              <div className="flex flex-col gap-6 -mt-[465px]">
+              {/* Right Column */}
+              <motion.div
+                initial={{ y: 300, opacity: 0 }}
+                animate={{
+                  y: [1200, 1150, -40, 10, 0], // start from below → overshoot up → settle
+                  opacity: [0, 0.5, 1, 1, 1],
+                }}
+                transition={{
+                  duration: 6,
+                  times: [0.1, 0.4, 0.7, 0.85, 1],
+                  ease: "easeInOut",
+                }}
+                className="flex flex-col gap-6 -mt-[465px] animation-delay-0">
                 <div className="w-[312px] h-[414px] bg-gray-100 rounded-[30px] overflow-hidden shadow-lg">
                   <img
-                    src="/SecondCol(1).jpg"
+                    src="/SecondCol(1).svg"
                     alt="Medical Equipment"
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                   />
                 </div>
                 <div className="w-[312px] h-[415px] bg-gray-100 rounded-[30px] overflow-hidden shadow-lg">
                   <img
-                    src="/SecondCol(2).jpg"
+                    src="/SecondCol(2).svg"
                     alt="Clinic Reception"
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                   />
                 </div>
                 <div className="w-[312px] h-[414px] bg-gray-100 rounded-[30px] overflow-hidden shadow-lg">
                   <img
-                    src="/SecondCol(3).jpg"
+                    src="/SecondCol(3).svg"
                     alt="Clinic Reception"
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                   />
                 </div>
-              </div>
+              </motion.div>
             </div>
           </div>
         </section>
@@ -243,17 +281,66 @@ export const Desktop = (): JSX.Element => {
         {/* Quote Section */}
         <section className="mx-16 my-16 relative z-0">
           {/* Background lines */}
-          <div className="absolute inset-0 overflow-visible">
-            <img
-              src="/Page2line(left).svg"
-              alt="Left line"
-              className="absolute left-[-70px] top-20 h-[300px] w-[800px] object-cover"
-            />
-            <img
-              src="/Page2line(right).svg"
-              alt="Right line"
-              className="absolute right-[-70px] bottom-10 h-[300px] w-[800px] object-cover"
-            />
+          <div ref={linesRef} className="absolute inset-0 overflow-visible">
+            {/* Left Line */}
+            <svg
+              viewBox="0 0 831 252"
+              xmlns="http://www.w3.org/2000/svg"
+              className="absolute left-[-70px] top-20 w-[800px] h-[300px]">
+              <defs>
+                <linearGradient
+                  id="leftLineGradient"
+                  x1="-124.801"
+                  y1="136.467"
+                  x2="815.279"
+                  y2="113.473"
+                  gradientUnits="userSpaceOnUse">
+                  <stop stopColor="#984D95" />
+                  <stop offset="1" stopColor="#D39CC0" />
+                </linearGradient>
+              </defs>
+              <path
+                d="M-125.777 96.5739C-92.5439 63.7515 27.772 -10.7775 110.692 22.9201C197.695 58.2772 214.717 113.772 364.189 198.059C514.656 282.908 753.527 207.773 817.078 187.046"
+                stroke="url(#leftLineGradient)"
+                strokeWidth="27"
+                strokeLinecap="round"
+                fill="none"
+                pathLength="1"
+                strokeDasharray="1"
+                strokeDashoffset="1"
+                className="animate-stroke-draw"
+              />
+            </svg>
+
+            {/* Right Line (flipped to start from top-right) */}
+            <svg
+              viewBox="0 0 868 322"
+              xmlns="http://www.w3.org/2000/svg"
+              className="absolute right-[-90px] bottom-10 w-[800px] h-[300px] scale-y-[1]">
+              <defs>
+                <linearGradient
+                  id="rightLineGradient"
+                  x1="9.45726"
+                  y1="110.82"
+                  x2="943.84"
+                  y2="216.685"
+                  gradientUnits="userSpaceOnUse">
+                  <stop stopColor="#984D95" />
+                  <stop offset="1" stopColor="#D39CC0" />
+                </linearGradient>
+              </defs>
+              <path
+                d="M13.9497 71.1687C51.3617 43.2028 180.744 -14.1607 258.273 30.5669C339.619 77.4971 348.887 134.799 485.419 238.748C622.86 343.388 869.765 301.648 935.555 289.813"
+                stroke="url(#rightLineGradient)"
+                strokeWidth="27"
+                strokeLinecap="round"
+                fill="none"
+                pathLength="1"
+                strokeDasharray="1"
+                strokeDashoffset="1"
+                className="animate-stroke-draw-reverse"
+              />
+            </svg>
           </div>
 
           <Card className="w-full h-[660px] bg-[#D6A0C229] rounded-[30px] flex flex-col items-center justify-center relative overflow-hidden backdrop-blur-[25px] backdrop-saturate-150">
@@ -357,8 +444,7 @@ export const Desktop = (): JSX.Element => {
                     <div
                       className={`absolute w-[650px] h-[320px] bg-[#F5F5F5] rounded-l-[50px] px-12 py-10 flex items-center justify-center z-10 shadow-[0_4px_0_rgba(0,0,0,0.2)] transition-transform duration-500 ease-out ${
                         isRevealed ? "-translate-x-[300px]" : "translate-x-0"
-                      }`}
-                    >
+                      }`}>
                       <div className="flex items-center gap-8 w-full justify-center">
                         {/* Icon */}
                         <div className="w-20 h-20 rounded-full bg-gradient-to-r from-[#984D95] to-[#D39CC0] flex items-center justify-center flex-shrink-0">
@@ -382,8 +468,7 @@ export const Desktop = (): JSX.Element => {
                     <div
                       className={`w-[650px] h-[327px] bg-[#d6a0c2] rounded-[50px] flex flex-col justify-center items-center text-center z-20 transition-transform duration-500 ease-out ${
                         isRevealed ? "translate-x-[300px]" : "translate-x-0"
-                      }`}
-                    >
+                      }`}>
                       <p className="text-white/70 text-lg mb-1">
                         We are here for
                       </p>
@@ -413,7 +498,12 @@ export const Desktop = (): JSX.Element => {
             <CardContent className="p-0 w-full h-full">
               <div className="flex flex-row w-full h-full gap-10">
                 {/* LEFT SIDE - Text content */}
-                <div className="w-[50%] max-w-[600px] relative z-10 ml-4 flex flex-col justify-center mt-[-100px]">
+                <div
+                  data-aos="fade-up"
+                  data-aos-duration="4000"
+                  data-aos-delay="100"
+                  data-aos-easing="ease-in-out"
+                  className="w-[50%] max-w-[600px] relative z-10 ml-4 flex flex-col justify-center mt-[-100px]">
                   <h1 className="text-[44px] leading-[64px] font-inter font-semibold text-[#2b2b2b] mb-4">
                     Gallery
                   </h1>
@@ -444,8 +534,7 @@ export const Desktop = (): JSX.Element => {
                     {[1, 2, 3].map((group) => (
                       <div
                         key={group}
-                        className="flex flex-col sm:flex-row gap-6 min-w-[640px] snap-start"
-                      >
+                        className="flex flex-col sm:flex-row gap-6 min-w-[640px] snap-start">
                         {/* Large Image */}
                         <div className="w-[330px] h-[440px] bg-gray-300 rounded-2xl overflow-hidden">
                           <img
@@ -481,7 +570,12 @@ export const Desktop = (): JSX.Element => {
           </Card>
         </section>
 
-        <section className="px-16 py-[-500px] bg-white">
+        <section
+          data-aos="fade-up"
+          data-aos-duration="4000"
+          data-aos-delay="100"
+          data-aos-easing="ease-in-out"
+          className="px-16 py-[-500px] bg-white">
           {/* Header */}
           <div className="flex justify-between items-start mb-16">
             <div>
@@ -630,7 +724,12 @@ export const Desktop = (): JSX.Element => {
         </section>
 
         {/* Location Section */}
-        <section className="w-full h-[840px] bg-[#FFFFFF] mt-10">
+        <section
+          data-aos="fade-up"
+          data-aos-duration="4000"
+          data-aos-delay="100"
+          data-aos-easing="ease-in-out"
+          className="w-full h-[840px] bg-[#FFFFFF] mt-10">
           <div className="px-16 py-16 flex justify-between">
             <div className="max-w-[475px] mt-[140px]">
               <h2 className="text-[38px] leading-[50px] font-inter font-bold text-[#2b2b2b]">
@@ -672,8 +771,7 @@ export const Desktop = (): JSX.Element => {
                   ].map((hospital, index) => (
                     <button
                       key={index}
-                      className="px-3 py-2 rounded-[25px] bg-[#EEEEEE] text-[#2b2b2b] font-extralight text-sm inline-flex items-center gap-3 hover:bg-gradient-to-r hover:from-[#984D95] hover:to-[#D39CC0] hover:text-white transition-all duration-300 group"
-                    >
+                      className="px-3 py-2 rounded-[25px] bg-[#EEEEEE] text-[#2b2b2b] font-extralight text-sm inline-flex items-center gap-3 hover:bg-gradient-to-r hover:from-[#984D95] hover:to-[#D39CC0] hover:text-white transition-all duration-300 group">
                       {hospital}
                       <img
                         src="/arrow.svg"
