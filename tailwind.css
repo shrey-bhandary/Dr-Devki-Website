@@ -139,6 +139,34 @@
     transform: translateX(100px);
   }
 }
+@keyframes fadeInSplit {
+  0% {
+    opacity: 0;
+    transform: translateX(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50px);
+  }
+}
+@keyframes fadeInSplitRight {
+  0% {
+    opacity: 0;
+    transform: translateX(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(50px);
+  }
+}
 @keyframes bounceUp {
   0% {
     opacity: 0;
@@ -191,6 +219,14 @@
 
 .fadeUp {
   animation: slideInUp 1s ease forwards;
+}
+
+.fadeInSplit {
+  animation: fadeInSplit 2s ease-in-out forwards;
+}
+
+.fadeInSplitRight {
+  animation: fadeInSplitRight 2s ease-in-out forwards;
 }
 
 .opacity-0 {

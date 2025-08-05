@@ -73,6 +73,47 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
 
   const [activeNav, setActiveNav] = React.useState("Home");
 
+  // Add refs for each section
+  const heroRef = useRef<HTMLElement>(null);
+  const aboutSectionRef = useRef<HTMLElement>(null);
+  const servicesRef = useRef<HTMLElement>(null);
+  const galleryRef = useRef<HTMLElement>(null);
+  const clinicRef = useRef<HTMLElement>(null);
+  const testimonialsRef = useRef<HTMLElement>(null);
+
+  // Function to scroll to section
+  const scrollToSection = (sectionName: string) => {
+    let targetRef: React.RefObject<HTMLElement> | null = null;
+
+    switch (sectionName) {
+      case "Home":
+        targetRef = heroRef;
+        break;
+      case "About":
+        targetRef = aboutSectionRef;
+        break;
+      case "Services":
+        targetRef = servicesRef;
+        break;
+      case "Gallery":
+        targetRef = galleryRef;
+        break;
+      case "Clinic":
+        targetRef = clinicRef;
+        break;
+      case "Testimonials":
+        targetRef = testimonialsRef;
+        break;
+    }
+
+    if (targetRef?.current) {
+      targetRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  };
+
   const linesRef = useRef(null);
   const isLinesInView = useInView(linesRef, { once: true, margin: "-100px" });
 
@@ -99,7 +140,60 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
   }, []);
   const containerRef = useRef(null);
 
+  const [step, setStep] = useState(0);
+  const [finalBlockVisible, setFinalBlockVisible] = useState(false);
+  const [hiIAmVisible, setHiIAmVisible] = useState(false);
+  const [drDevkiVisible, setDrDevkiVisible] = useState(false);
+  const [imageVisible, setImageVisible] = useState(false);
+  const [overlayVisible, setOverlayVisible] = useState(false);
+  const [animationStarted, setAnimationStarted] = useState(false);
+
+  // Create ref for the quote section
+  const quoteSectionRef = useRef(null);
+  const isQuoteSectionInView = useInView(quoteSectionRef, {
+    once: true,
+    margin: "-100px",
+  });
+
   useEffect(() => {
+    if (isQuoteSectionInView && !animationStarted) {
+      setAnimationStarted(true);
+
+      // Reset all states to start fresh
+      setStep(0);
+      setFinalBlockVisible(false);
+      setHiIAmVisible(false);
+      setDrDevkiVisible(false);
+      setImageVisible(false);
+      setOverlayVisible(false);
+
+      const timers = [
+        // Step 1: Icons and first quote fade up together
+        setTimeout(() => setStep(1), 500),
+        // Step 2: Second quote slides up
+        setTimeout(() => setStep(2), 2000),
+        // Step 3: Third quote slides up and overlay starts
+        setTimeout(() => setStep(3), 3500),
+        // Step 4: Overlay becomes visible for "women deserve care"
+        setTimeout(() => setOverlayVisible(true), 4000),
+        // Step 5: Everything fades out including icons
+        setTimeout(() => setStep(4), 6000),
+        // Step 6: "Hi, I am" fades in
+        setTimeout(() => setHiIAmVisible(true), 7000),
+        // Step 7: Image fades up and "Dr. Devki" slides from right simultaneously
+        setTimeout(() => {
+          setImageVisible(true);
+          setDrDevkiVisible(true);
+        }, 9000),
+      ];
+
+      return () => {
+        timers.forEach((timer) => clearTimeout(timer));
+      };
+    }
+  }, [isQuoteSectionInView, animationStarted]);
+
+  /* useEffect(() => {
     if (!isVisible) return;
 
     const animations = [
@@ -209,7 +303,7 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
     });
   };
 
-  sequence();
+  sequence();*/
 
   return (
     <div className="bg-[#FFFFFF] flex flex-row justify-center w-full font-inter">
@@ -220,11 +314,10 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
           data-aos-duration="1000"
           data-aos-delay="200"
           data-aos-easing="ease-in-out"
-          className="fixed top-[30px] left-0 right-0 z-50 flex justify-center"
-        >
-          <div className="flex w-[200px] h-[50px] items-center justify-center px-4 py-2 bg-[#F5F5F5] rounded-[50px] absolute left-16">
+          className="fixed top-[30px] left-0 right-0 z-50 flex justify-center">
+          <div className="flex w-[200px] h-[50px] items-center justify-center px-4 py-2 bg-[#F5F5F5] rounded-[50px] absolute left-4 lg:left-8 xl:left-16">
             <img
-              src="/Dr Devki Logo.png"
+              src="/Dr Devki Logo.svg"
               alt="Dr Devki Logo"
               className="h-[30px] w-auto object-contain"
             />
@@ -233,19 +326,21 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
             </span>
           </div>
 
-          <NavigationMenu className="h-[60px] px-4 py-5 bg-[#F5F5F5] rounded-[50px] backdrop-blur-[25px] backdrop-brightness-[100%] [-webkit-backdrop-filter:blur(25px)_brightness(100%)] ml-[50px]">
+          <NavigationMenu className="h-[60px] px-4 py-5 bg-[#F5F5F5] rounded-[50px] backdrop-blur-[25px] backdrop-brightness-[100%] [-webkit-backdrop-filter:blur(25px)_brightness(100%)] ml-4 lg:ml-8 xl:ml-[50px]">
             <NavigationMenuList className="flex items-center gap-1">
               {navItems.map((item, index) => (
                 <NavigationMenuItem key={index}>
                   <Button
                     variant="ghost"
-                    onClick={() => setActiveNav(item.label)}
+                    onClick={() => {
+                      setActiveNav(item.label);
+                      scrollToSection(item.label);
+                    }}
                     className={
                       activeNav === item.label
                         ? "rounded-[50px] bg-[linear-gradient(90deg,rgba(152,77,149,1)_0%,rgba(211,156,192,1)_100%)] text-white font-inter font-light px-4 py-2 text-base hover:bg-[linear-gradient(90deg,rgba(152,77,149,0.9)_0%,rgba(211,156,192,0.9)_100%)]"
                         : "rounded-[50px] bg-transparent text-[#2b2b2b] font-inter font-light px-4 py-2 text-base hover:bg-[linear-gradient(90deg,rgba(152,77,149,1)_0%,rgba(211,156,192,1)_100%)] hover:text-white transition-all duration-200"
-                    }
-                  >
+                    }>
                     {item.label}
                   </Button>
                 </NavigationMenuItem>
@@ -253,7 +348,7 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
             </NavigationMenuList>
           </NavigationMenu>
 
-          <Button className="inline-flex h-[50px] items-center gap-[10px] px-3 py-2 fixed top-[5px] right-14 rounded-[50px] bg-[#F5F5F5] hover:bg-[linear-gradient(90deg,rgba(152,77,149,1)_0%,rgba(211,156,192,1)_100%)] group transition-all duration-300">
+          <Button className="inline-flex h-[50px] items-center gap-[10px] px-3 py-2 fixed top-[5px] right-4 lg:right-8 xl:right-14 rounded-[50px] bg-[#F5F5F5] hover:bg-[linear-gradient(90deg,rgba(152,77,149,1)_0%,rgba(211,156,192,1)_100%)] group transition-all duration-300">
             <span className="font-inter font-thin text-[#2b2b2b] text-base group-hover:text-white transition-colors duration-300">
               Contact Us
             </span>
@@ -264,7 +359,9 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
         </header>
 
         {/* Hero Section */}
-        <section className="pt-[100px] px-16 pb-20 flex relative overflow-hidden">
+        <section
+          ref={heroRef}
+          className="pt-[100px] px-4 lg:px-8 xl:px-16 pb-20 flex relative overflow-hidden">
           {/* Large gradient spot behind image grid */}
           <div
             data-aos="fade-in"
@@ -279,17 +376,16 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
             data-aos-duration="4000"
             data-aos-delay="100"
             data-aos-easing="ease-in-out"
-            className="w-[50%] flex flex-col justify-center relative"
-          >
+            className="w-full lg:w-[50%] flex flex-col justify-center relative">
             {/* Text gradient spots */}
             <div className="absolute bottom-[-10%] left-[-40%] w-[900px] h-[500px] rounded-full bg-[radial-gradient(circle,rgba(211,156,192,0.3)_0%,rgba(152,77,149,0.2)_40%,transparent_100%)] blur-xl pointer-events-none" />
 
-            <h1 className="text-[58px] leading-[64px] font-inter font-semibold text-[#2b2b2b] relative z-10">
+            <h1 className="text-4xl lg:text-5xl xl:text-[58px] leading-tight lg:leading-[64px] font-inter font-semibold text-[#2b2b2b] relative z-10">
               Just your gyneac,
               <br />
               gone digital
             </h1>
-            <p className="w-[559px] mt-6 font-inter font-light text-[#747474] text-base leading-relaxed relative z-10">
+            <p className="w-full lg:w-[559px] mt-6 font-inter font-light text-[#747474] text-base leading-relaxed relative z-10">
               Keep scrolling to know how I can help you.
             </p>
             <Button className="mt-8 w-fit pl-3 pr-1.5 py-2 relative overflow-hidden group rounded-[50px] transition-all duration-300">
@@ -305,13 +401,12 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
           </div>
 
           {/* Hero Images Grid */}
-          <div className="w-[50%] relative h-[850px] overflow-visible z-10">
+          <div className="hidden lg:block w-[50%] relative h-[850px] overflow-visible z-10">
             {/* Animated HeroLine */}
             <svg
               viewBox="0 0 806 1011"
               xmlns="http://www.w3.org/2000/svg"
-              className="absolute top-[-10%] right-[-12%] w-[850px] h-[1011px] z-0"
-            >
+              className="absolute top-[-10%] right-[-12%] w-[850px] h-[1011px] z-0">
               <defs>
                 <linearGradient
                   id="heroLineGradient"
@@ -319,8 +414,7 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
                   y1="991.298"
                   x2="788.872"
                   y2="260.086"
-                  gradientUnits="userSpaceOnUse"
-                >
+                  gradientUnits="userSpaceOnUse">
                   <stop stopColor="#984D95" />
                   <stop offset="1" stopColor="#D39CC0" />
                 </linearGradient>
@@ -352,8 +446,7 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
                   times: [0.1, 0.4, 0.7, 0.85, 1], // ⏳ phase split: slow fade → fast roll
                   ease: "easeInOut",
                 }}
-                className="flex flex-col gap-6 mt-[50px] animation-delay-0"
-              >
+                className="flex flex-col gap-6 mt-[50px] animation-delay-0">
                 <div className="w-[300px] h-[410px] bg-gray-100 rounded-[30px] overflow-hidden shadow-lg">
                   <img
                     src="/FirstCol(1).svg"
@@ -382,8 +475,7 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
                   times: [0.1, 0.4, 0.7, 0.85, 1],
                   ease: "easeInOut",
                 }}
-                className="flex flex-col gap-6 -mt-[465px] animation-delay-0"
-              >
+                className="flex flex-col gap-6 -mt-[465px] animation-delay-0">
                 <div className="w-[312px] h-[414px] bg-gray-100 rounded-[30px] overflow-hidden shadow-lg">
                   <img
                     src="/SecondCol(1).svg"
@@ -412,7 +504,9 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
 
         {/* Quote Section */}
 
-        <section ref={linesRef} className="mx-16 my-16 relative z-0">
+        <section
+          ref={linesRef}
+          className="mx-4 lg:mx-8 xl:mx-16 my-16 relative z-0">
           {/* Background lines */}
           <div className="absolute inset-0 overflow-visible">
             {/* Left Line */}
@@ -421,8 +515,7 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
               xmlns="http://www.w3.org/2000/svg"
               className={`absolute left-[-70px] top-20 w-[800px] h-[300px] ${
                 isLinesInView ? "animate-stroke-draw" : ""
-              }`}
-            >
+              }`}>
               <defs>
                 <linearGradient
                   id="leftLineGradient"
@@ -430,8 +523,7 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
                   y1="136.467"
                   x2="815.279"
                   y2="113.473"
-                  gradientUnits="userSpaceOnUse"
-                >
+                  gradientUnits="userSpaceOnUse">
                   <stop stopColor="#984D95" />
                   <stop offset="1" stopColor="#D39CC0" />
                 </linearGradient>
@@ -457,8 +549,7 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
               xmlns="http://www.w3.org/2000/svg"
               className={`absolute right-[-90px] bottom-10 w-[800px] h-[300px] scale-y-[1] ${
                 isLinesInView ? "animate-stroke-draw-reverse " : ""
-              }`}
-            >
+              }`}>
               <defs>
                 <linearGradient
                   id="rightLineGradient"
@@ -466,8 +557,7 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
                   y1="110.82"
                   x2="943.84"
                   y2="216.685"
-                  gradientUnits="userSpaceOnUse"
-                >
+                  gradientUnits="userSpaceOnUse">
                   <stop stopColor="#984D95" />
                   <stop offset="1" stopColor="#D39CC0" />
                 </linearGradient>
@@ -489,6 +579,7 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
           </div>
 
           <Card
+            ref={aboutSectionRef as React.Ref<HTMLDivElement>}
             data-aos="zoom-in-up"
             data-aos-duration="1000"
             data-aos-delay="700"
@@ -497,104 +588,167 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
               isLinesInView
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 translate-y-10"
-            }`}
-          >
+            }`}>
             <CardContent
               ref={containerRef}
-              className="w-[969px] text-center relative mt-[-150px]"
-            >
-              <div className="relative min-h-[700px] flex flex-col items-center justify-center text-center px-6 overflow-hidden">
-                {/* Animated Icons with first quote */}
-                {visibleSlide === 0 && (
-                  <motion.div
-                    variants={fadeUp}
-                    initial="hidden"
-                    animate="visible"
-                    className="flex gap-4 mt-[-70px] justify-center mb-8"
-                  >
-                    <div className="w-12 h-12 rounded-full bg-gradient-to-r from-[#984D95] to-[#D39CC0] flex items-center justify-center">
-                      <img src="/phone.svg" alt="Phone" className="w-5 h-5" />
+              className="w-[969px] text-center relative mt-[-150px]">
+              <div className="min-h-screen flex flex-col">
+                {/* Main Content */}
+                <div className="flex-1 flex flex-col items-center justify-center px-6">
+                  {/* Single Animation Container */}
+                  <div className="relative min-h-[600px] flex flex-col items-center justify-center text-center max-w-4xl w-full">
+                    {/* Icons */}
+                    <div
+                      className={`flex gap-4 mb-8 transition-all duration-1000 transform mt-[100px] ${
+                        step >= 1 && step < 4
+                          ? "opacity-100 translate-y-0"
+                          : "opacity-0 translate-y-8"
+                      }`}>
+                      <div className="w-12 h-12 rounded-full bg-gradient-to-r from-[#984D95] to-[#D39CC0] flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-300">
+                        {/* Replace Phone icon with SVG */}
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="w-7 h-7 text-white mb-[-8px] mr-[-7px]"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          strokeWidth={2}>
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M1 4.625C1 11.5283 6.59667 17.125 13.5 17.125H15.375C15.8723 17.125 16.3492 16.9275 16.7008 16.5758C17.0525 16.2242 17.25 15.7473 17.25 15.25V14.1067C17.25 13.6767 16.9575 13.3017 16.54 13.1975L12.8542 12.2758C12.4875 12.1842 12.1025 12.3217 11.8767 12.6233L11.0683 13.7008C10.8333 14.0142 10.4275 14.1525 10.06 14.0175C8.69573 13.5159 7.45679 12.7238 6.42898 11.696C5.40118 10.6682 4.60906 9.42927 4.1075 8.065C3.9725 7.6975 4.11083 7.29167 4.42417 7.05667L5.50167 6.24833C5.80417 6.0225 5.94083 5.63667 5.84917 5.27083L4.9275 1.585C4.87678 1.38225 4.75977 1.20225 4.59504 1.07361C4.43032 0.944976 4.22734 0.875069 4.01833 0.875H2.875C2.37772 0.875 1.90081 1.07254 1.54917 1.42417C1.19754 1.77581 1 2.25272 1 2.75V4.625Z"
+                          />
+                        </svg>
+                      </div>
+                      <div className="w-12 h-12 rounded-full bg-gradient-to-r from-[#984D95] to-[#D39CC0] flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-300">
+                        {/* Replace MessageCircle icon with SVG */}
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="w-8 h-8 text-white mb-[-8px] mr-[-7px]"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          strokeWidth={2}>
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M1.9375 9.57C1.9375 10.77 2.77975 11.8155 3.96775 11.9903C4.76875 12.108 5.57875 12.1995 6.39625 12.2633C6.74575 12.291 7.066 12.474 7.261 12.7665L9.25 15.75L11.239 12.7665C11.434 12.474 11.7543 12.291 12.1038 12.264C12.9213 12.1995 13.7312 12.108 14.5322 11.9903C15.7202 11.8155 16.5625 10.7708 16.5625 9.56925V5.05575C16.5625 3.85425 15.7202 2.8095 14.5322 2.63475C12.7832 2.37804 11.0178 2.24944 9.25 2.25C7.456 2.25 5.692 2.38125 3.96775 2.63475C2.77975 2.8095 1.9375 3.855 1.9375 5.05575V9.56925V9.57Z"
+                          />
+                        </svg>
+                      </div>
                     </div>
-                    <div className="w-12 h-12 rounded-full bg-gradient-to-r from-[#984D95] to-[#D39CC0] flex items-center justify-center">
-                      <img
-                        src="/message.svg"
-                        alt="Message"
-                        className="w-5 h-5"
-                      />
+                    {/* Stacked Quotes Container */}
+                    <div className="flex flex-col items-center space-y-6">
+                      {/* Quote 1 */}
+                      <div
+                        className={`text-3xl md:text-4xl font-bold text-gray-800 leading-tight transition-all duration-1000 transform ${
+                          step >= 1 && step < 4
+                            ? "opacity-100 translate-y-0"
+                            : "opacity-0 translate-y-8"
+                        }`}>
+                        I created Potwar clinic out of a simple idea:
+                      </div>
+                      {/* Quote 2 */}
+                      <div
+                        className={`text-3xl md:text-4xl font-bold text-gray-800 leading-tight transition-all duration-1000 transform relative ${
+                          step >= 2 && step < 4
+                            ? "opacity-100 translate-y-0"
+                            : "opacity-0 translate-y-8"
+                        }`}
+                        style={{
+                          transitionDelay: step >= 2 ? "0ms" : "0ms",
+                        }}>
+                        that{" "}
+                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-700 to-pink-400 relative z-10">
+                          women deserve care
+                        </span>{" "}
+                        that feels right
+                        {/* Background overlay for "women deserve care" */}
+                        <div
+                          className={`absolute inset-0 bg-gradient-to-r from-[#984D95] to-[#D39CC0] rounded-lg transition-all duration-1000 transform ${
+                            overlayVisible && step >= 3
+                              ? "opacity-30 translate-x-0"
+                              : "opacity-0 -translate-x-full"
+                          }`}
+                          style={{
+                            top: "0",
+                            left: "0",
+                            right: "0",
+                            bottom: "0",
+                            zIndex: 5,
+                          }}
+                        />
+                      </div>
+                      {/* Quote 3 */}
+                      <div
+                        className={`text-3xl md:text-4xl font-bold text-gray-800 leading-tight transition-all duration-1000 transform ${
+                          step >= 3 && step < 4
+                            ? "opacity-100 translate-y-0"
+                            : "opacity-0 translate-y-8"
+                        }`}
+                        style={{
+                          transitionDelay: step >= 3 ? "0ms" : "0ms",
+                        }}>
+                        personal, safe, and never rushed.
+                      </div>
                     </div>
-                  </motion.div>
-                )}
-
-                {/* Quote Slides */}
-                <AnimatePresence mode="wait">
-                  {visibleSlide < 3 && (
-                    <motion.p
-                      key={visibleSlide}
-                      variants={fadeUp}
-                      initial="hidden"
-                      animate="visible"
-                      exit="exit"
-                      className="text-[38px] font-bold"
-                    >
-                      {visibleSlide === 1 ? (
-                        <>
-                          idea: that{" "}
-                          <span className="relative inline-block mx-1">
-                            <span className="relative z-10 bg-clip-text text-transparent bg-gradient-to-r from-[rgba(152,77,149,1)] to-[rgba(211,156,192,1)]">
-                              women deserve care
-                            </span>
-                            <span className="absolute inset-0 bg-[#F5C0E0] opacity-30 -z-10 rounded-[4px]" />
-                          </span>
-                          that feels
-                        </>
-                      ) : (
-                        quotes[visibleSlide]
-                      )}
-                    </motion.p>
-                  )}
-                </AnimatePresence>
-
-                {/* Final Slide */}
-                {visibleSlide === 3 && (
-                  <motion.div
-                    initial="hidden"
-                    animate="visible"
-                    className="flex justify-center gap-4 items-center mt-10"
-                  >
-                    <motion.span
-                      variants={slideLeft}
-                      className="text-[38px] font-bold"
-                    >
-                      Hi, I am
-                    </motion.span>
-
-                    <motion.div
-                      variants={fadeUp}
-                      className="w-[320px] h-[400px] overflow-hidden rounded-[20px]"
-                    >
-                      <img
-                        src="/DrDevki.svg"
-                        alt="Dr. Devki Potwar"
-                        className="w-full h-full object-cover"
-                      />
-                    </motion.div>
-
-                    <motion.span
-                      variants={slideRight}
-                      className="text-[38px] font-bold"
-                    >
-                      Dr. Devki
-                    </motion.span>
-                  </motion.div>
-                )}
+                    {/* Final Block - Hi, I am Dr. Devki */}
+                    <div
+                      className={`absolute inset-0 flex items-center justify-center transition-all duration-1000 mt-[-100px] ${
+                        step >= 4 ? "opacity-100" : "opacity-0"
+                      }`}>
+                      <div className="flex items-center justify-center gap-0">
+                        {/* "Hi, I am" - slides from center to left */}
+                        <div
+                          className={`text-4xl md:text-[38px] font-semibold text-[#000000] mt-[250px] ml-[100px] ${
+                            hiIAmVisible
+                              ? "animate-fade-in-split"
+                              : "opacity-0 translate-x-0"
+                          }`}
+                          style={{
+                            transitionDelay: hiIAmVisible ? "0ms" : "0ms",
+                          }}>
+                          Hi, I'm
+                        </div>
+                        {/* Image - fades up */}
+                        <div
+                          className={`transition-all duration-1000 transform ${
+                            imageVisible
+                              ? "opacity-100 scale-100 translate-y-0"
+                              : "opacity-0 scale-90 translate-y-8"
+                          }`}>
+                          <div className="w-[300px] h-[440px] bg-gradient-to-br from-purple-200 to-pink-200 rounded-[50px] shadow-xl flex items-center justify-center mt-[350px] mr-[150px]">
+                            <img
+                              src="/DrDevki.svg"
+                              alt="Dr. Devki"
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                        </div>
+                        {/* "Dr. Devki" - slides from center to right */}
+                        <div
+                          className={`text-4xl md:text-[40px] font-semibold text-[#000000] mt-[250px] ml-[100px] ${
+                            drDevkiVisible
+                              ? "animate-fade-in-split-right"
+                              : "opacity-0 translate-x-0"
+                          }`}
+                          style={{
+                            transitionDelay: "0ms",
+                          }}>
+                          Dr. Devki Potwar
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </CardContent>
           </Card>
         </section>
 
         {/* Services Section */}
-        <section className="px-16 py-10">
-          <h2 className="w-[969px] mx-auto text-[42px] text-center leading-[52px] font-inter font-bold text-[#2b2b2b] mb-12">
+        <section ref={servicesRef} className="px-4 lg:px-8 xl:px-16 py-10">
+          <h2 className="w-full max-w-[969px] mx-auto text-3xl lg:text-4xl xl:text-[42px] text-center leading-tight lg:leading-[52px] font-inter font-bold text-[#2b2b2b] mb-12 px-4">
             Our Services
           </h2>
 
@@ -613,8 +767,7 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
                     <div
                       className={`absolute w-[650px] h-[320px] bg-[#F5F5F5] rounded-l-[50px] px-12 py-10 flex items-center justify-center z-10 shadow-[0_4px_0_rgba(0,0,0,0.2)] transition-transform duration-500 ease-out ${
                         isRevealed ? "-translate-x-[300px]" : "translate-x-0"
-                      }`}
-                    >
+                      }`}>
                       <div className="flex items-center gap-8 w-full justify-center">
                         {/* Icon */}
                         <div className="w-20 h-20 rounded-full bg-gradient-to-r from-[#984D95] to-[#D39CC0] flex items-center justify-center flex-shrink-0">
@@ -638,8 +791,7 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
                     <div
                       className={`w-[650px] h-[327px] bg-[#d6a0c2] rounded-[50px] flex flex-col justify-center items-center text-center z-20 transition-transform duration-500 ease-out ${
                         isRevealed ? "translate-x-[300px]" : "translate-x-0"
-                      }`}
-                    >
+                      }`}>
                       <p className="text-white/70 text-lg mb-1">
                         We are here for
                       </p>
@@ -655,7 +807,9 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
         </section>
 
         {/* Gallery Section */}
-        <section className="pt-[100px] px-16 pb-20 flex relative overflow-hidden">
+        <section
+          ref={galleryRef}
+          className="pt-[100px] px-4 lg:px-8 xl:px-16 pb-20 flex relative overflow-hidden">
           {/* Background lines */}
           <div className="absolute inset-0 overflow-visible pointer-events-none">
             <img
@@ -665,17 +819,21 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
             />
           </div>
 
-          <Card className="w-full h-[630px] bg-[#D6A0C229] rounded-[30px] flex items-center justify-start relative overflow-hidden backdrop-blur-[25px] backdrop-saturate-150 px-16 pt-12 pb-12">
+          <Card
+            data-aos="zoom-in-up"
+            data-aos-duration="1000"
+            data-aos-delay="700"
+            data-aos-easing="ease-in-out"
+            className="w-full h-[630px] bg-[#D6A0C229] rounded-[30px] flex items-center justify-start relative overflow-hidden backdrop-blur-[25px] backdrop-saturate-150 px-16 pt-12 pb-12">
             <CardContent className="p-0 w-full h-full">
               <div className="flex flex-row w-full h-full gap-10">
                 {/* LEFT SIDE - Text content */}
                 <div
                   data-aos="fade-up"
                   data-aos-duration="4000"
-                  data-aos-delay="100"
+                  data-aos-delay="2000"
                   data-aos-easing="ease-in-out"
-                  className="w-[50%] max-w-[600px] relative z-10 ml-4 flex flex-col justify-center mt-[-100px]"
-                >
+                  className="w-[50%] max-w-[600px] relative z-10 ml-4 flex flex-col justify-center mt-[-100px]">
                   <h1 className="text-[44px] leading-[64px] font-inter font-semibold text-[#2b2b2b] mb-4">
                     Gallery
                   </h1>
@@ -700,43 +858,74 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
                   </Button>
                 </div>
 
-                {/* RIGHT SIDE - Image gallery */}
-                <div className="w-full overflow-x-auto scrollbar-hide ml-[-100px] mt-14 pr-8">
-                  <div className="flex gap-6 w-max">
-                    {[1, 2, 3].map((group) => (
-                      <div
-                        key={group}
-                        className="flex flex-col sm:flex-row gap-6 min-w-[640px] snap-start"
-                      >
-                        {/* Large Image */}
-                        <div className="w-[330px] h-[440px] bg-gray-300 rounded-2xl overflow-hidden">
-                          <img
-                            src="/Gallerylarge(1).svg"
-                            alt="Clinic Big1"
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
+                {/* RIGHT SIDE - Image gallery with vertical rolling effect */}
+                <div className="w-full overflow-hidden ml-[-100px] mt-14 pr-8">
+                  <motion.div
+                    initial={{ y: -300, opacity: 0 }}
+                    animate={{
+                      y: [-1000, -900, 40, -10, 0],
+                      opacity: [0, 0.5, 1, 1, 1],
+                    }}
+                    transition={{
+                      duration: 6,
+                      times: [0.1, 0.4, 0.7, 0.85, 1],
+                      ease: "easeInOut",
+                    }}
+                    className="flex flex-col gap-6">
+                    {/* Gallery Image 1 */}
+                    <div className="w-[330px] h-[440px] bg-gray-300 rounded-2xl overflow-hidden shadow-lg">
+                      <img
+                        src="/Gallerylarge(1).svg"
+                        alt="Gallery Image 1"
+                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                      />
+                    </div>
 
-                        {/* Two stacked small images */}
-                        <div className="flex flex-col gap-6">
-                          <div className="w-[350px] h-[205px] bg-gray-200 rounded-2xl overflow-hidden">
-                            <img
-                              src="/Gallerysmall(1).svg"
-                              alt="Clinic small1"
-                              className="w-full h-full object-cover"
-                            />
-                          </div>
-                          <div className="w-[350px] h-[205px] bg-gray-200 rounded-2xl overflow-hidden">
-                            <img
-                              src="/Gallerysmall(2).svg"
-                              alt="Clinic small2"
-                              className="w-full h-full object-cover"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
+                    {/* Gallery Image 2 */}
+                    <div className="w-[350px] h-[205px] bg-gray-200 rounded-2xl overflow-hidden shadow-lg">
+                      <img
+                        src="/Gallerysmall(1).svg"
+                        alt="Gallery Image 2"
+                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                      />
+                    </div>
+
+                    {/* Gallery Image 3 */}
+                    <div className="w-[310px] h-[440px] bg-gray-300 rounded-2xl overflow-hidden shadow-lg">
+                      <img
+                        src="/Gallerylarge(2).svg"
+                        alt="Gallery Image 3"
+                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                      />
+                    </div>
+
+                    {/* Gallery Image 4 */}
+                    <div className="w-[330px] h-[440px] bg-gray-300 rounded-2xl overflow-hidden shadow-lg">
+                      <img
+                        src="/Gallerylarge(3).svg"
+                        alt="Gallery Image 4"
+                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                      />
+                    </div>
+
+                    {/* Gallery Image 5 */}
+                    <div className="w-[330px] h-[440px] bg-gray-300 rounded-2xl overflow-hidden shadow-lg">
+                      <img
+                        src="/Gallerylarge(4).svg"
+                        alt="Gallery Image 5"
+                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                      />
+                    </div>
+
+                    {/* Gallery Image 6 */}
+                    <div className="w-[330px] h-[440px] bg-gray-300 rounded-2xl overflow-hidden shadow-lg">
+                      <img
+                        src="/Gallerylarge(5).svg"
+                        alt="Gallery Image 6"
+                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                      />
+                    </div>
+                  </motion.div>
                 </div>
               </div>
             </CardContent>
@@ -744,19 +933,19 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
         </section>
 
         <section
+          ref={testimonialsRef}
           data-aos="fade-up"
           data-aos-duration="4000"
           data-aos-delay="100"
           data-aos-easing="ease-in-out"
-          className="px-16 py-[-500px] bg-white"
-        >
+          className="px-4 lg:px-8 xl:px-16 py-[-500px] bg-white">
           {/* Header */}
           <div className="flex justify-between items-start mb-16">
             <div>
-              <h2 className="text-[40px] font-bold text-[#000000]">
+              <h2 className="text-3xl lg:text-4xl xl:text-[40px] font-bold text-[#000000]">
                 Hear from my patients
               </h2>
-              <p className="text-[#747474] text-base font-light leading-6 mt-4 w-[475px]">
+              <p className="text-[#747474] text-base font-light leading-6 mt-4 w-full lg:w-[475px]">
                 Lorem ipsum dolor sit amet consectetur. Proin erat nullam semper
                 faucibus et pharetra. Hendrerit.
               </p>
@@ -860,7 +1049,7 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
         </section>
 
         {/* Clients/Backlinks/Companies Section */}
-        <section className="w-full h-[140px] bg-[#e8e8e8] flex items-center overflow-hidden relative px-16 mt-12">
+        <section className="w-full h-[140px] bg-[#e8e8e8] flex items-center overflow-hidden relative px-4 lg:px-8 xl:px-16 mt-12">
           <div className="w-full h-full flex items-center">
             <div className="flex whitespace-nowrap animate-marquee gap-16">
               {/* Duplicate this group to ensure seamless loop */}
@@ -899,15 +1088,15 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
 
         {/* Location Section */}
         <section
+          ref={clinicRef}
           data-aos="fade-up"
           data-aos-duration="4000"
           data-aos-delay="100"
           data-aos-easing="ease-in-out"
-          className="w-full h-[840px] bg-[#FFFFFF] mt-10"
-        >
-          <div className="px-16 py-16 flex justify-between">
+          className="w-full h-[840px] bg-[#FFFFFF] mt-10">
+          <div className="px-4 lg:px-8 xl:px-16 py-16 flex justify-between">
             <div className="max-w-[475px] mt-[140px]">
-              <h2 className="text-[38px] leading-[50px] font-inter font-bold text-[#2b2b2b]">
+              <h2 className="text-3xl lg:text-4xl xl:text-[38px] leading-tight lg:leading-[50px] font-inter font-bold text-[#2b2b2b]">
                 Potwar Clinic
               </h2>
               <p className="mt-4 font-inter font-light text-[#747474] text-base leading-6">
@@ -946,8 +1135,7 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
                   ].map((hospital, index) => (
                     <button
                       key={index}
-                      className="px-3 py-2 rounded-[25px] bg-[#EEEEEE] text-[#2b2b2b] font-extralight text-sm inline-flex items-center gap-3 hover:bg-gradient-to-r hover:from-[#984D95] hover:to-[#D39CC0] hover:text-white transition-all duration-300 group"
-                    >
+                      className="px-3 py-2 rounded-[25px] bg-[#EEEEEE] text-[#2b2b2b] font-extralight text-sm inline-flex items-center gap-3 hover:bg-gradient-to-r hover:from-[#984D95] hover:to-[#D39CC0] hover:text-white transition-all duration-300 group">
                       {hospital}
                       <img
                         src="/arrow.svg"
@@ -1000,9 +1188,9 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
         </section>
 
         {/* Footer */}
-        <footer className="w-full px-16 py-16">
+        <footer className="w-full px-4 lg:px-8 xl:px-16 py-16">
           <div className="max-w-6xl mx-auto">
-            <Card className="bg-white rounded-[30px] shadow-lg overflow-hidden relative">
+            <Card className="bg-white rounded-[30px] shadow-lg overflow-hidden relative mt-[-100px]">
               {/* Background Image */}
               <div className="absolute inset-0">
                 <img
@@ -1039,7 +1227,7 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
                   </div>
 
                   {/* Separator */}
-                  <div className="w-px h-16 bg-gray-300 mx-8"></div>
+                  <div className="w-px h-16 bg-gray-300 mx-8 ml-[300px]"></div>
 
                   {/* Phone Section */}
                   <div className="flex items-center gap-4">
