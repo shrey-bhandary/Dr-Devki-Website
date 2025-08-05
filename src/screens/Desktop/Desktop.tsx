@@ -1,8 +1,9 @@
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { motion, useInView } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
+import { motion, useAnimation, useInView } from "framer-motion";
 import { useRef } from "react";
-import { ChevronRightIcon, MailIcon, PhoneIcon } from "lucide-react";
+import { MailIcon, PhoneIcon } from "lucide-react";
 import React, { useState, useEffect } from "react";
 import { Button } from "../../components/ui/button";
 import { Card, CardContent } from "../../components/ui/card";
@@ -43,18 +44,7 @@ const services = [
   },
 ];
 
-// Define gallery grid items
-const galleryItems = [
-  { className: "w-[417px] h-[310px] top-[89px] left-[-53px]" },
-  { className: "w-[301px] h-[310px] top-[477px] left-[5px]" },
-  { className: "w-[322px] h-[310px] top-[89px] left-[328px]" },
-  { className: "w-[417px] h-[310px] top-[491px] left-[281px]" },
-  { className: "w-[417px] h-[310px] top-[251px] left-[614px]" },
-  { className: "w-[325px] h-[310px] top-[654px] left-[661px]" },
-  { className: "w-[417px] h-[310px] top-[54px] left-[947px]" },
-  { className: "w-[345px] h-[310px] top-[467px] left-[981px]" },
-];
-
+// Define gallery grid
 // Define navigation items
 const navItems = [
   { label: "Home", active: true },
@@ -70,7 +60,7 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
     AOS.init({ duration: 1000, once: true });
   }, []);
 
-  const [scrolled, setScrolled] = React.useState(false);
+  const [, setScrolled] = React.useState(false);
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -139,6 +129,87 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
       );
     });
   }, []);
+
+  const controls1 = useAnimation();
+  const controls2 = useAnimation();
+  const controls3 = useAnimation();
+  const controlsFinal = useAnimation();
+
+  const quotes = [
+    "I created Potwar clinic out of a simple",
+    `idea: that women deserve care that feels`,
+    "personal, safe, and never rushed.",
+  ];
+
+  const QUOTE_DURATION = 2500; // 2.5s
+  const FADE_DURATION = 500;
+
+  const fadeUp = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 1 } },
+    exit: { opacity: 0, y: -10, transition: { duration: 0.5 } },
+  };
+
+  const slideLeft = {
+    hidden: { x: -50, opacity: 0 },
+    visible: { x: 0, opacity: 1, transition: { duration: 1 } },
+  };
+
+  const slideRight = {
+    hidden: { x: 50, opacity: 0 },
+    visible: { x: 0, opacity: 1, transition: { duration: 1 } },
+  };
+
+  const [visibleSlide, setVisibleSlide] = useState(0); // 0 = first slid
+
+  useEffect(() => {
+    if (visibleSlide < 4) {
+      const timer = setTimeout(() => {
+        setVisibleSlide((prev) => prev + 1);
+      }, QUOTE_DURATION);
+      return () => clearTimeout(timer);
+    }
+  }, [visibleSlide]);
+
+  useEffect(() => {
+    const timeouts: ReturnType<typeof setTimeout>[] = [];
+
+    // Slide 1
+    timeouts.push(setTimeout(() => setVisibleSlide?.(1), 5000));
+    // Slide 2
+    timeouts.push(setTimeout(() => setVisibleSlide(2), 7500));
+
+    // Slide 3
+    timeouts.push(setTimeout(() => setVisibleSlide(3), 10000)); // Final slide: Dr. Devki
+
+    return () => timeouts.forEach(clearTimeout);
+  }, []);
+
+  const sequence = async () => {
+    // Quote 1
+    await controls1.start({ opacity: 1, y: 0, transition: { duration: 1 } });
+    await new Promise((res) => setTimeout(res, 3500));
+    await controls1.start({ opacity: 0, transition: { duration: 1 } });
+
+    // Quote 2
+    await controls2.start({ opacity: 1, y: 0, transition: { duration: 1 } });
+    await new Promise((res) => setTimeout(res, 3500));
+    await controls2.start({ opacity: 0, transition: { duration: 1 } });
+
+    // Quote 3
+    await controls3.start({ opacity: 1, y: 0, transition: { duration: 1 } });
+    await new Promise((res) => setTimeout(res, 3500));
+    await controls3.start({ opacity: 0, transition: { duration: 1 } });
+
+    // Final Dr. Devki block
+    await controlsFinal.start({
+      opacity: 1,
+      y: 0,
+      transition: { duration: 1 },
+    });
+  };
+
+  sequence();
 
   return (
     <div className="bg-[#FFFFFF] flex flex-row justify-center w-full font-inter">
@@ -432,97 +503,90 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
               ref={containerRef}
               className="w-[969px] text-center relative mt-[-150px]"
             >
-              {/* Icons (appear with first slide) */}
-              <div
-                data-aos="fade-up"
-                data-aos-duration="1000"
-                data-aos-delay="2000"
-                data-aos-easing="ease-in-out"
-                className="icons flex gap-4 mt-[-70px] justify-center opacity-0 transition-opacity duration-1000"
-              >
-                <div className="w-12 h-12 rounded-full bg-gradient-to-r from-[#984D95] to-[#D39CC0] flex items-center justify-center">
-                  <img src="/phone.svg" alt="Phone" className="w-5 h-5" />
-                </div>
-                <div className="w-12 h-12 rounded-full bg-gradient-to-r from-[#984D95] to-[#D39CC0] flex items-center justify-center">
-                  <img src="/message.svg" alt="Message" className="w-5 h-5" />
-                </div>
-              </div>
+              <div className="relative min-h-[700px] flex flex-col items-center justify-center text-center px-6 overflow-hidden">
+                {/* Animated Icons with first quote */}
+                {visibleSlide === 0 && (
+                  <motion.div
+                    variants={fadeUp}
+                    initial="hidden"
+                    animate="visible"
+                    className="flex gap-4 mt-[-70px] justify-center mb-8"
+                  >
+                    <div className="w-12 h-12 rounded-full bg-gradient-to-r from-[#984D95] to-[#D39CC0] flex items-center justify-center">
+                      <img src="/phone.svg" alt="Phone" className="w-5 h-5" />
+                    </div>
+                    <div className="w-12 h-12 rounded-full bg-gradient-to-r from-[#984D95] to-[#D39CC0] flex items-center justify-center">
+                      <img
+                        src="/message.svg"
+                        alt="Message"
+                        className="w-5 h-5"
+                      />
+                    </div>
+                  </motion.div>
+                )}
 
-              {/* Quote slides */}
-              <div className="absolute inset-0">
-                <p
-                  data-aos="fade-up"
-                  data-aos-duration="1000"
-                  data-aos-delay="2500"
-                  data-aos-easing="ease-in-out"
-                  className="quote-slide opacity-0 transition-opacity duration-1000 text-[38px] leading-[48px] font-inter font-bold text-[#2b2b2b]"
-                >
-                  I created Potwar clinic out of a simple
-                </p>
-                <p
-                  data-aos="fade-up"
-                  data-aos-duration="1000"
-                  data-aos-delay="3300"
-                  data-aos-easing="ease-in-out"
-                  className="quote-slide opacity-0 transition-opacity duration-1000 text-[38px] leading-[48px] font-inter font-bold text-[#2b2b2b]"
-                >
-                  idea: that
-                  <span className="relative inline-block mx-1">
-                    <span className="relative z-10 bg-clip-text text-transparent bg-gradient-to-r from-[rgba(152,77,149,1)] to-[rgba(211,156,192,1)]">
-                      women deserve care
-                    </span>
-                    <span className="quote-highlight absolute inset-0 bg-[#F5C0E0] opacity-0 transition-all duration-700 -z-10" />
-                  </span>
-                  that feels
-                </p>
-                <p
-                  data-aos="fade-up"
-                  data-aos-duration="1000"
-                  data-aos-delay="4100"
-                  data-aos-easing="ease-in-out"
-                  className="quote-slide opacity-0 transition-opacity duration-1000 text-[38px] leading-[48px] font-inter font-bold text-[#2b2b2b]"
-                >
-                  personal, safe, and never rushed.
-                </p>
-                <p
-                  data-aos="fade-up"
-                  data-aos-duration="1000"
-                  data-aos-delay="4900"
-                  data-aos-easing="ease-in-out"
-                  className="quote-slide quote-slide-4 opacity-0 transition-opacity duration-1000 text-[38px] leading-[48px] font-inter font-bold text-[#2b2b2b] flex justify-center gap-3"
-                >
-                  <span
-                    data-aos="slide-in-left"
-                    data-aos-duration="1000"
-                    data-aos-delay="5700"
-                    data-aos-easing="ease-in-out"
-                    className="slide-left transition-transform duration-1000"
+                {/* Quote Slides */}
+                <AnimatePresence mode="wait">
+                  {visibleSlide < 3 && (
+                    <motion.p
+                      key={visibleSlide}
+                      variants={fadeUp}
+                      initial="hidden"
+                      animate="visible"
+                      exit="exit"
+                      className="text-[38px] font-bold"
+                    >
+                      {visibleSlide === 1 ? (
+                        <>
+                          idea: that{" "}
+                          <span className="relative inline-block mx-1">
+                            <span className="relative z-10 bg-clip-text text-transparent bg-gradient-to-r from-[rgba(152,77,149,1)] to-[rgba(211,156,192,1)]">
+                              women deserve care
+                            </span>
+                            <span className="absolute inset-0 bg-[#F5C0E0] opacity-30 -z-10 rounded-[4px]" />
+                          </span>
+                          that feels
+                        </>
+                      ) : (
+                        quotes[visibleSlide]
+                      )}
+                    </motion.p>
+                  )}
+                </AnimatePresence>
+
+                {/* Final Slide */}
+                {visibleSlide === 3 && (
+                  <motion.div
+                    initial="hidden"
+                    animate="visible"
+                    className="flex justify-center gap-4 items-center mt-10"
                   >
-                    Hi, I am
-                  </span>
-                  <div
-                    data-aos="fade-up"
-                    data-aos-duration="1000"
-                    data-aos-delay="6500"
-                    data-aos-easing="ease-in-out"
-                    className="w-[320px] h-[400px] bg-gray-200 rounded-[20px] overflow-hidden mx-4  transition-opacity duration-1000"
-                  >
-                    <img
-                      src="/DrDevki.svg"
-                      alt="Dr. Devki Potwar"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <span
-                    data-aos="slide-in-right"
-                    data-aos-duration="1000"
-                    data-aos-delay="7300"
-                    data-aos-easing="ease-in-out"
-                    className="slide-right transition-transform duration-1000"
-                  >
-                    Dr. Devki
-                  </span>
-                </p>
+                    <motion.span
+                      variants={slideLeft}
+                      className="text-[38px] font-bold"
+                    >
+                      Hi, I am
+                    </motion.span>
+
+                    <motion.div
+                      variants={fadeUp}
+                      className="w-[320px] h-[400px] overflow-hidden rounded-[20px]"
+                    >
+                      <img
+                        src="/DrDevki.svg"
+                        alt="Dr. Devki Potwar"
+                        className="w-full h-full object-cover"
+                      />
+                    </motion.div>
+
+                    <motion.span
+                      variants={slideRight}
+                      className="text-[38px] font-bold"
+                    >
+                      Dr. Devki
+                    </motion.span>
+                  </motion.div>
+                )}
               </div>
             </CardContent>
           </Card>

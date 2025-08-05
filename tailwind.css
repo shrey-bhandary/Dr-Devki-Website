@@ -196,3 +196,19 @@
 .opacity-0 {
   opacity: 0;
 }
+
+.bg-gradient-text {
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+.bg-slide-highlight {
+  background-image: linear-gradient(to right, #984D95, #D39CC0);
+}
+
+
+@keyframes slideInHighlight {
+  to {
+    transform: translateX(0);
+  }
+}
