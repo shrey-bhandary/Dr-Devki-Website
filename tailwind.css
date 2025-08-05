@@ -153,76 +153,46 @@
   }
 }
 
-/* Quote Section Animations - Corrected Sequence */
-
-/* Stage 1: Icons slide up first (0-2s) */
-.icons-animation {
-  animation: slideInUp 2s ease-out 0s forwards;
-  opacity: 0;
-}
-
-/* Stage 2: First text slides up (2-4s) */
-.quote-animation-1 {
-  animation: slideInUp 2s ease-out 2s forwards;
-  opacity: 0;
-}
-
-/* Stage 3: Second text slides up (4-6s) */
-.quote-animation-2 {
-  animation: slideInUp 2s ease-out 4s forwards;
-  opacity: 0;
-}
-
-/* Stage 4: Third text slides up (6-8s) */
-.quote-animation-3 {
-  animation: slideInUp 2s ease-out 6s forwards;
-  opacity: 0;
-}
-
-/* Stage 5: "Hi, I am Dr. Devki" appears as one block (8-10s) */
-.quote-animation-4 {
-  animation: slideInUp 2s ease-out 8s forwards;
-  opacity: 0;
-}
-
-/* Stage 6: Final layout with split animation (10-12s) */
-.quote-animation-5 {
-  animation: slideInLeft 2s ease-out 10s forwards;
-  opacity: 0;
-}
-
-.quote-animation-6 {
-  animation: slideInRight 2s ease-out 10s forwards;
-  opacity: 0;
-}
-
-.quote-animation-7 {
-  animation: slideInUp 2s ease-out 10s forwards;
-  opacity: 0;
-}
-
-/* Fade out animations */
-.quote-fade-out-1 {
-  animation: fadeOut 1s ease-out 8s forwards;
-}
-
-.quote-fade-out-2 {
-  animation: fadeOut 1s ease-out 8s forwards;
-}
-
-.quote-fade-out-3 {
-  animation: fadeOut 1s ease-out 8s forwards;
-}
-
-/* Icons fade out during final stage */
-.icons-fade-out {
-  animation: fadeOut 1s ease-out 10s forwards;
-}
-
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
 .scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+.stroke-init {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+
+/* When triggered */
+.stroke-draw-start {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 1.5s ease-out;
+}
+
+.fadeIn {
+  opacity: 1 !important;
+  transition: opacity 1s ease-in-out;
+}
+
+.fadeOut {
+  opacity: 0 !important;
+  transition: opacity 1s ease-in-out;
+}
+
+.slideLeft {
+  animation: slideInLeft 1s ease forwards;
+}
+
+.slideRight {
+  animation: slideInRight 1s ease forwards;
+}
+
+.fadeUp {
+  animation: slideInUp 1s ease forwards;
+}
+
+.opacity-0 {
+  opacity: 0;
 }

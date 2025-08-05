@@ -3,7 +3,7 @@ import "aos/dist/aos.css";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { ChevronRightIcon, MailIcon, PhoneIcon } from "lucide-react";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "../../components/ui/button";
 import { Card, CardContent } from "../../components/ui/card";
 import {
@@ -65,7 +65,7 @@ const navItems = [
   { label: "Testimonials", active: false },
 ];
 
-export const Desktop = (): JSX.Element => {
+export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
   React.useEffect(() => {
     AOS.init({ duration: 1000, once: true });
   }, []);
@@ -84,7 +84,61 @@ export const Desktop = (): JSX.Element => {
   const [activeNav, setActiveNav] = React.useState("Home");
 
   const linesRef = useRef(null);
-  const isLinesInView = useInView(linesRef, { once: true, margin: "-10% 0px" });
+  const isLinesInView = useInView(linesRef, { once: true, margin: "-100px" });
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          const paths = (
+            linesRef.current as HTMLElement | null
+          )?.querySelectorAll("path");
+          paths?.forEach((path: Element) => {
+            path.classList.add("stroke-draw-start");
+          }, 2000);
+        }
+      },
+      { threshold: 0.5 }
+    );
+
+    if (linesRef.current) {
+      observer.observe(linesRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    if (!isVisible) return;
+
+    const animations = [
+      [".icons", 0],
+      [".quote-slide-1", 500],
+      [".quote-slide-2", 3000],
+      [".quote-slide-3", 5500],
+      [".quote-highlight", 7500],
+      [".quote-slide-1, .quote-slide-2, .quote-slide-3", 9000, "fadeOut"],
+      [".quote-slide-4", 10000],
+      [".slide-left", 10200, "slideLeft"],
+      [".slide-right", 10200, "slideRight"],
+      [".fade-up", 10500, "fadeIn"],
+    ];
+
+    animations.forEach(([selector, delay, className = "fadeIn"]) => {
+      setTimeout(
+        () => {
+          const elList = (
+            containerRef.current as HTMLElement | null
+          )?.querySelectorAll(String(selector));
+          elList?.forEach((el: Element) =>
+            el.classList.add(className as string)
+          );
+        },
+        typeof delay === "string" ? parseInt(delay, 10) : delay
+      );
+    });
+  }, []);
 
   return (
     <div className="bg-[#FFFFFF] flex flex-row justify-center w-full font-inter">
@@ -95,7 +149,8 @@ export const Desktop = (): JSX.Element => {
           data-aos-duration="1000"
           data-aos-delay="200"
           data-aos-easing="ease-in-out"
-          className="fixed top-[30px] left-0 right-0 z-50 flex justify-center">
+          className="fixed top-[30px] left-0 right-0 z-50 flex justify-center"
+        >
           <div className="flex w-[200px] h-[50px] items-center justify-center px-4 py-2 bg-[#F5F5F5] rounded-[50px] absolute left-16">
             <img
               src="/Dr Devki Logo.png"
@@ -118,7 +173,8 @@ export const Desktop = (): JSX.Element => {
                       activeNav === item.label
                         ? "rounded-[50px] bg-[linear-gradient(90deg,rgba(152,77,149,1)_0%,rgba(211,156,192,1)_100%)] text-white font-inter font-light px-4 py-2 text-base hover:bg-[linear-gradient(90deg,rgba(152,77,149,0.9)_0%,rgba(211,156,192,0.9)_100%)]"
                         : "rounded-[50px] bg-transparent text-[#2b2b2b] font-inter font-light px-4 py-2 text-base hover:bg-[linear-gradient(90deg,rgba(152,77,149,1)_0%,rgba(211,156,192,1)_100%)] hover:text-white transition-all duration-200"
-                    }>
+                    }
+                  >
                     {item.label}
                   </Button>
                 </NavigationMenuItem>
@@ -152,7 +208,8 @@ export const Desktop = (): JSX.Element => {
             data-aos-duration="4000"
             data-aos-delay="100"
             data-aos-easing="ease-in-out"
-            className="w-[50%] flex flex-col justify-center relative">
+            className="w-[50%] flex flex-col justify-center relative"
+          >
             {/* Text gradient spots */}
             <div className="absolute bottom-[-10%] left-[-40%] w-[900px] h-[500px] rounded-full bg-[radial-gradient(circle,rgba(211,156,192,0.3)_0%,rgba(152,77,149,0.2)_40%,transparent_100%)] blur-xl pointer-events-none" />
 
@@ -182,7 +239,8 @@ export const Desktop = (): JSX.Element => {
             <svg
               viewBox="0 0 806 1011"
               xmlns="http://www.w3.org/2000/svg"
-              className="absolute top-[-10%] right-[-12%] w-[850px] h-[1011px] z-0">
+              className="absolute top-[-10%] right-[-12%] w-[850px] h-[1011px] z-0"
+            >
               <defs>
                 <linearGradient
                   id="heroLineGradient"
@@ -190,7 +248,8 @@ export const Desktop = (): JSX.Element => {
                   y1="991.298"
                   x2="788.872"
                   y2="260.086"
-                  gradientUnits="userSpaceOnUse">
+                  gradientUnits="userSpaceOnUse"
+                >
                   <stop stopColor="#984D95" />
                   <stop offset="1" stopColor="#D39CC0" />
                 </linearGradient>
@@ -222,7 +281,8 @@ export const Desktop = (): JSX.Element => {
                   times: [0.1, 0.4, 0.7, 0.85, 1], // ⏳ phase split: slow fade → fast roll
                   ease: "easeInOut",
                 }}
-                className="flex flex-col gap-6 mt-[50px] animation-delay-0">
+                className="flex flex-col gap-6 mt-[50px] animation-delay-0"
+              >
                 <div className="w-[300px] h-[410px] bg-gray-100 rounded-[30px] overflow-hidden shadow-lg">
                   <img
                     src="/FirstCol(1).svg"
@@ -251,7 +311,8 @@ export const Desktop = (): JSX.Element => {
                   times: [0.1, 0.4, 0.7, 0.85, 1],
                   ease: "easeInOut",
                 }}
-                className="flex flex-col gap-6 -mt-[465px] animation-delay-0">
+                className="flex flex-col gap-6 -mt-[465px] animation-delay-0"
+              >
                 <div className="w-[312px] h-[414px] bg-gray-100 rounded-[30px] overflow-hidden shadow-lg">
                   <img
                     src="/SecondCol(1).svg"
@@ -279,14 +340,18 @@ export const Desktop = (): JSX.Element => {
         </section>
 
         {/* Quote Section */}
-        <section className="mx-16 my-16 relative z-0">
+
+        <section ref={linesRef} className="mx-16 my-16 relative z-0">
           {/* Background lines */}
-          <div ref={linesRef} className="absolute inset-0 overflow-visible">
+          <div className="absolute inset-0 overflow-visible">
             {/* Left Line */}
             <svg
               viewBox="0 0 831 252"
               xmlns="http://www.w3.org/2000/svg"
-              className="absolute left-[-70px] top-20 w-[800px] h-[300px]">
+              className={`absolute left-[-70px] top-20 w-[800px] h-[300px] ${
+                isLinesInView ? "animate-stroke-draw" : ""
+              }`}
+            >
               <defs>
                 <linearGradient
                   id="leftLineGradient"
@@ -294,7 +359,8 @@ export const Desktop = (): JSX.Element => {
                   y1="136.467"
                   x2="815.279"
                   y2="113.473"
-                  gradientUnits="userSpaceOnUse">
+                  gradientUnits="userSpaceOnUse"
+                >
                   <stop stopColor="#984D95" />
                   <stop offset="1" stopColor="#D39CC0" />
                 </linearGradient>
@@ -308,7 +374,9 @@ export const Desktop = (): JSX.Element => {
                 pathLength="1"
                 strokeDasharray="1"
                 strokeDashoffset="1"
-                className="animate-stroke-draw"
+                className={`stroke-init transition-all duration-1000 ${
+                  isLinesInView ? "animate-stroke-draw " : ""
+                }`}
               />
             </svg>
 
@@ -316,7 +384,10 @@ export const Desktop = (): JSX.Element => {
             <svg
               viewBox="0 0 868 322"
               xmlns="http://www.w3.org/2000/svg"
-              className="absolute right-[-90px] bottom-10 w-[800px] h-[300px] scale-y-[1]">
+              className={`absolute right-[-90px] bottom-10 w-[800px] h-[300px] scale-y-[1] ${
+                isLinesInView ? "animate-stroke-draw-reverse " : ""
+              }`}
+            >
               <defs>
                 <linearGradient
                   id="rightLineGradient"
@@ -324,7 +395,8 @@ export const Desktop = (): JSX.Element => {
                   y1="110.82"
                   x2="943.84"
                   y2="216.685"
-                  gradientUnits="userSpaceOnUse">
+                  gradientUnits="userSpaceOnUse"
+                >
                   <stop stopColor="#984D95" />
                   <stop offset="1" stopColor="#D39CC0" />
                 </linearGradient>
@@ -338,86 +410,119 @@ export const Desktop = (): JSX.Element => {
                 pathLength="1"
                 strokeDasharray="1"
                 strokeDashoffset="1"
-                className="animate-stroke-draw-reverse"
+                className={`stroke-init transition-all duration-1000 ${
+                  isLinesInView ? "animate-stroke-draw-reverse " : ""
+                }`}
               />
             </svg>
           </div>
 
-          <Card className="w-full h-[660px] bg-[#D6A0C229] rounded-[30px] flex flex-col items-center justify-center relative overflow-hidden backdrop-blur-[25px] backdrop-saturate-150">
-            <CardContent className="w-[969px] text-center">
-              {/* Icons */}
-              <div className="icons-animation icons-fade-out">
-                <div className="flex gap-4 mb-8 justify-center">
-                  <div className="w-12 h-12 rounded-full bg-[linear-gradient(90deg,rgba(152,77,149,1)_0%,rgba(211,156,192,1)_100%)] flex items-center justify-center">
-                    <img src="/phone.svg" alt="Phone" className="w-5 h-5" />
-                  </div>
-                  <div className="w-12 h-12 rounded-full bg-[linear-gradient(90deg,rgba(152,77,149,1)_0%,rgba(211,156,192,1)_100%)] flex items-center justify-center">
-                    <img src="/message.svg" alt="Message" className="w-5 h-5" />
-                  </div>
+          <Card
+            data-aos="zoom-in-up"
+            data-aos-duration="1000"
+            data-aos-delay="700"
+            data-aos-easing="ease-in-out"
+            className={`w-full h-[660px] bg-[#D6A0C229] rounded-[30px] flex flex-col items-center justify-center relative overflow-hidden backdrop-blur-[25px] backdrop-saturate-150 transition-all duration-1000 ${
+              isLinesInView
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-10"
+            }`}
+          >
+            <CardContent
+              ref={containerRef}
+              className="w-[969px] text-center relative mt-[-150px]"
+            >
+              {/* Icons (appear with first slide) */}
+              <div
+                data-aos="fade-up"
+                data-aos-duration="1000"
+                data-aos-delay="2000"
+                data-aos-easing="ease-in-out"
+                className="icons flex gap-4 mt-[-70px] justify-center opacity-0 transition-opacity duration-1000"
+              >
+                <div className="w-12 h-12 rounded-full bg-gradient-to-r from-[#984D95] to-[#D39CC0] flex items-center justify-center">
+                  <img src="/phone.svg" alt="Phone" className="w-5 h-5" />
+                </div>
+                <div className="w-12 h-12 rounded-full bg-gradient-to-r from-[#984D95] to-[#D39CC0] flex items-center justify-center">
+                  <img src="/message.svg" alt="Message" className="w-5 h-5" />
                 </div>
               </div>
 
-              {/* Content container with relative positioning */}
-              <div className="relative">
-                {/* First slide - "I created Potwar clinic out of a simple <br/> " */}
-                <div className="quote-animation-1 quote-fade-out-1 absolute inset-0 flex items-center justify-center">
-                  <p className="text-[38px] leading-[48px] font-inter font-bold text-[#2b2b2b]">
-                    I created Potwar clinic out of a simple <br />
-                  </p>
-                </div>
-
-                {/* Second slide - "idea: that women deserve care that feels " */}
-                <div className="quote-animation-2 quote-fade-out-2 absolute inset-0 flex items-center justify-center">
-                  <p className="text-[38px] leading-[48px] font-inter font-bold text-[#2b2b2b]">
-                    idea: that{" "}
-                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-[rgba(152,77,149,1)] to-[rgba(211,156,192,1)]">
+              {/* Quote slides */}
+              <div className="absolute inset-0">
+                <p
+                  data-aos="fade-up"
+                  data-aos-duration="1000"
+                  data-aos-delay="2500"
+                  data-aos-easing="ease-in-out"
+                  className="quote-slide opacity-0 transition-opacity duration-1000 text-[38px] leading-[48px] font-inter font-bold text-[#2b2b2b]"
+                >
+                  I created Potwar clinic out of a simple
+                </p>
+                <p
+                  data-aos="fade-up"
+                  data-aos-duration="1000"
+                  data-aos-delay="3300"
+                  data-aos-easing="ease-in-out"
+                  className="quote-slide opacity-0 transition-opacity duration-1000 text-[38px] leading-[48px] font-inter font-bold text-[#2b2b2b]"
+                >
+                  idea: that
+                  <span className="relative inline-block mx-1">
+                    <span className="relative z-10 bg-clip-text text-transparent bg-gradient-to-r from-[rgba(152,77,149,1)] to-[rgba(211,156,192,1)]">
                       women deserve care
-                    </span>{" "}
-                    that feels
-                  </p>
-                </div>
-
-                {/* Third slide - "personal, safe, and never rushed." */}
-                <div className="quote-animation-3 quote-fade-out-3 absolute inset-0 flex items-center justify-center">
-                  <p className="text-[38px] leading-[48px] font-inter font-bold text-[#2b2b2b]">
-                    personal, safe, and never rushed.
-                  </p>
-                </div>
-
-                {/* Stage 4: "Hi, I am Dr. Devki" as one block */}
-                <div className="quote-animation-4 absolute inset-0 flex items-center justify-center">
-                  <p className="text-[38px] leading-[48px] font-inter font-bold text-[#2b2b2b]">
-                    Hi, I am Dr. Devki
-                  </p>
-                </div>
-
-                {/* Final layout - The SAME text splits into left, center, right */}
-                <div className="quote-animation-5 quote-animation-6 quote-animation-7 flex justify-center items-center gap-8">
-                  {/* Left text - SAME text as above */}
-                  <div>
-                    <p className="text-[38px] leading-[48px] font-inter font-bold text-[#2b2b2b]">
-                      Hi, I am
-                    </p>
+                    </span>
+                    <span className="quote-highlight absolute inset-0 bg-[#F5C0E0] opacity-0 transition-all duration-700 -z-10" />
+                  </span>
+                  that feels
+                </p>
+                <p
+                  data-aos="fade-up"
+                  data-aos-duration="1000"
+                  data-aos-delay="4100"
+                  data-aos-easing="ease-in-out"
+                  className="quote-slide opacity-0 transition-opacity duration-1000 text-[38px] leading-[48px] font-inter font-bold text-[#2b2b2b]"
+                >
+                  personal, safe, and never rushed.
+                </p>
+                <p
+                  data-aos="fade-up"
+                  data-aos-duration="1000"
+                  data-aos-delay="4900"
+                  data-aos-easing="ease-in-out"
+                  className="quote-slide quote-slide-4 opacity-0 transition-opacity duration-1000 text-[38px] leading-[48px] font-inter font-bold text-[#2b2b2b] flex justify-center gap-3"
+                >
+                  <span
+                    data-aos="slide-in-left"
+                    data-aos-duration="1000"
+                    data-aos-delay="5700"
+                    data-aos-easing="ease-in-out"
+                    className="slide-left transition-transform duration-1000"
+                  >
+                    Hi, I am
+                  </span>
+                  <div
+                    data-aos="fade-up"
+                    data-aos-duration="1000"
+                    data-aos-delay="6500"
+                    data-aos-easing="ease-in-out"
+                    className="w-[320px] h-[400px] bg-gray-200 rounded-[20px] overflow-hidden mx-4  transition-opacity duration-1000"
+                  >
+                    <img
+                      src="/DrDevki.svg"
+                      alt="Dr. Devki Potwar"
+                      className="w-full h-full object-cover"
+                    />
                   </div>
-
-                  {/* Center photo */}
-                  <div>
-                    <div className="w-[320px] h-[400px] bg-gray-200 rounded-[20px] overflow-hidden">
-                      <img
-                        src="/DrDevki.svg"
-                        alt="Dr. Devki Potwar"
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Right text - SAME text as above */}
-                  <div>
-                    <p className="text-[38px] leading-[48px] font-inter font-bold text-[#2b2b2b]">
-                      Dr. Devki
-                    </p>
-                  </div>
-                </div>
+                  <span
+                    data-aos="slide-in-right"
+                    data-aos-duration="1000"
+                    data-aos-delay="7300"
+                    data-aos-easing="ease-in-out"
+                    className="slide-right transition-transform duration-1000"
+                  >
+                    Dr. Devki
+                  </span>
+                </p>
               </div>
             </CardContent>
           </Card>
@@ -444,7 +549,8 @@ export const Desktop = (): JSX.Element => {
                     <div
                       className={`absolute w-[650px] h-[320px] bg-[#F5F5F5] rounded-l-[50px] px-12 py-10 flex items-center justify-center z-10 shadow-[0_4px_0_rgba(0,0,0,0.2)] transition-transform duration-500 ease-out ${
                         isRevealed ? "-translate-x-[300px]" : "translate-x-0"
-                      }`}>
+                      }`}
+                    >
                       <div className="flex items-center gap-8 w-full justify-center">
                         {/* Icon */}
                         <div className="w-20 h-20 rounded-full bg-gradient-to-r from-[#984D95] to-[#D39CC0] flex items-center justify-center flex-shrink-0">
@@ -468,7 +574,8 @@ export const Desktop = (): JSX.Element => {
                     <div
                       className={`w-[650px] h-[327px] bg-[#d6a0c2] rounded-[50px] flex flex-col justify-center items-center text-center z-20 transition-transform duration-500 ease-out ${
                         isRevealed ? "translate-x-[300px]" : "translate-x-0"
-                      }`}>
+                      }`}
+                    >
                       <p className="text-white/70 text-lg mb-1">
                         We are here for
                       </p>
@@ -503,7 +610,8 @@ export const Desktop = (): JSX.Element => {
                   data-aos-duration="4000"
                   data-aos-delay="100"
                   data-aos-easing="ease-in-out"
-                  className="w-[50%] max-w-[600px] relative z-10 ml-4 flex flex-col justify-center mt-[-100px]">
+                  className="w-[50%] max-w-[600px] relative z-10 ml-4 flex flex-col justify-center mt-[-100px]"
+                >
                   <h1 className="text-[44px] leading-[64px] font-inter font-semibold text-[#2b2b2b] mb-4">
                     Gallery
                   </h1>
@@ -534,7 +642,8 @@ export const Desktop = (): JSX.Element => {
                     {[1, 2, 3].map((group) => (
                       <div
                         key={group}
-                        className="flex flex-col sm:flex-row gap-6 min-w-[640px] snap-start">
+                        className="flex flex-col sm:flex-row gap-6 min-w-[640px] snap-start"
+                      >
                         {/* Large Image */}
                         <div className="w-[330px] h-[440px] bg-gray-300 rounded-2xl overflow-hidden">
                           <img
@@ -575,7 +684,8 @@ export const Desktop = (): JSX.Element => {
           data-aos-duration="4000"
           data-aos-delay="100"
           data-aos-easing="ease-in-out"
-          className="px-16 py-[-500px] bg-white">
+          className="px-16 py-[-500px] bg-white"
+        >
           {/* Header */}
           <div className="flex justify-between items-start mb-16">
             <div>
@@ -729,7 +839,8 @@ export const Desktop = (): JSX.Element => {
           data-aos-duration="4000"
           data-aos-delay="100"
           data-aos-easing="ease-in-out"
-          className="w-full h-[840px] bg-[#FFFFFF] mt-10">
+          className="w-full h-[840px] bg-[#FFFFFF] mt-10"
+        >
           <div className="px-16 py-16 flex justify-between">
             <div className="max-w-[475px] mt-[140px]">
               <h2 className="text-[38px] leading-[50px] font-inter font-bold text-[#2b2b2b]">
@@ -771,7 +882,8 @@ export const Desktop = (): JSX.Element => {
                   ].map((hospital, index) => (
                     <button
                       key={index}
-                      className="px-3 py-2 rounded-[25px] bg-[#EEEEEE] text-[#2b2b2b] font-extralight text-sm inline-flex items-center gap-3 hover:bg-gradient-to-r hover:from-[#984D95] hover:to-[#D39CC0] hover:text-white transition-all duration-300 group">
+                      className="px-3 py-2 rounded-[25px] bg-[#EEEEEE] text-[#2b2b2b] font-extralight text-sm inline-flex items-center gap-3 hover:bg-gradient-to-r hover:from-[#984D95] hover:to-[#D39CC0] hover:text-white transition-all duration-300 group"
+                    >
                       {hospital}
                       <img
                         src="/arrow.svg"

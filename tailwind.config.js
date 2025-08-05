@@ -67,6 +67,18 @@ module.exports = {
         inter: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
       },
       keyframes: {
+        slideInLeft: {
+          "0%": { transform: "translateX(-40px)", opacity: "0" },
+          "100%": { transform: "translateX(0)", opacity: "1" },
+        },
+        slideInRight: {
+          "0%": { transform: "translateX(40px)", opacity: "0" },
+          "100%": { transform: "translateX(0)", opacity: "1" },
+        },
+        slideInUp: {
+          "0%": { transform: "translateY(40px)", opacity: "0" },
+          "100%": { transform: "translateY(0)", opacity: "1" },
+        },
         "fade-up": {
           "0%": { opacity: "0", transform: "translateY(20px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
@@ -117,9 +129,12 @@ module.exports = {
         },
       },
       animation: {
+        "slide-in-left": "slide-in-left 1.5s ease-out forwards",
+        "slide-in-right": "slide-in-right 1.5s ease-out forwards",
+        "slide-in-up": "slide-in-up 1.5s ease-out forwards",
         "fade-up": "fade-up 1.5s ease-out forwards",
-        "stroke-draw": "stroke-draw 1s ease-out forwards",
-        "stroke-draw-reverse": "stroke-draw-reverse 1s ease-out forwards",
+        "stroke-draw": "stroke-draw 1.5s ease-out forwards",
+        "stroke-draw-reverse": "stroke-draw-reverse 1.5s ease-out forwards",
         marquee: "marquee 130s linear infinite",
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
