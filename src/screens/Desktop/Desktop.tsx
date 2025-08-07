@@ -164,7 +164,7 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
   }, []);
 
   return (
-    <div className="bg-[#FFFFFF] flex flex-row justify-center w-full font-inter px-4 xl:px-8">
+    <div className="bg-[#FFFFFF] flex flex-row justify-center w-full font-inter">
       <div className="bg-[#FFFFFF] w-full max-w-[1440px] relative">
         {/* Fixed Navigation */}
         <header
