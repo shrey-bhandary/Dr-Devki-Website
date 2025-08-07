@@ -693,7 +693,7 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
           {/* Background lines */}
           <div className="absolute inset-0 overflow-visible pointer-events-none">
             <img
-              src="public/Galleryline.svg"
+              src="/Galleryline.svg"
               alt="Background line"
               className="absolute top-[70%] left-[0px] transform -translate-y-1/2 h-[270px] w-[1100px] object-cover"
             />
