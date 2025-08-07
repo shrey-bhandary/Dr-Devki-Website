@@ -243,7 +243,7 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
             <div className="absolute bottom-[-10%] left-[-40%] w-[900px] h-[500px] rounded-full bg-[radial-gradient(circle,rgba(211,156,192,0.3)_0%,rgba(152,77,149,0.2)_40%,transparent_100%)] blur-xl pointer-events-none" />
 
             <h1 className="text-[58px] leading-[64px] font-inter font-semibold text-[#2b2b2b] relative z-10">
-              Just your gyneac,
+              Just your gynaec,
               <br />
               gone digital
             </h1>
@@ -1104,7 +1104,7 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
                   <div className="flex items-center gap-4 mt-[100px]">
                     <div>
                       <p className="text-[#747474] font-inter font-light text-base leading-6 max-w-xs">
-                        Address:Om Chambers, Room No. 208, Second Floor, 123,
+                        Address : Om Chambers, Room No. 208, Second Floor, 123,
                         August Kranti Maidan, Kemps Corner, Mumbai - 400 026.
                       </p>
                       <Button className="mt-8 w-fit pl-3 pr-1.5 py-2 relative overflow-hidden group rounded-[50px] transition-all duration-300">
