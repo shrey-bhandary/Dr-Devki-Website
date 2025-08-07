@@ -221,7 +221,7 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
         {/* Hero Section */}
         <section
           ref={heroRef}
-          className="pt-[100px] px-16 pb-20 flex relative overflow-hidden">
+          className="pt-[100px] px-4 sm:px-8 md:px-12 lg:px-16 xl:px-24 2xl:px-32 pb-20 flex flex-col xl:flex-row gap-12 xl:gap-0 relative">
           {/* Large gradient spot behind image grid */}
           <div
             data-aos="fade-in"
