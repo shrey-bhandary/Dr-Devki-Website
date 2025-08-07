@@ -617,8 +617,9 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
         </section>
 
         {/* Services Section */}
-        <section ref={servicesRef} className="px-16 py-10">
-          <h2 className="w-[969px] mx-auto text-[42px] text-center leading-[52px] font-inter font-bold text-[#2b2b2b] mb-12">
+        <section ref={servicesRef} className="px-4 sm:px-8 md:px-12 lg:px-16 xl:px-24 2xl:px-32 py-10">
+          <h2 className="w-full max-w-[969px] xl:max-w-[1140px] 2xl:max-w-[1280px] mx-auto text-[42px] text-center leading-[52px] font-inter font-bold text-[#2b2b2b] mb-12">
+
             Our Services
           </h2>
 
