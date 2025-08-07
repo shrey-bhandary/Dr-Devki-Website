@@ -165,15 +165,14 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
 
   return (
     <div className="bg-[#FFFFFF] flex flex-row justify-center w-full font-inter">
-      <div className="bg-[#FFFFFF] w-full max-w-[1440px] relative">
+      <div className="bg-[#FFFFFF] w-full max-w-[1440px] xl:max-w-[1720px] 2xl:max-w-[1920px] px-4 sm:px-8 md:px-12 lg:px-16 xl:px-24 2xl:px-32 relative">
         {/* Fixed Navigation */}
         <header
           data-aos="slide-down"
           data-aos-duration="1000"
           data-aos-delay="200"
           data-aos-easing="ease-in-out"
-          className="fixed top-[30px] left-0 right-0 z-50 flex justify-center"
-        >
+          className="fixed top-[30px] left-0 right-0 z-50 flex justify-center">
           <div className="flex w-[200px] h-[50px] items-center justify-center px-4 py-2 bg-[#F5F5F5] rounded-[50px] absolute left-16">
             <img
               src="/Dr Devki Logo.svg"
@@ -199,8 +198,7 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
                       activeNav === item.label
                         ? "rounded-[50px] bg-[linear-gradient(90deg,rgba(152,77,149,1)_0%,rgba(211,156,192,1)_100%)] text-white font-inter font-light px-4 py-2 text-base hover:bg-[linear-gradient(90deg,rgba(152,77,149,0.9)_0%,rgba(211,156,192,0.9)_100%)]"
                         : "rounded-[50px] bg-transparent text-[#2b2b2b] font-inter font-light px-4 py-2 text-base hover:bg-[linear-gradient(90deg,rgba(152,77,149,1)_0%,rgba(211,156,192,1)_100%)] hover:text-white transition-all duration-200"
-                    }
-                  >
+                    }>
                     {item.label}
                   </Button>
                 </NavigationMenuItem>
@@ -236,12 +234,11 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
             data-aos-duration="4000"
             data-aos-delay="100"
             data-aos-easing="ease-in-out"
-            className="w-[50%] flex flex-col justify-center relative"
-          >
+            className="w-full lg:flex-1 max-w-full lg:max-w-[700px] xl:max-w-[800px] 2xl:max-w-[900px] flex flex-col justify-center relative pr-0 lg:pr-6 xl:pr-12 -ml-10 md:-ml-20 xl:-ml-36 2xl:-ml-48">
             {/* Text gradient spots */}
             <div className="absolute bottom-[-10%] left-[-40%] w-[900px] h-[500px] rounded-full bg-[radial-gradient(circle,rgba(211,156,192,0.3)_0%,rgba(152,77,149,0.2)_40%,transparent_100%)] blur-xl pointer-events-none" />
 
-            <h1 className="text-[58px] leading-[64px] font-inter font-semibold text-[#2b2b2b] relative z-10">
+            <h1 className="text-[58px] leading-[64px] font-inter font-semibold text-[#2b2b2b] relative z-10 max-w-[700px]">
               Just your gynaec,
               <br />
               gone digital
@@ -262,13 +259,12 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
           </div>
 
           {/* Hero Images Grid */}
-          <div className="w-[50%] relative h-[850px] overflow-visible z-10">
+          <div className="flex-1 relative h-[850px] overflow-visible z-10">
             {/* Animated HeroLine */}
             <svg
               viewBox="0 0 806 1011"
               xmlns="http://www.w3.org/2000/svg"
-              className="absolute top-[-10%] right-[-12%] w-[850px] h-[1011px] z-0"
-            >
+              className="absolute top-[-10%] right-[-35%] xl:right-[-40%] 2xl:right-[-52%] w-[850px] h-[1011px] z-0">
               <defs>
                 <linearGradient
                   id="heroLineGradient"
@@ -276,8 +272,7 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
                   y1="991.298"
                   x2="788.872"
                   y2="260.086"
-                  gradientUnits="userSpaceOnUse"
-                >
+                  gradientUnits="userSpaceOnUse">
                   <stop stopColor="#984D95" />
                   <stop offset="1" stopColor="#D39CC0" />
                 </linearGradient>
@@ -296,7 +291,7 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
               />
             </svg>
 
-            <div className="absolute right-0 flex gap-6 z-10">
+            <div className="absolute right-[-10%] xl:right-[-14%] 2xl:right-[-18%] flex gap-6 z-10 translate-x-12 xl:translate-x-24 2xl:translate-x-32">
               {/* Left Column */}
               <motion.div
                 initial={{ y: -300, opacity: 0 }}
@@ -309,8 +304,7 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
                   times: [0.1, 0.4, 0.7, 0.85, 1], // ⏳ phase split: slow fade → fast roll
                   ease: "easeInOut",
                 }}
-                className="flex flex-col gap-6 mt-[50px] animation-delay-0"
-              >
+                className="flex flex-col gap-6 mt-[50px] animation-delay-0">
                 <div className="w-[300px] h-[410px] bg-gray-100 rounded-[30px] overflow-hidden shadow-lg">
                   <img
                     src="/FirstCol(1).svg"
@@ -339,8 +333,7 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
                   times: [0.1, 0.4, 0.7, 0.85, 1],
                   ease: "easeInOut",
                 }}
-                className="flex flex-col gap-6 -mt-[465px] animation-delay-0"
-              >
+                className="flex flex-col gap-6 -mt-[465px] animation-delay-0">
                 <div className="w-[312px] h-[414px] bg-gray-100 rounded-[30px] overflow-hidden shadow-lg">
                   <img
                     src="/SecondCol(1).svg"
@@ -376,10 +369,9 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
             <svg
               viewBox="0 0 831 252"
               xmlns="http://www.w3.org/2000/svg"
-              className={`absolute left-[-70px] top-20 w-[800px] h-[300px] ${
+              className={`absolute left-0 -translate-x-[200px] xl:-translate-x-[250px] 2xl:-translate-x-[300px] top-20 w-[800px] h-[300px] ${
                 isLinesInView ? "animate-stroke-draw" : ""
-              }`}
-            >
+              }`}>
               <defs>
                 <linearGradient
                   id="leftLineGradient"
@@ -387,8 +379,7 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
                   y1="136.467"
                   x2="815.279"
                   y2="113.473"
-                  gradientUnits="userSpaceOnUse"
-                >
+                  gradientUnits="userSpaceOnUse">
                   <stop stopColor="#984D95" />
                   <stop offset="1" stopColor="#D39CC0" />
                 </linearGradient>
@@ -412,10 +403,9 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
             <svg
               viewBox="0 0 868 322"
               xmlns="http://www.w3.org/2000/svg"
-              className={`absolute right-[-90px] bottom-10 w-[800px] h-[300px] scale-y-[1] ${
+              className={`absolute right-0 translate-x-[200px] xl:translate-x-[250px] 2xl:translate-x-[300px] bottom-10 w-[800px] h-[300px] scale-y-[1] ${
                 isLinesInView ? "animate-stroke-draw-reverse " : ""
-              }`}
-            >
+              }`}>
               <defs>
                 <linearGradient
                   id="rightLineGradient"
@@ -423,8 +413,7 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
                   y1="110.82"
                   x2="943.84"
                   y2="216.685"
-                  gradientUnits="userSpaceOnUse"
-                >
+                  gradientUnits="userSpaceOnUse">
                   <stop stopColor="#984D95" />
                   <stop offset="1" stopColor="#D39CC0" />
                 </linearGradient>
@@ -451,20 +440,17 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
             data-aos-duration="1000"
             data-aos-delay="700"
             data-aos-easing="ease-in-out"
-            className="w-full h-[400px] lg:h-[660px] md:h-[500px] sm:h-[400px] bg-[#D6A0C229] rounded-[20px] lg:rounded-[30px] md:rounded-[25px] sm:rounded-[20px] flex flex-col items-center justify-center relative overflow-hidden backdrop-blur-[25px] backdrop-saturate-150"
-          >
-            <CardContent className="w-full lg:w-[969px] md:w-full sm:w-full text-center px-4 lg:px-0 md:px-4 sm:px-4 mt-[50px]">
+            className="w-[96vw] max-w-[1250px] h-[550px] bg-[#D6A0C229] rounded-[30px] flex flex-col items-center justify-center relative overflow-hidden backdrop-blur-[25px] backdrop-saturate-150 ml-[5vw] lg:ml-[-8vw]">
+            <CardContent className="w-full max-w-[1200px] xl:max-w-[1400px] 2xl:max-w-[1600px] text-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20 mt-[50px] mx-auto">
               <motion.div
                 animate={{ opacity: startSplitSlide ? 0 : 1 }}
-                transition={{ duration: 1, ease: "easeInOut" }}
-              >
+                transition={{ duration: 1, ease: "easeInOut" }}>
                 <div
                   data-aos="fade-up"
                   data-aos-duration="1200"
                   data-aos-delay="1250"
                   data-aos-easing="ease-in-out"
-                  className="flex gap-4 mt-[-180px] justify-center"
-                >
+                  className="flex gap-4 mt-[-180px] justify-center">
                   <div className="w-12 h-12 rounded-full bg-[linear-gradient(90deg,rgba(152,77,149,1)_0%,rgba(211,156,192,1)_100%)] flex items-center justify-center">
                     <img src="/phone.svg" alt="Phone" className="w-5 h-5" />
                   </div>
@@ -477,15 +463,13 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
               <div
                 className={`relative transition-opacity duration-1000 ${
                   fadeOut ? "opacity-0" : "opacity-100"
-                }`}
-              >
+                }`}>
                 <div
                   data-aos="fade-up"
                   data-aos-duration="1100"
                   data-aos-delay="1250"
                   data-aos-easing="ease-in-out"
-                  className="absolute inset-0 flex items-center justify-center mt-[40px]"
-                >
+                  className="absolute inset-0 flex items-center justify-center mt-[40px]">
                   <p className="text-[20px] lg:text-[38px] font-inter font-semibold text-[#2b2b2b]">
                     I created Potwar clinic out of a simple <br />
                   </p>
@@ -496,8 +480,7 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
                   data-aos-duration="1200"
                   data-aos-delay="2050"
                   data-aos-easing="ease-in-out"
-                  className="absolute inset-0 flex items-center justify-center mt-[90px]"
-                >
+                  className="absolute inset-0 flex items-center justify-center mt-[90px]">
                   <p className="text-[20px] lg:text-[38px] font-inter font-semibold text-[#2b2b2b]">
                     idea: that{" "}
                     <span className="bg-clip-text text-transparent bg-gradient-to-r from-[rgba(152,77,149,1)] to-[rgba(211,156,192,1)]">
@@ -512,8 +495,7 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
                   data-aos-duration="1200"
                   data-aos-delay="3000"
                   data-aos-easing="ease-in-out"
-                  className="absolute inset-0 flex items-center justify-center mt-[140px]"
-                >
+                  className="absolute inset-0 flex items-center justify-center mt-[140px]">
                   <p className="text-[20px] lg:text-[38px] font-inter font-semibold text-[#2b2b2b]">
                     safe, and never rushed.
                   </p>
@@ -524,20 +506,17 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 1.5, ease: "easeInOut" }}
-                  className="absolute inset-0 flex items-center justify-center mt-[-40px]"
-                >
+                  className="absolute inset-0 flex items-center justify-center mt-[-40px]">
                   <p className="text-[26px] sm:text-[28px] md:text-[36px] lg:text-[48px] leading-[32px] sm:leading-[36px] md:leading-[44px] lg:leading-[56px] font-inter font-bold text-[#2b2b2b] px-4 lg:px-0 md:px-4 sm:px-4 flex items-center gap-[8px] flex-nowrap justify-center">
                     <motion.span
                       animate={startSplitSlide ? { x: -200 } : { x: 0 }}
-                      transition={{ duration: 1.5, ease: "easeInOut" }}
-                    >
+                      transition={{ duration: 1.5, ease: "easeInOut" }}>
                       Hi, I'm
                     </motion.span>
 
                     <motion.span
                       animate={startSplitSlide ? { x: 160 } : { x: 0 }}
-                      transition={{ duration: 1.5, ease: "easeInOut" }}
-                    >
+                      transition={{ duration: 1.5, ease: "easeInOut" }}>
                       Dr. Devki Potwar
                     </motion.span>
                   </p>
@@ -548,8 +527,7 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
                   initial={{ width: 0, opacity: 0 }}
                   animate={{ width: "33%", opacity: 1 }}
                   transition={{ duration: 1.2, ease: "easeInOut", delay: 0.5 }}
-                  className="w-[380px] h-[450px] overflow-hidden rounded-[20px] ml-[180px] mt-[140px]"
-                >
+                  className="w-[380px] h-[450px] overflow-hidden rounded-[20px] ml-[180px] mt-[140px]">
                   <img
                     src="/DrDevki.svg"
                     alt="Dr. Devki Potwar"
@@ -563,8 +541,7 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
                   data-aos-duration="1500"
                   data-aos-delay="400"
                   data-aos-easing="ease-in-out"
-                  className="absolute inset-0 flex items-center justify-center mt-[240px] mr-[-595px] px-4"
-                >
+                  className="absolute inset-0 flex items-center justify-center mt-[240px] mr-[-595px] px-4">
                   <p className="font-inter text-[17px] font-thin text-[#000000] leading-relaxed text-left max-w-[620px]">
                     I’m an Obstetrician and Gynaecologist with over 14 years of{" "}
                     <br />
@@ -617,9 +594,10 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
         </section>
 
         {/* Services Section */}
-        <section ref={servicesRef} className="px-4 sm:px-8 md:px-12 lg:px-16 xl:px-24 2xl:px-32 py-10">
+        <section
+          ref={servicesRef}
+          className="px-4 sm:px-8 md:px-12 lg:px-16 xl:px-24 2xl:px-32 py-10">
           <h2 className="w-full max-w-[969px] xl:max-w-[1140px] 2xl:max-w-[1280px] mx-auto text-[42px] text-center leading-[52px] font-inter font-bold text-[#2b2b2b] mb-12">
-
             Our Services
           </h2>
 
@@ -638,15 +616,13 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
                     <div
                       className={`absolute w-[650px] h-[320px] bg-[#F5F5F5] rounded-l-[50px] px-12 py-10 flex items-center justify-center z-10 shadow-[0_4px_0_rgba(0,0,0,0.2)] transition-transform duration-500 ease-out ${
                         isRevealed ? "-translate-x-[300px]" : "translate-x-0"
-                      }`}
-                    >
+                      }`}>
                       <div
                         data-aos="fade-up"
                         data-aos-duration="1200"
                         data-aos-delay="350"
                         data-aos-easing="ease-in-out"
-                        className="flex items-center gap-8 w-full justify-center"
-                      >
+                        className="flex items-center gap-8 w-full justify-center">
                         {/* Icon */}
                         <div className="w-20 h-20 rounded-full bg-gradient-to-r from-[#984D95] to-[#D39CC0] flex items-center justify-center flex-shrink-0">
                           <img
@@ -669,8 +645,7 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
                     <div
                       className={`w-[650px] h-[327px] bg-[#d6a0c2] rounded-[50px] flex flex-col justify-center items-center text-center z-20 transition-transform duration-500 ease-out ${
                         isRevealed ? "translate-x-[300px]" : "translate-x-0"
-                      }`}
-                    >
+                      }`}>
                       <p className="text-white/70 text-lg mb-1">
                         We are here for
                       </p>
@@ -688,8 +663,7 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
         {/* Gallery Section */}
         <section
           ref={galleryRef}
-          className="pt-[100px] px-16 pb-20 flex relative overflow-hidden"
-        >
+          className="pt-[100px] px-16 pb-20 flex relative overflow-hidden">
           {/* Background lines */}
           <div className="absolute inset-0 overflow-visible pointer-events-none">
             <img
@@ -704,8 +678,7 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
             data-aos-duration="1000"
             data-aos-delay="200"
             data-aos-easing="ease-in-out"
-            className="w-full h-[630px] bg-[#D6A0C229] rounded-[30px] flex items-center justify-start relative overflow-hidden backdrop-blur-[25px] backdrop-saturate-150 px-16 pt-12 pb-12"
-          >
+            className="w-full h-[630px] bg-[#D6A0C229] rounded-[30px] flex items-center justify-start relative overflow-hidden backdrop-blur-[25px] backdrop-saturate-150 px-16 pt-12 pb-12">
             <CardContent className="p-0 w-full h-full">
               <div className="flex flex-row w-full h-full gap-10">
                 {/* LEFT SIDE - Text content */}
@@ -714,8 +687,7 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
                   data-aos-duration="1200"
                   data-aos-delay="1500"
                   data-aos-easing="ease-in-out"
-                  className="w-[50%] max-w-[600px] relative z-10 ml-4 flex flex-col justify-center mt-[-100px]"
-                >
+                  className="w-[50%] max-w-[600px] relative z-10 ml-4 flex flex-col justify-center mt-[-100px]">
                   <h1 className="text-[44px] leading-[64px] font-inter font-semibold text-[#2b2b2b] mb-4">
                     Gallery
                   </h1>
@@ -754,8 +726,7 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
                       times: [0.1, 0.4, 0.65, 0.85, 1],
                     }}
                     viewport={{ once: true, amount: 0.4 }}
-                    className="flex flex-row gap-6"
-                  >
+                    className="flex flex-row gap-6">
                     {/* Gallery Image 1 */}
                     <div className="w-[330px] h-[480px] bg-gray-300 rounded-[30px] overflow-hidden shadow-lg shrink-0">
                       <img
@@ -831,8 +802,7 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
           data-aos-delay="800"
           data-aos-easing="ease-in-out"
           className="px-16 py-[-500px] bg-white"
-          ref={testimonialsRef}
-        >
+          ref={testimonialsRef}>
           {/* Header */}
           <div className="flex justify-between items-start mb-16">
             <div>
@@ -987,8 +957,7 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
           data-aos-duration="5000"
           data-aos-delay="800"
           data-aos-easing="ease-in-out"
-          className="w-full h-[840px] bg-[#FFFFFF] mt-10"
-        >
+          className="w-full h-[840px] bg-[#FFFFFF] mt-10">
           <div className="px-16 py-16 flex justify-between">
             <div className="max-w-[475px] mt-[140px]">
               <h2 className="text-[38px] leading-[50px] font-inter font-bold text-[#2b2b2b]">
@@ -1030,8 +999,7 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
                   ].map((hospital, index) => (
                     <button
                       key={index}
-                      className="px-3 py-2 rounded-[25px] bg-[#EEEEEE] text-[#2b2b2b] font-extralight text-sm inline-flex items-center gap-3 hover:bg-gradient-to-r hover:from-[#984D95] hover:to-[#D39CC0] hover:text-white transition-all duration-300 group"
-                    >
+                      className="px-3 py-2 rounded-[25px] bg-[#EEEEEE] text-[#2b2b2b] font-extralight text-sm inline-flex items-center gap-3 hover:bg-gradient-to-r hover:from-[#984D95] hover:to-[#D39CC0] hover:text-white transition-all duration-300 group">
                       {hospital}
                       <img
                         src="/arrow.svg"
