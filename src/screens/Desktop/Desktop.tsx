@@ -1,7 +1,5 @@
-import AOS from "aos";
 import "aos/dist/aos.css";
-import { AnimatePresence } from "framer-motion";
-import { motion, useAnimation, useInView } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { MailIcon, PhoneIcon } from "lucide-react";
 import React, { useState, useEffect } from "react";
@@ -12,7 +10,6 @@ import {
   NavigationMenuItem,
   NavigationMenuList,
 } from "../../components/ui/navigation-menu";
-import { Separator } from "../../components/ui/separator";
 
 // Define service data for mapping
 const services = [
@@ -54,11 +51,7 @@ const navItems = [
   { label: "Testimonials", active: false },
 ];
 
-export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
-  React.useEffect(() => {
-    AOS.init({ duration: 1000, once: true });
-  }, []);
-
+export const Desktop = ({}: { isVisible: boolean }): JSX.Element => {
   const [, setScrolled] = React.useState(false);
 
   React.useEffect(() => {
@@ -116,6 +109,9 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
   const linesRef = useRef(null);
   const isLinesInView = useInView(linesRef, { once: true, margin: "-100px" });
 
+  const quoteRef = useRef(null);
+  const quoteInView = useInView(quoteRef, { once: true, amount: 0.4 }); // ~40% visible
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -143,6 +139,8 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
   const [startSplitSlide, setStartSplitSlide] = useState(false);
 
   useEffect(() => {
+    if (!quoteInView) return;
+
     const fadeOutTimer = setTimeout(() => {
       setFadeOut(true);
     }, 5000); // 3s (last delay) + 1.5s (animation) + buffer
@@ -161,10 +159,10 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
       clearTimeout(finalTextTimer);
       clearTimeout(slideTimer);
     };
-  }, []);
+  }, [quoteInView]);
 
   return (
-    <div className="bg-[#FFFFFF] flex flex-row justify-center w-full font-inter">
+    <div className="bg-[#FFFFFF] flex flex-row justify-center w-full font-inter overflow-x-clip">
       <div className="bg-[#FFFFFF] w-full max-w-[1440px] xl:max-w-[1720px] 2xl:max-w-[1920px] px-4 sm:px-8 md:px-12 lg:px-16 xl:px-24 2xl:px-32 relative">
         {/* Fixed Navigation */}
         <header
@@ -172,7 +170,8 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
           data-aos-duration="1000"
           data-aos-delay="200"
           data-aos-easing="ease-in-out"
-          className="fixed top-[30px] left-0 right-0 z-50 flex justify-center">
+          className="fixed top-[30px] left-0 right-0 z-50 flex justify-center"
+        >
           <div className="flex w-[200px] h-[50px] items-center justify-center px-4 py-2 bg-[#F5F5F5] rounded-[50px] absolute left-16">
             <img
               src="/Dr Devki Logo.svg"
@@ -198,7 +197,8 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
                       activeNav === item.label
                         ? "rounded-[50px] bg-[linear-gradient(90deg,rgba(152,77,149,1)_0%,rgba(211,156,192,1)_100%)] text-white font-inter font-light px-4 py-2 text-base hover:bg-[linear-gradient(90deg,rgba(152,77,149,0.9)_0%,rgba(211,156,192,0.9)_100%)]"
                         : "rounded-[50px] bg-transparent text-[#2b2b2b] font-inter font-light px-4 py-2 text-base hover:bg-[linear-gradient(90deg,rgba(152,77,149,1)_0%,rgba(211,156,192,1)_100%)] hover:text-white transition-all duration-200"
-                    }>
+                    }
+                  >
                     {item.label}
                   </Button>
                 </NavigationMenuItem>
@@ -219,7 +219,8 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
         {/* Hero Section */}
         <section
           ref={heroRef}
-          className="pt-[100px] px-4 sm:px-8 md:px-12 lg:px-16 xl:px-24 2xl:px-32 pb-20 flex flex-col xl:flex-row gap-12 xl:gap-0 relative">
+          className="pt-[100px] px-4 sm:px-8 md:px-12 lg:px-16 xl:px-24 2xl:px-32 pb-20 flex flex-col xl:flex-row gap-12 xl:gap-0 relative"
+        >
           {/* Large gradient spot behind image grid */}
           <div
             data-aos="fade-in"
@@ -234,7 +235,8 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
             data-aos-duration="4000"
             data-aos-delay="100"
             data-aos-easing="ease-in-out"
-            className="w-full lg:flex-1 max-w-full lg:max-w-[700px] xl:max-w-[800px] 2xl:max-w-[900px] flex flex-col justify-center relative pr-0 lg:pr-6 xl:pr-12 -ml-10 md:-ml-20 xl:-ml-36 2xl:-ml-48">
+            className="w-full lg:flex-1 max-w-full lg:max-w-[700px] xl:max-w-[800px] 2xl:max-w-[900px] flex flex-col justify-center relative pr-0 lg:pr-6 xl:pr-12 -ml-10 md:-ml-20 xl:-ml-36 2xl:-ml-48"
+          >
             {/* Text gradient spots */}
             <div className="absolute bottom-[-10%] left-[-40%] w-[900px] h-[500px] rounded-full bg-[radial-gradient(circle,rgba(211,156,192,0.3)_0%,rgba(152,77,149,0.2)_40%,transparent_100%)] blur-xl pointer-events-none" />
 
@@ -264,7 +266,8 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
             <svg
               viewBox="0 0 806 1011"
               xmlns="http://www.w3.org/2000/svg"
-              className="absolute top-[-10%] right-[-35%] xl:right-[-40%] 2xl:right-[-52%] w-[850px] h-[1011px] z-0">
+              className="absolute top-[-10%] right-[-35%] xl:right-[-40%] 2xl:right-[-52%] w-[850px] h-[1011px] z-0"
+            >
               <defs>
                 <linearGradient
                   id="heroLineGradient"
@@ -272,7 +275,8 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
                   y1="991.298"
                   x2="788.872"
                   y2="260.086"
-                  gradientUnits="userSpaceOnUse">
+                  gradientUnits="userSpaceOnUse"
+                >
                   <stop stopColor="#984D95" />
                   <stop offset="1" stopColor="#D39CC0" />
                 </linearGradient>
@@ -304,7 +308,8 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
                   times: [0.1, 0.4, 0.7, 0.85, 1], // ⏳ phase split: slow fade → fast roll
                   ease: "easeInOut",
                 }}
-                className="flex flex-col gap-6 mt-[50px] animation-delay-0">
+                className="flex flex-col gap-6 mt-[50px] animation-delay-0"
+              >
                 <div className="w-[300px] h-[410px] bg-gray-100 rounded-[30px] overflow-hidden shadow-lg">
                   <img
                     src="/FirstCol(1).svg"
@@ -333,7 +338,8 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
                   times: [0.1, 0.4, 0.7, 0.85, 1],
                   ease: "easeInOut",
                 }}
-                className="flex flex-col gap-6 -mt-[465px] animation-delay-0">
+                className="flex flex-col gap-6 -mt-[465px] animation-delay-0"
+              >
                 <div className="w-[312px] h-[414px] bg-gray-100 rounded-[30px] overflow-hidden shadow-lg">
                   <img
                     src="/SecondCol(1).svg"
@@ -361,8 +367,10 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
         </section>
 
         {/* Quote Section */}
-
-        <section ref={linesRef} className="mx-16 my-16 relative z-0">
+        <section
+          ref={linesRef}
+          className="ml-[-10px] mr-[10px] my-16 relative z-0 flex justify-start"
+        >
           {/* Background lines */}
           <div className="absolute inset-0 overflow-visible">
             {/* Left Line */}
@@ -371,7 +379,8 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
               xmlns="http://www.w3.org/2000/svg"
               className={`absolute left-0 -translate-x-[200px] xl:-translate-x-[250px] 2xl:-translate-x-[300px] top-20 w-[800px] h-[300px] ${
                 isLinesInView ? "animate-stroke-draw" : ""
-              }`}>
+              }`}
+            >
               <defs>
                 <linearGradient
                   id="leftLineGradient"
@@ -379,7 +388,8 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
                   y1="136.467"
                   x2="815.279"
                   y2="113.473"
-                  gradientUnits="userSpaceOnUse">
+                  gradientUnits="userSpaceOnUse"
+                >
                   <stop stopColor="#984D95" />
                   <stop offset="1" stopColor="#D39CC0" />
                 </linearGradient>
@@ -404,8 +414,9 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
               viewBox="0 0 868 322"
               xmlns="http://www.w3.org/2000/svg"
               className={`absolute right-0 translate-x-[200px] xl:translate-x-[250px] 2xl:translate-x-[300px] bottom-10 w-[800px] h-[300px] scale-y-[1] ${
-                isLinesInView ? "animate-stroke-draw-reverse " : ""
-              }`}>
+                isLinesInView ? "animate-stroke-draw-reverse" : ""
+              }`}
+            >
               <defs>
                 <linearGradient
                   id="rightLineGradient"
@@ -413,7 +424,8 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
                   y1="110.82"
                   x2="943.84"
                   y2="216.685"
-                  gradientUnits="userSpaceOnUse">
+                  gradientUnits="userSpaceOnUse"
+                >
                   <stop stopColor="#984D95" />
                   <stop offset="1" stopColor="#D39CC0" />
                 </linearGradient>
@@ -440,17 +452,30 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
             data-aos-duration="1000"
             data-aos-delay="700"
             data-aos-easing="ease-in-out"
-            className="w-[96vw] max-w-[1250px] h-[550px] bg-[#D6A0C229] rounded-[30px] flex flex-col items-center justify-center relative overflow-hidden backdrop-blur-[25px] backdrop-saturate-150 ml-[5vw] lg:ml-[-8vw]">
-            <CardContent className="w-full max-w-[1200px] xl:max-w-[1400px] 2xl:max-w-[1600px] text-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20 mt-[50px] mx-auto">
+            className="
+            w-[1500px] sm:w-[1200px] md:w-[92vw] lg:w-[90vw] xl:w-[88vw] 2xl:w-[86vw]
+            max-w-[2500px]
+            h-[640px] md:h-[680px] lg:h-[720px]
+            bg-[#D6A0C229] rounded-[30px]
+            flex flex-col items-center justify-center
+            overflow-hidden backdrop-blur-[25px] backdrop-saturate-150
+          "
+          >
+            <CardContent
+              ref={quoteRef}
+              className="w-full text-center p-0 mt-[50px] max-w-[90%] md:max-w-[1000px] lg:max-w-[1100px] xl:max-w-[1200px]"
+            >
               <motion.div
                 animate={{ opacity: startSplitSlide ? 0 : 1 }}
-                transition={{ duration: 1, ease: "easeInOut" }}>
+                transition={{ duration: 1, ease: "easeInOut" }}
+              >
                 <div
                   data-aos="fade-up"
-                  data-aos-duration="1200"
+                  data-aos-duration="1400"
                   data-aos-delay="1250"
                   data-aos-easing="ease-in-out"
-                  className="flex gap-4 mt-[-180px] justify-center">
+                  className="flex gap-4 mt-[-180px] justify-center"
+                >
                   <div className="w-12 h-12 rounded-full bg-[linear-gradient(90deg,rgba(152,77,149,1)_0%,rgba(211,156,192,1)_100%)] flex items-center justify-center">
                     <img src="/phone.svg" alt="Phone" className="w-5 h-5" />
                   </div>
@@ -463,13 +488,15 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
               <div
                 className={`relative transition-opacity duration-1000 ${
                   fadeOut ? "opacity-0" : "opacity-100"
-                }`}>
+                }`}
+              >
                 <div
                   data-aos="fade-up"
-                  data-aos-duration="1100"
+                  data-aos-duration="1400"
                   data-aos-delay="1250"
                   data-aos-easing="ease-in-out"
-                  className="absolute inset-0 flex items-center justify-center mt-[40px]">
+                  className="absolute inset-0 flex items-center justify-center mt-[40px]"
+                >
                   <p className="text-[20px] lg:text-[38px] font-inter font-semibold text-[#2b2b2b]">
                     I created Potwar clinic out of a simple <br />
                   </p>
@@ -477,25 +504,29 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
 
                 <div
                   data-aos="fade-up"
-                  data-aos-duration="1200"
-                  data-aos-delay="2050"
+                  data-aos-duration="2000"
+                  data-aos-delay="2150"
                   data-aos-easing="ease-in-out"
-                  className="absolute inset-0 flex items-center justify-center mt-[90px]">
-                  <p className="text-[20px] lg:text-[38px] font-inter font-semibold text-[#2b2b2b]">
-                    idea: that{" "}
-                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-[rgba(152,77,149,1)] to-[rgba(211,156,192,1)]">
-                      women deserve care
-                    </span>{" "}
+                  className="absolute inset-0 flex items-center justify-center mt-[90px]"
+                >
+                  <p className="text-[20px] lg:text-[38px] font-inter font-semibold text-[#2b2b2b] flex items-center gap-4">
+                    idea:
+                    <img
+                      src="/womendeservecare.svg"
+                      alt="Women Deserve Care"
+                      className="w-auto h-[40px] lg:h-[60px]"
+                    />
                     that feels personal,
                   </p>
                 </div>
 
                 <div
                   data-aos="fade-up"
-                  data-aos-duration="1200"
+                  data-aos-duration="2000"
                   data-aos-delay="3000"
                   data-aos-easing="ease-in-out"
-                  className="absolute inset-0 flex items-center justify-center mt-[140px]">
+                  className="absolute inset-0 flex items-center justify-center mt-[140px]"
+                >
                   <p className="text-[20px] lg:text-[38px] font-inter font-semibold text-[#2b2b2b]">
                     safe, and never rushed.
                   </p>
@@ -506,17 +537,20 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 1.5, ease: "easeInOut" }}
-                  className="absolute inset-0 flex items-center justify-center mt-[-40px]">
+                  className="absolute inset-0 flex items-center justify-center mt-[-40px]"
+                >
                   <p className="text-[26px] sm:text-[28px] md:text-[36px] lg:text-[48px] leading-[32px] sm:leading-[36px] md:leading-[44px] lg:leading-[56px] font-inter font-bold text-[#2b2b2b] px-4 lg:px-0 md:px-4 sm:px-4 flex items-center gap-[8px] flex-nowrap justify-center">
                     <motion.span
-                      animate={startSplitSlide ? { x: -200 } : { x: 0 }}
-                      transition={{ duration: 1.5, ease: "easeInOut" }}>
+                      animate={startSplitSlide ? { x: -205 } : { x: 0 }}
+                      transition={{ duration: 1.5, ease: "easeInOut" }}
+                    >
                       Hi, I'm
                     </motion.span>
 
                     <motion.span
-                      animate={startSplitSlide ? { x: 160 } : { x: 0 }}
-                      transition={{ duration: 1.5, ease: "easeInOut" }}>
+                      animate={startSplitSlide ? { x: 165 } : { x: 0 }}
+                      transition={{ duration: 1.5, ease: "easeInOut" }}
+                    >
                       Dr. Devki Potwar
                     </motion.span>
                   </p>
@@ -525,9 +559,10 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
               {startSplitSlide && (
                 <motion.div
                   initial={{ width: 0, opacity: 0 }}
-                  animate={{ width: "33%", opacity: 1 }}
+                  animate={{ width: "29%", opacity: 1 }}
                   transition={{ duration: 1.2, ease: "easeInOut", delay: 0.5 }}
-                  className="w-[380px] h-[450px] overflow-hidden rounded-[20px] ml-[180px] mt-[140px]">
+                  className="w-[500px] h-[500px] overflow-hidden rounded-[20px] ml-[285px] mt-[140px]"
+                >
                   <img
                     src="/DrDevki.svg"
                     alt="Dr. Devki Potwar"
@@ -541,7 +576,8 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
                   data-aos-duration="1500"
                   data-aos-delay="400"
                   data-aos-easing="ease-in-out"
-                  className="absolute inset-0 flex items-center justify-center mt-[240px] mr-[-595px] px-4">
+                  className="absolute inset-0 flex items-center justify-center mt-[243px] mr-[-610px] px-4"
+                >
                   <p className="font-inter text-[17px] font-thin text-[#000000] leading-relaxed text-left max-w-[620px]">
                     I’m an Obstetrician and Gynaecologist with over 14 years of{" "}
                     <br />
@@ -571,7 +607,7 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
                   className="absolute inset-0 flex items-center justify-center gap-6 mt-[500px]" // adjust mt and gap as needed
                 >
                   {/* First Image */}
-                  <div className="w-[260px] h-[150px]rounded-[20px] overflow-hidden ml-[-590px] mt-[-1000px]">
+                  <div className="w-[260px] h-[150px]rounded-[20px] overflow-hidden ml-[-590px] mt-[-1030px]">
                     <img
                       src="/About(top).svg"
                       alt="Obstetrics Icon"
@@ -580,7 +616,7 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
                   </div>
 
                   {/* Second Image */}
-                  <div className="w-[260px] h-[150px]rounded-[20px] overflow-hidden ml-[-600px] mt-[-100px]">
+                  <div className="w-[260px] h-[130px]rounded-[20px] overflow-hidden ml-[-600px] mt-[-80px]">
                     <img
                       src="/About(left).svg"
                       alt="Obstetrics Icon"
@@ -596,7 +632,8 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
         {/* Services Section */}
         <section
           ref={servicesRef}
-          className="px-4 sm:px-8 md:px-12 lg:px-16 xl:px-24 2xl:px-32 py-10">
+          className="px-4 sm:px-8 md:px-12 lg:px-16 xl:px-24 2xl:px-32 py-10"
+        >
           <h2 className="w-full max-w-[969px] xl:max-w-[1140px] 2xl:max-w-[1280px] mx-auto text-[42px] text-center leading-[52px] font-inter font-bold text-[#2b2b2b] mb-12">
             Our Services
           </h2>
@@ -616,13 +653,15 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
                     <div
                       className={`absolute w-[650px] h-[320px] bg-[#F5F5F5] rounded-l-[50px] px-12 py-10 flex items-center justify-center z-10 shadow-[0_4px_0_rgba(0,0,0,0.2)] transition-transform duration-500 ease-out ${
                         isRevealed ? "-translate-x-[300px]" : "translate-x-0"
-                      }`}>
+                      }`}
+                    >
                       <div
                         data-aos="fade-up"
                         data-aos-duration="1200"
                         data-aos-delay="350"
                         data-aos-easing="ease-in-out"
-                        className="flex items-center gap-8 w-full justify-center">
+                        className="flex items-center gap-8 w-full justify-center"
+                      >
                         {/* Icon */}
                         <div className="w-20 h-20 rounded-full bg-gradient-to-r from-[#984D95] to-[#D39CC0] flex items-center justify-center flex-shrink-0">
                           <img
@@ -645,7 +684,8 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
                     <div
                       className={`w-[650px] h-[327px] bg-[#d6a0c2] rounded-[50px] flex flex-col justify-center items-center text-center z-20 transition-transform duration-500 ease-out ${
                         isRevealed ? "translate-x-[300px]" : "translate-x-0"
-                      }`}>
+                      }`}
+                    >
                       <p className="text-white/70 text-lg mb-1">
                         We are here for
                       </p>
@@ -663,172 +703,189 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
         {/* Gallery Section */}
         <section
           ref={galleryRef}
-          className="pt-[100px] px-16 pb-20 flex relative overflow-hidden">
-          {/* Background lines */}
-          <div className="absolute inset-0 overflow-visible pointer-events-none">
-            <img
-              src="/Galleryline.svg"
-              alt="Background line"
-              className="absolute top-[70%] left-[0px] transform -translate-y-1/2 h-[270px] w-[1100px] object-cover"
-            />
+          className="pt-[100px] ml-[-100px] mr-[10px] pb-20 flex justify-center relative overflow-visible px-2 lg:px-4 xl:px-14 2xl:px-20"
+        >
+          <div className="w-full max-w-[1800px] 2xl:max-w-[2000px] relative">
+            {/* Background lines */}
+            <div className="absolute inset-0 pointer-events-none z-0">
+              <img
+                src="/Galleryline.svg"
+                alt="Background line"
+                className="absolute left-[-14vw] top-1/2 -translate-y-1/2
+               w-[62vw] min-w-[820px] max-w-[1200px] h-auto object-contain"
+              />
+            </div>
+
+            <Card
+              data-aos="zoom-in-up"
+              data-aos-duration="1000"
+              data-aos-delay="200"
+              data-aos-easing="ease-in-out"
+              className="relative z-10 mx-auto w-[1300px]
+             max-w-[1600px] xl:max-w-[2150px] 2xl:max-w-[2880px]
+             min-h-[630px] xl:min-h-[700px] 2xl:min-h-[760px]
+             bg-[#D6A0C229] rounded-[30px] backdrop-blur-[25px] backdrop-saturate-150
+             flex items-center justify-start overflow-hidden
+             px-2 lg:px-14 xl:px-16 2xl:px-20 pt-10 pb-12"
+            >
+              <CardContent className="p-0 w-full h-full">
+                <div className="flex flex-row w-full h-full gap-8 xl:gap-10">
+                  {/* LEFT SIDE - Text content */}
+                  <div
+                    data-aos="fade-up"
+                    data-aos-duration="1200"
+                    data-aos-delay="1500"
+                    data-aos-easing="ease-in-out"
+                    className="w-[50%] max-w-[600px] relative z-10 ml-4 flex flex-col justify-center mt-[-100px]"
+                  >
+                    <h1 className="text-[44px] leading-[64px] font-inter font-semibold text-[#2b2b2b] mb-4">
+                      Gallery
+                    </h1>
+                    <Button className="mt-4 w-fit pl-3 pr-1.5 py-2 relative overflow-hidden group rounded-[50px] transition-all duration-300">
+                      <div className="absolute inset-0 w-full bg-[#2B2B2B]" />
+                      <div className="absolute inset-0 w-0 bg-gradient-to-r from-[rgba(152,77,149,1)] to-[rgba(211,156,192,1)] transition-all duration-300 ease-in-out group-hover:w-full" />
+                      <span className="font-inter font-light text-[#F5F5F5] text-base group-hover:text-white transition-colors duration-300 relative z-10">
+                        Book Appointment
+                      </span>
+                      <div className="p-2 bg-[#FFFFFF] group-hover:bg-white rounded-full transition-all duration-300 relative z-10 ml-[1px]">
+                        <img
+                          src="/arrow.svg"
+                          alt="Frame"
+                          className="w-2.5 h-2.5"
+                        />
+                      </div>
+                    </Button>
+                  </div>
+
+                  {/* RIGHT SIDE - Image gallery with scroll-triggered horizontal animation */}
+                  <div className="w-full overflow-x-auto overflow-y-hidden mt-8 ml-[-100px] pr-8 scrollbar-hide">
+                    <motion.div
+                      initial={{ x: 300, opacity: 0 }}
+                      whileInView={{
+                        x: [1000, 800, -200, 50, 0],
+                        opacity: [0, 0.5, 1, 1, 1],
+                      }}
+                      transition={{
+                        duration: 4,
+                        ease: "easeInOut",
+                        times: [0.1, 0.4, 0.65, 0.85, 1],
+                      }}
+                      viewport={{ once: true, amount: 0.4 }}
+                      className="flex flex-row gap-6"
+                    >
+                      {/* Gallery Image 1 */}
+                      <div className="w-[330px] h-[480px] bg-gray-300 rounded-[30px] overflow-hidden shadow-lg shrink-0">
+                        <img
+                          src="/Gallerylarge(1).svg"
+                          alt="Gallery Image 1"
+                          className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                        />
+                      </div>
+
+                      {/* Gallery Image 2 (small stacked) */}
+                      <div className="flex flex-col gap-6 shrink-0">
+                        <div className="w-[400px] h-[225px] bg-gray-200 rounded-[30px] overflow-hidden shadow-lg">
+                          <img
+                            src="/Gallerysmall(1).svg"
+                            alt="Gallery Image 2"
+                            className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                          />
+                        </div>
+                        <div className="w-[400px] h-[225px] bg-gray-200 rounded-[30px] overflow-hidden shadow-lg">
+                          <img
+                            src="/Gallerysmall(2).svg"
+                            alt="Gallery Image 2"
+                            className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                          />
+                        </div>
+                      </div>
+
+                      {/* Gallery Image 3 */}
+                      <div className="w-[300px] h-[480px] bg-gray-300 rounded-[30px] overflow-hidden shadow-lg shrink-0">
+                        <img
+                          src="/Gallerylarge(2).svg"
+                          alt="Gallery Image 3"
+                          className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                        />
+                      </div>
+
+                      {/* Gallery Image 4 */}
+                      <div className="w-[300px] h-[480px] bg-gray-300 rounded-[30px] overflow-hidden shadow-lg shrink-0">
+                        <img
+                          src="/Gallerylarge(3).svg"
+                          alt="Gallery Image 4"
+                          className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                        />
+                      </div>
+
+                      {/* Gallery Image 5 */}
+                      <div className="w-[300px] h-[480px] bg-gray-300 rounded-[30px] overflow-hidden shadow-lg shrink-0">
+                        <img
+                          src="/Gallerylarge(4).svg"
+                          alt="Gallery Image 5"
+                          className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                        />
+                      </div>
+
+                      {/* Gallery Image 6 */}
+                      <div className="w-[300px] h-[480px] bg-gray-300 rounded-[30px] overflow-hidden shadow-lg shrink-0">
+                        <img
+                          src="/Gallerylarge(5).svg"
+                          alt="Gallery Image 6"
+                          className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                        />
+                      </div>
+                    </motion.div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </div>
-
-          <Card
-            data-aos="zoom-in-up"
-            data-aos-duration="1000"
-            data-aos-delay="200"
-            data-aos-easing="ease-in-out"
-            className="w-full h-[630px] bg-[#D6A0C229] rounded-[30px] flex items-center justify-start relative overflow-hidden backdrop-blur-[25px] backdrop-saturate-150 px-16 pt-12 pb-12">
-            <CardContent className="p-0 w-full h-full">
-              <div className="flex flex-row w-full h-full gap-10">
-                {/* LEFT SIDE - Text content */}
-                <div
-                  data-aos="fade-up"
-                  data-aos-duration="1200"
-                  data-aos-delay="1500"
-                  data-aos-easing="ease-in-out"
-                  className="w-[50%] max-w-[600px] relative z-10 ml-4 flex flex-col justify-center mt-[-100px]">
-                  <h1 className="text-[44px] leading-[64px] font-inter font-semibold text-[#2b2b2b] mb-4">
-                    Gallery
-                  </h1>
-                  <p className="font-inter font-light text-[#747474] text-base leading-relaxed mb-5">
-                    Lorem ipsum dolor sit amet <br /> consectetur. Proin erat
-                    nullam <br />
-                    semper faucibus
-                  </p>
-                  <Button className="mt-4 w-fit pl-3 pr-1.5 py-2 relative overflow-hidden group rounded-[50px] transition-all duration-300">
-                    <div className="absolute inset-0 w-full bg-[#2B2B2B]" />
-                    <div className="absolute inset-0 w-0 bg-gradient-to-r from-[rgba(152,77,149,1)] to-[rgba(211,156,192,1)] transition-all duration-300 ease-in-out group-hover:w-full" />
-                    <span className="font-inter font-light text-[#F5F5F5] text-base group-hover:text-white transition-colors duration-300 relative z-10">
-                      Book Appointment
-                    </span>
-                    <div className="p-2 bg-[#FFFFFF] group-hover:bg-white rounded-full transition-all duration-300 relative z-10 ml-[1px]">
-                      <img
-                        src="/arrow.svg"
-                        alt="Frame"
-                        className="w-2.5 h-2.5"
-                      />
-                    </div>
-                  </Button>
-                </div>
-
-                {/* RIGHT SIDE - Image gallery with scroll-triggered horizontal animation */}
-                <div className="w-full overflow-x-auto overflow-y-hidden mt-8 ml-[-100px] pr-8 scrollbar-hide">
-                  <motion.div
-                    initial={{ x: 300, opacity: 0 }}
-                    whileInView={{
-                      x: [1000, 800, -200, 50, 0],
-                      opacity: [0, 0.5, 1, 1, 1],
-                    }}
-                    transition={{
-                      duration: 4,
-                      ease: "easeInOut",
-                      times: [0.1, 0.4, 0.65, 0.85, 1],
-                    }}
-                    viewport={{ once: true, amount: 0.4 }}
-                    className="flex flex-row gap-6">
-                    {/* Gallery Image 1 */}
-                    <div className="w-[330px] h-[480px] bg-gray-300 rounded-[30px] overflow-hidden shadow-lg shrink-0">
-                      <img
-                        src="/Gallerylarge(1).svg"
-                        alt="Gallery Image 1"
-                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                      />
-                    </div>
-
-                    {/* Gallery Image 2 (small stacked) */}
-                    <div className="flex flex-col gap-6 shrink-0">
-                      <div className="w-[400px] h-[225px] bg-gray-200 rounded-[30px] overflow-hidden shadow-lg">
-                        <img
-                          src="/Gallerysmall(1).svg"
-                          alt="Gallery Image 2"
-                          className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                        />
-                      </div>
-                      <div className="w-[400px] h-[225px] bg-gray-200 rounded-[30px] overflow-hidden shadow-lg">
-                        <img
-                          src="/Gallerysmall(2).svg"
-                          alt="Gallery Image 2"
-                          className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                        />
-                      </div>
-                    </div>
-
-                    {/* Gallery Image 3 */}
-                    <div className="w-[300px] h-[480px] bg-gray-300 rounded-[30px] overflow-hidden shadow-lg shrink-0">
-                      <img
-                        src="/Gallerylarge(2).svg"
-                        alt="Gallery Image 3"
-                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                      />
-                    </div>
-
-                    {/* Gallery Image 4 */}
-                    <div className="w-[300px] h-[480px] bg-gray-300 rounded-[30px] overflow-hidden shadow-lg shrink-0">
-                      <img
-                        src="/Gallerylarge(3).svg"
-                        alt="Gallery Image 4"
-                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                      />
-                    </div>
-
-                    {/* Gallery Image 5 */}
-                    <div className="w-[300px] h-[480px] bg-gray-300 rounded-[30px] overflow-hidden shadow-lg shrink-0">
-                      <img
-                        src="/Gallerylarge(4).svg"
-                        alt="Gallery Image 5"
-                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                      />
-                    </div>
-
-                    {/* Gallery Image 6 */}
-                    <div className="w-[300px] h-[480px] bg-gray-300 rounded-[30px] overflow-hidden shadow-lg shrink-0">
-                      <img
-                        src="/Gallerylarge(5).svg"
-                        alt="Gallery Image 6"
-                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                      />
-                    </div>
-                  </motion.div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
         </section>
 
+        {/* Testimonials — FULL-BLEED */}
         <section
+          ref={testimonialsRef}
           data-aos="fade-up"
           data-aos-duration="5500"
           data-aos-delay="800"
           data-aos-easing="ease-in-out"
-          className="px-16 py-[-500px] bg-white"
-          ref={testimonialsRef}>
-          {/* Header */}
-          <div className="flex justify-between items-start mb-16">
-            <div>
-              <h2 className="text-[40px] font-bold text-[#000000]">
-                Hear from my patients
-              </h2>
-              <p className="text-[#747474] text-base font-light leading-6 mt-4 w-[475px]">
-                Lorem ipsum dolor sit amet consectetur. Proin erat nullam semper
-                faucibus et pharetra. Hendrerit.
-              </p>
-            </div>
-
-            <Button className="mt-8 w-fit pl-3 pr-1.5 py-2 relative overflow-hidden group rounded-[50px] transition-all duration-300">
-              <div className="absolute inset-0 w-full bg-[#2B2B2B]" />
-              <div className="absolute inset-0 w-0 bg-gradient-to-r from-[rgba(152,77,149,1)] to-[rgba(211,156,192,1)] transition-all duration-300 ease-in-out group-hover:w-full" />
-              <span className="font-inter font-light text-[#F5F5F5] text-base group-hover:text-white transition-colors duration-300 relative z-10">
-                Book Appointment
-              </span>
-              <div className="p-2 bg-[#FFFFFF] group-hover:bg-white rounded-full transition-all duration-300 relative z-10 ml-[1px]">
-                <img src="/arrow.svg" alt="Frame" className="w-2.5 h-2.5" />
+          /* break out of the page padding/max-width */
+          className="
+  relative w-full max-w-[1300px]
+  xl:max-w-[1600px] 2xl:max-w-[1800px]
+  mx-auto bg-white py-12 overflow-visible
+"
+        >
+          {/* Header (centered, with safe max width) */}
+          <div className="mx-auto w-full max-w-[1600px] px-6">
+            <div className="flex justify-between items-start mb-16">
+              <div>
+                <h2 className="text-[40px] font-bold text-[#000000]">
+                  Hear from my patients
+                </h2>
+                <p className="text-[#747474] text-base font-light leading-6 mt-4 w-[475px]">
+                  Real stories and experiences shared by patients I’ve had the
+                  privilege to treat.
+                </p>
               </div>
-            </Button>
+
+              <Button className="mt-8 w-fit pl-3 pr-1.5 py-2 relative overflow-hidden group rounded-[50px] transition-all duration-300">
+                <div className="absolute inset-0 w-full bg-[#2B2B2B]" />
+                <div className="absolute inset-0 w-0 bg-gradient-to-r from-[rgba(152,77,149,1)] to-[rgba(211,156,192,1)] transition-all duration-300 ease-in-out group-hover:w-full" />
+                <span className="font-inter font-light text-[#F5F5F5] text-base group-hover:text-white transition-colors duration-300 relative z-10">
+                  Book Appointment
+                </span>
+                <div className="p-2 bg-[#FFFFFF] group-hover:bg-white rounded-full transition-all duration-300 relative z-10 ml-[1px]">
+                  <img src="/arrow.svg" alt="Frame" className="w-2.5 h-2.5" />
+                </div>
+              </Button>
+            </div>
           </div>
 
-          <div className="w-full px-6 max-w-[1320px] mx-auto">
-            <div className="grid grid-cols-4 gap-10 auto-rows-auto">
+          {/* Grid — full width with no side padding so it can touch the edges */}
+          <div className="w-full px-0">
+            <div className="grid grid-cols-4 gap-10 auto-rows-auto w-full max-w-none px-6 2xl:px-8">
               {/* 1. Liked our service (Purple) */}
               <div className="rounded-[50px] overflow-hidden shadow-md w-[300px] h-[420px] translate-y-5 ml-[-24px]">
                 <img
@@ -843,7 +900,7 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
                 <img
                   src="/Testimonial(3).jpg"
                   alt="Column 2 Row 1"
-                  className="w-full] h-full object-cover"
+                  className="w-full h-full object-cover"
                 />
               </div>
 
@@ -913,7 +970,7 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
         </section>
 
         {/* Clients/Backlinks/Companies Section */}
-        <section className="w-full h-[140px] bg-[#e8e8e8] flex items-center overflow-hidden relative px-16 mt-12">
+        <section className="w-[2500px] h-[140px] bg-[#e8e8e8] flex items-center overflow-visible relative px-16 ml-[-250px] mt-2">
           <div className="w-full h-full flex items-center">
             <div className="flex whitespace-nowrap animate-marquee gap-16">
               {/* Duplicate this group to ensure seamless loop */}
@@ -957,7 +1014,8 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
           data-aos-duration="5000"
           data-aos-delay="800"
           data-aos-easing="ease-in-out"
-          className="w-full h-[840px] bg-[#FFFFFF] mt-10">
+          className="w-full h-[840px] bg-[#FFFFFF] mt-10"
+        >
           <div className="px-16 py-16 flex justify-between">
             <div className="max-w-[475px] mt-[140px]">
               <h2 className="text-[38px] leading-[50px] font-inter font-bold text-[#2b2b2b]">
@@ -999,7 +1057,8 @@ export const Desktop = ({ isVisible }: { isVisible: boolean }): JSX.Element => {
                   ].map((hospital, index) => (
                     <button
                       key={index}
-                      className="px-3 py-2 rounded-[25px] bg-[#EEEEEE] text-[#2b2b2b] font-extralight text-sm inline-flex items-center gap-3 hover:bg-gradient-to-r hover:from-[#984D95] hover:to-[#D39CC0] hover:text-white transition-all duration-300 group">
+                      className="px-3 py-2 rounded-[25px] bg-[#EEEEEE] text-[#2b2b2b] font-extralight text-sm inline-flex items-center gap-3 hover:bg-gradient-to-r hover:from-[#984D95] hover:to-[#D39CC0] hover:text-white transition-all duration-300 group"
+                    >
                       {hospital}
                       <img
                         src="/arrow.svg"
