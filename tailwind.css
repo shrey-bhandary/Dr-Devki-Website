@@ -212,3 +212,6 @@
     transform: translateX(0);
   }
 }
+
+/* globals.css */
+html, body { overflow-x: hidden; }
