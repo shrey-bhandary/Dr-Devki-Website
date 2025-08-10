@@ -11,6 +11,55 @@ import {
   NavigationMenuList,
 } from "../../components/ui/navigation-menu";
 
+// ---- CONTACT / WHATSAPP ----
+const PHONE_NUMBER = "+919833646316"; // call target
+const WHATSAPP_NUMBER = "+919920414643"; // WhatsApp target
+const WHATSAPP_MSG = encodeURIComponent(
+  "Hi Dr. Devki, I'd like to book an appointment."
+);
+
+// ---- MAP LOCATIONS ----
+type LocationItem = {
+  id: string;
+  label: string;
+  query: string; // readable address / place
+  embedUrl: string; // for <iframe> embed
+  directionsUrl: string; // for "Get Directions"
+};
+
+// Helper to build embed & directions URLs from a query string
+const mkLoc = (id: string, label: string, query: string): LocationItem => {
+  const q = encodeURIComponent(query);
+  return {
+    id,
+    label,
+    query,
+    embedUrl: `https://www.google.com/maps?q=${q}&output=embed`,
+    directionsUrl: `https://www.google.com/maps/dir/?api=1&destination=${q}`,
+  };
+};
+
+const LOCATIONS: LocationItem[] = [
+  mkLoc(
+    "reliance",
+    "Sir HN Reliance Hospital",
+    "Sir H. N. Reliance Foundation Hospital, Mumbai"
+  ),
+  mkLoc(
+    "breach",
+    "Breach Candy Hospital",
+    "Breach Candy Hospital Trust, Mumbai"
+  ),
+  mkLoc("saifee", "Saifee Hospital", "Saifee Hospital, Mumbai"),
+  mkLoc(
+    "babies",
+    "Babies & Us Fertility and IVF Centre",
+    "Babies and Us Fertility IVF Centre, Mumbai"
+  ),
+  mkLoc("wockhardt", "Wockhardt Hospital", "Wockhardt Hospital Mumbai Central"),
+  mkLoc("seh", "Saint Elizabeth Hospital", "St. Elizabeth's Hospital, Mumbai"),
+];
+
 // Define service data for mapping
 const services = [
   {
@@ -112,6 +161,10 @@ export const Desktop = ({}: { isVisible: boolean }): JSX.Element => {
   const quoteRef = useRef(null);
   const quoteInView = useInView(quoteRef, { once: true, amount: 0.4 }); // ~40% visible
 
+  const [selectedLocation, setSelectedLocation] = useState<LocationItem>(
+    LOCATIONS[0]
+  );
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -143,7 +196,7 @@ export const Desktop = ({}: { isVisible: boolean }): JSX.Element => {
 
     const fadeOutTimer = setTimeout(() => {
       setFadeOut(true);
-    }, 5000); // 3s (last delay) + 1.5s (animation) + buffer
+    }, 5500); // 3s (last delay) + 1.5s (animation) + buffer
 
     const finalTextTimer = setTimeout(() => {
       // Show final text 2s after fade-out (i.e., after 7s total)
@@ -206,13 +259,18 @@ export const Desktop = ({}: { isVisible: boolean }): JSX.Element => {
             </NavigationMenuList>
           </NavigationMenu>
 
-          <Button className="inline-flex h-[50px] items-center gap-[10px] px-3 py-2 fixed top-[5px] right-14 rounded-[50px] bg-[#F5F5F5] hover:bg-[linear-gradient(90deg,rgba(152,77,149,1)_0%,rgba(211,156,192,1)_100%)] group transition-all duration-300">
-            <span className="font-inter font-thin text-[#2b2b2b] text-base group-hover:text-white transition-colors duration-300">
-              Contact Us
-            </span>
-            <div className="p-3 rounded-full bg-[linear-gradient(90deg,rgba(152,77,149,1)_0%,rgba(211,156,192,1)_100%)] group-hover:bg-none group-hover:bg-white transition-all duration-300">
-              <PhoneIcon className="w-6 h-6 fill-white group-hover:fill-[#984D95] transition-all duration-300" />
-            </div>
+          <Button
+            asChild
+            className="inline-flex h-[50px] items-center gap-[10px] px-3 py-2 fixed top-[5px] right-14 rounded-[50px] bg-[#F5F5F5] hover:bg-[linear-gradient(90deg,rgba(152,77,149,1)_0%,rgba(211,156,192,1)_100%)] group transition-all duration-300"
+          >
+            <a href={`tel:${PHONE_NUMBER}`} aria-label="Call Potwar Clinic">
+              <span className="font-inter font-thin text-[#2b2b2b] text-base group-hover:text-white transition-colors duration-300">
+                Contact Us
+              </span>
+              <div className="p-3 rounded-full bg-[linear-gradient(90deg,rgba(152,77,149,1)_0%,rgba(211,156,192,1)_100%)] group-hover:bg-none group-hover:bg-white transition-all duration-300">
+                <PhoneIcon className="w-6 h-6 fill-white group-hover:fill-[#984D95] transition-all duration-300" />
+              </div>
+            </a>
           </Button>
         </header>
 
@@ -248,15 +306,25 @@ export const Desktop = ({}: { isVisible: boolean }): JSX.Element => {
             <p className="w-[559px] mt-6 font-inter font-light text-[#747474] text-base leading-relaxed relative z-10">
               Keep scrolling to know how I can help you.
             </p>
-            <Button className="mt-8 w-fit pl-3 pr-1.5 py-2 relative overflow-hidden group rounded-[50px] transition-all duration-300">
-              <div className="absolute inset-0 w-full bg-[#2B2B2B]" />
-              <div className="absolute inset-0 w-0 bg-gradient-to-r from-[rgba(152,77,149,1)] to-[rgba(211,156,192,1)] transition-all duration-300 ease-in-out group-hover:w-full" />
-              <span className="font-inter font-light text-[#F5F5F5] text-base group-hover:text-white transition-colors duration-300 relative z-10">
-                Book Appointment
-              </span>
-              <div className="p-2 bg-[#FFFFFF] group-hover:bg-white rounded-full transition-all duration-300 relative z-10 ml-[1px]">
-                <img src="/arrow.svg" alt="Frame" className="w-2.5 h-2.5" />
-              </div>
+            <Button
+              asChild
+              className="mt-8 w-fit pl-3 pr-1.5 py-2 relative overflow-hidden group rounded-[50px] transition-all duration-300"
+            >
+              <a
+                href={`https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MSG}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Book WhatsApp appointment"
+              >
+                <div className="absolute inset-0 w-full bg-[#2B2B2B]" />
+                <div className="absolute inset-0 w-0 bg-gradient-to-r from-[rgba(152,77,149,1)] to-[rgba(211,156,192,1)] transition-all duration-300 ease-in-out group-hover:w-full" />
+                <span className="font-inter font-light text-[#F5F5F5] text-base group-hover:text-white transition-colors duration-300 relative z-10">
+                  Book Appointment
+                </span>
+                <div className="p-2 bg-[#FFFFFF] group-hover:bg-white rounded-full transition-all duration-300 relative z-10 ml-[1px]">
+                  <img src="/arrow.svg" alt="Frame" className="w-2.5 h-2.5" />
+                </div>
+              </a>
             </Button>
           </div>
 
@@ -741,24 +809,34 @@ export const Desktop = ({}: { isVisible: boolean }): JSX.Element => {
                     <h1 className="text-[44px] leading-[64px] font-inter font-semibold text-[#2b2b2b] mb-4">
                       Gallery
                     </h1>
-                    <Button className="mt-4 w-fit pl-3 pr-1.5 py-2 relative overflow-hidden group rounded-[50px] transition-all duration-300">
-                      <div className="absolute inset-0 w-full bg-[#2B2B2B]" />
-                      <div className="absolute inset-0 w-0 bg-gradient-to-r from-[rgba(152,77,149,1)] to-[rgba(211,156,192,1)] transition-all duration-300 ease-in-out group-hover:w-full" />
-                      <span className="font-inter font-light text-[#F5F5F5] text-base group-hover:text-white transition-colors duration-300 relative z-10">
-                        Book Appointment
-                      </span>
-                      <div className="p-2 bg-[#FFFFFF] group-hover:bg-white rounded-full transition-all duration-300 relative z-10 ml-[1px]">
-                        <img
-                          src="/arrow.svg"
-                          alt="Frame"
-                          className="w-2.5 h-2.5"
-                        />
-                      </div>
+                    <Button
+                      asChild
+                      className="mt-8 w-fit pl-3 pr-1.5 py-2 relative overflow-hidden group rounded-[50px] transition-all duration-300"
+                    >
+                      <a
+                        href={`https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MSG}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Book WhatsApp appointment"
+                      >
+                        <div className="absolute inset-0 w-full bg-[#2B2B2B]" />
+                        <div className="absolute inset-0 w-0 bg-gradient-to-r from-[rgba(152,77,149,1)] to-[rgba(211,156,192,1)] transition-all duration-300 ease-in-out group-hover:w-full" />
+                        <span className="font-inter font-light text-[#F5F5F5] text-base group-hover:text-white transition-colors duration-300 relative z-10">
+                          Book Appointment
+                        </span>
+                        <div className="p-2 bg-[#FFFFFF] group-hover:bg-white rounded-full transition-all duration-300 relative z-10 ml-[1px]">
+                          <img
+                            src="/arrow.svg"
+                            alt="Frame"
+                            className="w-2.5 h-2.5"
+                          />
+                        </div>
+                      </a>
                     </Button>
                   </div>
 
                   {/* RIGHT SIDE - Image gallery with scroll-triggered horizontal animation */}
-                  <div className="w-full overflow-x-auto overflow-y-hidden mt-8 ml-[-100px] pr-8 scrollbar-hide">
+                  <div className="w-full overflow-x-visible overflow-y-hidden mt-8 ml-[-100px] pr-8 scrollbar-hide">
                     <motion.div
                       initial={{ x: 300, opacity: 0 }}
                       whileInView={{
@@ -870,15 +948,25 @@ export const Desktop = ({}: { isVisible: boolean }): JSX.Element => {
                 </p>
               </div>
 
-              <Button className="mt-8 w-fit pl-3 pr-1.5 py-2 relative overflow-hidden group rounded-[50px] transition-all duration-300">
-                <div className="absolute inset-0 w-full bg-[#2B2B2B]" />
-                <div className="absolute inset-0 w-0 bg-gradient-to-r from-[rgba(152,77,149,1)] to-[rgba(211,156,192,1)] transition-all duration-300 ease-in-out group-hover:w-full" />
-                <span className="font-inter font-light text-[#F5F5F5] text-base group-hover:text-white transition-colors duration-300 relative z-10">
-                  Book Appointment
-                </span>
-                <div className="p-2 bg-[#FFFFFF] group-hover:bg-white rounded-full transition-all duration-300 relative z-10 ml-[1px]">
-                  <img src="/arrow.svg" alt="Frame" className="w-2.5 h-2.5" />
-                </div>
+              <Button
+                asChild
+                className="mt-8 w-fit pl-3 pr-1.5 py-2 relative overflow-hidden group rounded-[50px] transition-all duration-300"
+              >
+                <a
+                  href={`https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MSG}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Book WhatsApp appointment"
+                >
+                  <div className="absolute inset-0 w-full bg-[#2B2B2B]" />
+                  <div className="absolute inset-0 w-0 bg-gradient-to-r from-[rgba(152,77,149,1)] to-[rgba(211,156,192,1)] transition-all duration-300 ease-in-out group-hover:w-full" />
+                  <span className="font-inter font-light text-[#F5F5F5] text-base group-hover:text-white transition-colors duration-300 relative z-10">
+                    Book Appointment
+                  </span>
+                  <div className="p-2 bg-[#FFFFFF] group-hover:bg-white rounded-full transition-all duration-300 relative z-10 ml-[1px]">
+                    <img src="/arrow.svg" alt="Frame" className="w-2.5 h-2.5" />
+                  </div>
+                </a>
               </Button>
             </div>
           </div>
@@ -1014,101 +1102,131 @@ export const Desktop = ({}: { isVisible: boolean }): JSX.Element => {
           data-aos-duration="5000"
           data-aos-delay="800"
           data-aos-easing="ease-in-out"
-          className="w-full h-[840px] bg-[#FFFFFF] mt-10"
+          className="w-full bg-white mt-10"
         >
-          <div className="px-16 py-16 flex justify-between">
-            <div className="max-w-[475px] mt-[140px]">
-              <h2 className="text-[38px] leading-[50px] font-inter font-bold text-[#2b2b2b]">
-                Potwar Clinic
-              </h2>
-              <p className="mt-4 font-inter font-light text-[#747474] text-base leading-6">
-                Address: Om Chambers, Room No. 208, Second <br /> Floor, 123,
-                August Kranti Maidan, Kemps Corner, <br /> Mumbai - 400 026.
-              </p>
-              <button className="mt-4 text-blue-600 underline font-inter font-normal text-base inline-flex items-center gap-2 hover:text-blue-700 transition-colors">
-                Get Directions
-                <img
-                  src="/arrow.svg"
-                  alt="Arrow"
-                  className="w-3 h-3 filter brightness-0 saturate-100 invert-[0.4] sepia-[0.5] saturate-[2.5] hue-rotate-[200deg]"
-                />
-              </button>
-              {/* Affiliated Hospitals Section */}
-              <div className="mt-[30px]">
-                <h3 className="text-[#984D95] font-semibold text-base uppercase mb-4">
-                  Affiliated Hospitals
-                </h3>
-                <div className="flex flex-wrap gap-3 max-w-[700px]">
-                  {/* Highlighted Hospital - Sir HN Reliance hospital */}
-                  <button className="px-3 py-2 rounded-[25px] bg-gradient-to-r from-[#984D95] to-[#D39CC0] text-[#FFFFFF] font-extralight text-sm inline-flex items-center gap-3 hover:shadow-lg transition-all duration-300">
-                    Sir HN Reliance hospital
-                    <div className="p-2 bg-white rounded-[50px]">
-                      <img src="/arrow.svg" alt="Frame" className="w-3 h-3" />
-                    </div>
-                  </button>
+          <div className="mx-auto max-w-[1120px] xl:max-w-[1760px] 2xl:max-w-[2000px] px-3 sm:px-6 lg:px-8 xl:px-10 2xl:px-12 py-12">
+            {/* Grid: left text + right map */}
+            <div
+              className="
+      grid grid-cols-1 lg:grid-cols-12 gap-1 lg:gap-18 xl:gap-14 2xl:gap-16
+      items-start
+    "
+            >
+              {/* LEFT: Text/chips — slightly nudged left on wide screens */}
+              <div className="lg:col-span-4 xl:col-span-8 2xl:col-span-9 min-w-0 lg:-ml-4 xl:-ml-8 2xl:-ml-12">
+                <h2 className="text-[32px] lg:text-[38px] leading-[1.25] font-inter font-bold text-[#2b2b2b]">
+                  Potwar Clinic
+                </h2>
 
-                  {/* Other Hospitals */}
-                  {[
-                    "Breach Candy hospital",
-                    "Saifee hospital",
-                    "Babies and Us Fertility and IVF Centre",
-                    "Wockhardt hospital",
-                    "Saint Elizabeth Hospital",
-                  ].map((hospital, index) => (
-                    <button
-                      key={index}
-                      className="px-3 py-2 rounded-[25px] bg-[#EEEEEE] text-[#2b2b2b] font-extralight text-sm inline-flex items-center gap-3 hover:bg-gradient-to-r hover:from-[#984D95] hover:to-[#D39CC0] hover:text-white transition-all duration-300 group"
-                    >
-                      {hospital}
-                      <img
-                        src="/arrow.svg"
-                        alt="Arrow"
-                        className="w-3 h-3 group-hover:filter group-hover:invert transition-all duration-300"
-                      />
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
+                <p className="mt-4 font-inter font-light text-[#747474] text-base leading-6">
+                  Address: Om Chambers, Room No. 208, Second <br /> Floor, 123,
+                  August Kranti Maidan, Kemps Corner, <br /> Mumbai - 400 026.
+                </p>
 
-            <Card className="w-[755px] h-[600px] bg-white rounded-[30px] relative shadow-lg">
-              <CardContent className="p-0 h-full">
-                <div className="w-full h-full rounded-[30px] overflow-hidden relative">
-                  {/* Map Image */}
+                <a
+                  href="https://www.google.com/maps/dir/?api=1&destination=Om%20Chambers%2C%20Room%20No.%20208%2C%20Second%20Floor%2C%20123%2C%20August%20Kranti%20Maidan%2C%20Kemps%20Corner%2C%20Mumbai%20-%20400%20026"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-4 inline-flex items-center gap-2 text-blue-600 underline font-inter font-normal text-sm lg:text-base hover:text-blue-700 transition-colors"
+                >
+                  Get Directions
                   <img
-                    src="/Map.svg"
-                    alt="Location Map"
-                    className="w-full h-full object-cover"
+                    src="/arrow.svg"
+                    alt="Arrow"
+                    className="w-3 h-3 filter brightness-0 saturate-100 invert-[0.4] sepia-[0.5] saturate-[2.5] hue-rotate-[200deg]"
                   />
+                </a>
 
-                  {/* Operating Hours Overlay */}
-                  <div className="absolute bottom-0 left-0 right-0 bg-[#F5F5F5] rounded-b-[30px] px-6 py-10 flex justify-between items-center">
-                    <div>
-                      <div className="text-[#747474]">
-                        <p className="font-inter font-light text-sm">
-                          Monday to Saturday
-                        </p>
-                      </div>
-                      <div className="text-[#1E1E1E]">
-                        <p className="font-inter font-light text-sm">
-                          3:00 pm - 6:00 pm
-                        </p>
-                      </div>
-                    </div>
-                    <Button className="inline-flex items-center gap-[11px] pl-3 pr-1.5 py-1.5 relative overflow-hidden group rounded-[50px] bg-[#2b2b2b] transition-all duration-300">
-                      <div className="absolute inset-0 w-full bg-[#2b2b2b]" />
-                      <div className="absolute inset-0 w-0 bg-gradient-to-r from-[rgba(152,77,149,1)] to-[rgba(211,156,192,1)] transition-all duration-300 ease-in-out group-hover:w-full" />
-                      <span className="font-inter font-light text-[#F5F5F5] text-base group-hover:text-white transition-colors duration-300 relative z-10">
-                        Get Directions
-                      </span>
-                      <div className="p-2 bg-white rounded-[50px] relative z-10">
-                        <img src="/arrow.svg" alt="Frame" className="w-3 h-3" />
-                      </div>
-                    </Button>
+                {/* Affiliated Hospitals */}
+                <div className="mt-8">
+                  <h3 className="text-[#984D95] font-semibold text-base uppercase mb-4">
+                    Affiliated Hospitals
+                  </h3>
+
+                  <div className="flex flex-wrap gap-3 max-w-full">
+                    {LOCATIONS.map((loc) => {
+                      const isActive = selectedLocation.id === loc.id;
+                      return (
+                        <button
+                          key={loc.id}
+                          onClick={() => setSelectedLocation(loc)}
+                          className={[
+                            "px-3 py-2 rounded-[25px] text-sm inline-flex items-center gap-3 transition-all duration-300",
+                            "min-w-0", // allow wrapping
+                            isActive
+                              ? "bg-gradient-to-r from-[#984D95] to-[#D39CC0] text-white shadow-lg"
+                              : "bg-[#EEEEEE] text-[#2b2b2b] hover:bg-gradient-to-r hover:from-[#984D95] hover:to-[#D39CC0] hover:text-white",
+                          ].join(" ")}
+                          aria-pressed={isActive}
+                          aria-label={`Show ${loc.label} on map`}
+                        >
+                          <span className="truncate">{loc.label}</span>
+                          <img
+                            src="/arrow.svg"
+                            alt=""
+                            className="w-3 h-3 flex-shrink-0"
+                          />
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+
+              {/* RIGHT: Map — spans more columns on larger screens + nudged right */}
+              <div className="lg:col-span-3 xl:col-span-7 2xl:col-span-8 lg:mr-[-40px] xl:mr-[-300px] 2xl:-mr-26">
+                <Card className="w-full max-w-[800px] bg-white rounded-[30px] relative shadow-lg overflow-visible">
+                  <CardContent className="p-0 h-full">
+                    <div
+                      className="
+              w-full
+              h-[440px] sm:h-[520px] lg:h-[620px] xl:h-[680px] 2xl:h-[740px]
+              rounded-[30px] overflow-hidden relative
+            "
+                    >
+                      <iframe
+                        title={`Map - ${selectedLocation.label}`}
+                        src={selectedLocation.embedUrl}
+                        className="w-full h-full"
+                        loading="lazy"
+                        referrerPolicy="no-referrer-when-downgrade"
+                      />
+
+                      {/* Operating Hours Overlay */}
+                      <div className="absolute bottom-0 left-0 right-0 bg-[#F5F5F5] rounded-b-[30px] px-6 py-8 sm:py-10 flex flex-col sm:flex-row gap-4 sm:gap-0 justify-between items-start sm:items-center">
+                        <div>
+                          <p className="text-[#747474] font-inter font-light text-sm">
+                            Monday to Saturday
+                          </p>
+                          <p className="text-[#1E1E1E] font-inter font-light text-sm">
+                            3:00 pm - 6:00 pm
+                          </p>
+                        </div>
+
+                        <a
+                          href={selectedLocation.directionsUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`Directions to ${selectedLocation.label}`}
+                          className="inline-flex items-center gap-[11px] pl-3 pr-1.5 py-1.5 rounded-[50px] bg-[#2b2b2b] text-white transition-all duration-300"
+                        >
+                          <span className="font-inter font-light text-base">
+                            Get Directions
+                          </span>
+                          <div className="p-2 bg-white rounded-[50px]">
+                            <img
+                              src="/arrow.svg"
+                              alt="Frame"
+                              className="w-3 h-3"
+                            />
+                          </div>
+                        </a>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -1134,19 +1252,29 @@ export const Desktop = ({}: { isVisible: boolean }): JSX.Element => {
                         Address : Om Chambers, Room No. 208, Second Floor, 123,
                         August Kranti Maidan, Kemps Corner, Mumbai - 400 026.
                       </p>
-                      <Button className="mt-8 w-fit pl-3 pr-1.5 py-2 relative overflow-hidden group rounded-[50px] transition-all duration-300">
-                        <div className="absolute inset-0 w-full bg-[#2B2B2B]" />
-                        <div className="absolute inset-0 w-0 bg-gradient-to-r from-[rgba(152,77,149,1)] to-[rgba(211,156,192,1)] transition-all duration-300 ease-in-out group-hover:w-full" />
-                        <span className="font-inter font-light text-[#F5F5F5] text-base group-hover:text-white transition-colors duration-300 relative z-10">
-                          Book Appointment
-                        </span>
-                        <div className="p-2 bg-[#FFFFFF] group-hover:bg-white rounded-full transition-all duration-300 relative z-10 ml-[1px]">
-                          <img
-                            src="/arrow.svg"
-                            alt="Frame"
-                            className="w-2.5 h-2.5"
-                          />
-                        </div>
+                      <Button
+                        asChild
+                        className="mt-8 w-fit pl-3 pr-1.5 py-2 relative overflow-hidden group rounded-[50px] transition-all duration-300"
+                      >
+                        <a
+                          href={`https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MSG}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label="Book WhatsApp appointment"
+                        >
+                          <div className="absolute inset-0 w-full bg-[#2B2B2B]" />
+                          <div className="absolute inset-0 w-0 bg-gradient-to-r from-[rgba(152,77,149,1)] to-[rgba(211,156,192,1)] transition-all duration-300 ease-in-out group-hover:w-full" />
+                          <span className="font-inter font-light text-[#F5F5F5] text-base group-hover:text-white transition-colors duration-300 relative z-10">
+                            Book Appointment
+                          </span>
+                          <div className="p-2 bg-[#FFFFFF] group-hover:bg-white rounded-full transition-all duration-300 relative z-10 ml-[1px]">
+                            <img
+                              src="/arrow.svg"
+                              alt="Frame"
+                              className="w-2.5 h-2.5"
+                            />
+                          </div>
+                        </a>
                       </Button>
                     </div>
                   </div>
