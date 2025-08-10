@@ -7,7 +7,9 @@ import { Button } from "../../components/ui/button";
 import { Card, CardContent } from "../../components/ui/card";
 
 // ---- CONTACT / WHATSAPP ----
-const PHONE_NUMBER = "+919892954913"; // call target
+const PHONE_1 = "+919833646316";
+const PHONE_2 = "+919920414643";
+
 const WHATSAPP_NUMBER = "+919892954913"; // WhatsApp target
 const WHATSAPP_MSG = encodeURIComponent(
   "Hi Dr. Devki, I'd like to book an appointment."
@@ -86,6 +88,8 @@ const services = [
 ];
 
 export const Mobile = (): JSX.Element => {
+  const [showCallPopup, setShowCallPopup] = React.useState(false);
+
   const [, setScrolled] = React.useState(false);
 
   React.useEffect(() => {
@@ -179,19 +183,65 @@ export const Mobile = (): JSX.Element => {
             </span>
           </div>
           {/* Top-right call button */}
-          <Button
-            data-aos="slide-down"
-            data-aos-duration="1000"
-            data-aos-delay="200"
-            data-aos-easing="ease-in-out"
-            className="inline-flex h-[52px] items-center gap-[10px] px-2 py-3 fixed top-[50px] right-2 rounded-[50px] bg-[#F5F5F5] hover:bg-[linear-gradient(90deg,rgba(152,77,149,1)_0%,rgba(211,156,192,1)_100%)] group transition-all duration-300 z-30"
-          >
-            <a href={`tel:${PHONE_NUMBER}`} aria-label="Call Potwar Clinic">
+          <div className="relative group">
+            {/* Contact Button */}
+            <Button
+              data-aos="slide-down"
+              data-aos-duration="1000"
+              data-aos-delay="200"
+              data-aos-easing="ease-in-out"
+              onClick={() => setShowCallPopup(true)}
+              className="inline-flex h-[52px] items-center gap-[10px] px-2 py-3 fixed top-[50px] right-2 rounded-[50px] bg-[#F5F5F5] hover:bg-[linear-gradient(90deg,rgba(152,77,149,1)_0%,rgba(211,156,192,1)_100%)] group transition-all duration-300 z-30"
+              aria-label="Open call options"
+            >
               <div className="p-3 rounded-full bg-[linear-gradient(90deg,rgba(152,77,149,1)_0%,rgba(211,156,192,1)_100%)] group-hover:bg-none group-hover:bg-white transition-all duration-300">
                 <PhoneIcon className="w-6 h-6 fill-white group-hover:fill-[#984D95] transition-all duration-300" />
               </div>
-            </a>
-          </Button>
+            </Button>
+
+            {/* Popup Overlay */}
+            {showCallPopup && (
+              <div
+                className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
+                onClick={() => setShowCallPopup(false)} // click outside to close
+              >
+                {/* Popup Box */}
+                <div
+                  className="bg-white rounded-2xl shadow-lg p-6 w-[320px] animate-fadeIn"
+                  onClick={(e) => e.stopPropagation()} // prevent closing when clicking inside
+                >
+                  <h3 className="text-lg font-semibold mb-4 text-[#2b2b2b]">
+                    Call Potwar Clinic
+                  </h3>
+
+                  <div className="space-y-3">
+                    <a
+                      href={`tel:${PHONE_1}`}
+                      className="w-full flex items-center justify-between rounded-xl border border-gray-200 px-4 py-3 hover:bg-gray-50"
+                    >
+                      <span className="text-[#2b2b2b]">+91 98336 46316</span>
+                      <PhoneIcon className="w-4 h-4 text-[#984D95]" />
+                    </a>
+
+                    <a
+                      href={`tel:${PHONE_2}`}
+                      className="w-full flex items-center justify-between rounded-xl border border-gray-200 px-4 py-3 hover:bg-gray-50"
+                    >
+                      <span className="text-[#2b2b2b]">+91 99204 14643</span>
+                      <PhoneIcon className="w-4 h-4 text-[#984D95]" />
+                    </a>
+                  </div>
+
+                  <button
+                    onClick={() => setShowCallPopup(false)}
+                    className="mt-4 w-full py-2 rounded-xl bg-[#984D95] text-white hover:opacity-90 transition"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
 
           {/* Decorative line behind images */}
           <svg
@@ -466,7 +516,7 @@ export const Mobile = (): JSX.Element => {
                     <img
                       src="/womendeservecare.svg"
                       alt="Women Deserve Care"
-                      className="w-auto h-[40px] lg:h-[60px]"
+                      className="ml-[30px] w-[250px] h-[40px] lg:h-[60px]"
                     />
                     that feels personal, safe, and never rushed.
                   </p>
@@ -479,7 +529,7 @@ export const Mobile = (): JSX.Element => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{
                     opacity: 1,
-                    y: startSplitSlide ? -170 : 0, // go higher when the old “split” would happen
+                    y: startSplitSlide ? -160 : 0, // go higher when the old “split” would happen
                   }}
                   transition={{
                     duration: 1.1,
@@ -999,14 +1049,14 @@ export const Mobile = (): JSX.Element => {
               <img
                 src="/Footer-mob.png" // <-- swap to your new image path if different
                 alt="Footer"
-                className="w-full h-[520px] sm:h-[420px] lg:h-[520px] object-cover"
+                className="w-[380px] h-[500px] sm:h-[420px] lg:h-[520px] object-cover"
               />
 
               {/* Overlay button centered (sits ON TOP of the image) */}
               <div className="absolute inset-0 flex items-end justify-center pb-8 sm:pb-10">
                 <Button
                   asChild
-                  className="mb-[43px] inline-flex items-center justify-center gap-2 px-2 pr-1 py-6 rounded-[50px] bg-[#2B2B2B] relative overflow-hidden group z-10"
+                  className="mb-[43px] inline-flex items-center gap-2 px-2 pr-1 py-6 rounded-[50px] bg-[#2B2B2B] relative overflow-hidden group z-10"
                 >
                   <a
                     href={`https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MSG}`}
