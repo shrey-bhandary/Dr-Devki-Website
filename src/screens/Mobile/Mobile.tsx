@@ -1,7 +1,7 @@
 import "aos/dist/aos.css";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { PhoneIcon } from "lucide-react";
+import { MailIcon, PhoneIcon } from "lucide-react";
 import React, { useState, useEffect } from "react";
 import { Button } from "../../components/ui/button";
 import { Card, CardContent } from "../../components/ui/card";
@@ -10,7 +10,7 @@ import { Card, CardContent } from "../../components/ui/card";
 const PHONE_1 = "+919833646316";
 const PHONE_2 = "+919920414643";
 
-const WHATSAPP_NUMBER = "+919833646316"; // WhatsApp target
+const WHATSAPP_NUMBER = "+919892954913"; // WhatsApp target
 const WHATSAPP_MSG = encodeURIComponent(
   "Hi Dr. Devki, I'd like to book an appointment."
 );
@@ -107,6 +107,9 @@ export const Mobile = (): JSX.Element => {
   const quoteRef = useRef(null);
   const quoteInView = useInView(quoteRef, { once: true, amount: 0.4 }); // ~40% visible
 
+  const [showFullBio, setShowFullBio] = useState(false);
+  const bioRef = useRef<HTMLParagraphElement | null>(null);
+
   const [selectedLocation, setSelectedLocation] = useState<LocationItem>(
     LOCATIONS[0]
   );
@@ -142,16 +145,16 @@ export const Mobile = (): JSX.Element => {
 
     const fadeOutTimer = setTimeout(() => {
       setFadeOut(true);
-    }, 5000); // 3s (last delay) + 1.5s (animation) + buffer
+    }, 5700); // 3s (last delay) + 1.5s (animation) + buffer
 
     const finalTextTimer = setTimeout(() => {
       // Show final text 2s after fade-out (i.e., after 7s total)
       setShowFinalText(true);
-    }, 5000);
+    }, 6000);
 
     const slideTimer = setTimeout(() => {
       setStartSplitSlide(true);
-    }, 7000); // 1s after final text is visible
+    }, 7500); // 1s after final text is visible
 
     return () => {
       clearTimeout(fadeOutTimer);
@@ -349,7 +352,7 @@ export const Mobile = (): JSX.Element => {
               <br />
               gone digital
             </h1>
-            <p className="w-[559px] mt-[0px] font-inter font-light text-[#747474] text-sm leading-relaxed relative z-10">
+            <p className="w-[559px] mt-[-5px] font-inter font-light text-[#747474] text-sm leading-relaxed relative z-10">
               Keep scrolling to know how I can help you.
             </p>
             <Button
@@ -511,7 +514,8 @@ export const Mobile = (): JSX.Element => {
                   className="absolute inset-0 flex items-center justify-center mt-[90px] sm:mt-[20px]"
                 >
                   <p className="text-[23px] sm:text-[22px] md:text-[28px] lg:text-[38px] font-inter font-semibold text-[#2b2b2b]">
-                    I created Potwar clinic <br /> out of a simple idea: that
+                    14 years ago, I created Potwar clinic <br /> out of a simple
+                    idea: that
                     <br />
                     <img
                       src="/womendeservecare.svg"
@@ -570,19 +574,103 @@ export const Mobile = (): JSX.Element => {
                   className="text-left max-w-[92%] sm:max-w-[560px] md:max-w-[680px] lg:max-w-[620px]
                      mt-6 sm:mt-8 lg:text-left"
                 >
-                  <p className="font-inter text-[12px] sm:text-[15px] md:text-[16px] text-[#000] font-thin leading-relaxed">
-                    I’m an Obstetrician and Gynaecologist with over 14 years of
-                    experience dedicated to women’s health, from adolescence to
-                    motherhood and beyond. Whether it’s guiding a high-risk
-                    pregnancy, performing advanced gynaecological surgeries, or
-                    supporting couples on their fertility journey, I’m
-                    passionate about providing compassionate and evidence-based
-                    care to each patient.
-                    <span className="text-blue-500 underline cursor-pointer">
-                      {" "}
-                      Read more
-                    </span>
-                  </p>
+                  <div className="relative w-full max-w-[620px] md:w-[620px] mx-auto">
+                    {/* Close (shows only when expanded). Stays visible and tappable on mobile */}
+                    {showFullBio && (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          bioRef.current?.scrollTo({ top: 0 });
+                          setShowFullBio(false);
+                        }}
+                        aria-controls="bio"
+                        aria-expanded={showFullBio}
+                        className="absolute top-2 right-2 z-[70] text-xs sm:text-sm text-blue-600 underline bg-white/90 backdrop-blur px-2 py-1 rounded"
+                      >
+                        Close
+                      </button>
+                    )}
+
+                    <div
+                      ref={bioRef}
+                      id="bio"
+                      className="
+      relative
+      font-inter text-[15px] sm:text-[16px] md:text-[17px] font-thin text-black leading-relaxed text-left
+      w-full
+      max-h-[160px] sm:max-h-[200px] md:max-h-[240px] lg:max-h-[260px]
+      overflow-y-auto pr-3 sm:pr-4
+      bio-scroll
+    "
+                      style={{
+                        // keeps content from shifting when scrollbar appears
+                        scrollbarGutter: "stable both-edges",
+                        // smooth iOS scroll
+                        WebkitOverflowScrolling: "touch",
+                      }}
+                    >
+                      {/* Content */}
+                      <p className="whitespace-normal">
+                        I’m an Obstetrician and Gynaecologist with over 14 years
+                        of <br />
+                        experience dedicated to women’s health, from adolescence
+                        to <br />
+                        motherhood and beyond. Whether it’s guiding a high-risk{" "}
+                        <br />
+                        pregnancy, performing advanced gynaecological surgeries,
+                        or <br />
+                        supporting couples on their fertility journey, I’m
+                        passionate <br />
+                        about providing compassionate and evidence-based care to{" "}
+                        <br />
+                        each patient.{" "}
+                        {!showFullBio ? (
+                          <span className="sr-only">
+                            (Tap “Read more” to expand)
+                          </span>
+                        ) : (
+                          <span className="inline">
+                            &nbsp;I specialise in High-risk Obstetrics,
+                            Minimally Invasive Gynaecological Surgeries,
+                            Infertility and IVF, and Vaginal Aesthetics. I’m the
+                            first in Mumbai to use Arvati-ThermiVa, an advanced,
+                            non-surgical technology which helps women with
+                            sexual dysfunction, urinary incontinence and vaginal
+                            laxity. <br />
+                            <br />
+                            I’m also a member of Mumbai Obstetric and
+                            Gynaecological Society (MOGS), Federation of
+                            Obstetric and Gynaecological Societies of India
+                            (FOGSI) and the Indian Association of Gynecological
+                            Endoscopist (IAGE). <br />
+                            <br />
+                            <strong>Thanks for stopping by!</strong> I look
+                            forward to supporting you through your healthcare
+                            journey.
+                          </span>
+                        )}
+                      </p>
+
+                      {/* Fade + Read more (only when collapsed) */}
+                      {!showFullBio && (
+                        <>
+                          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-14 sm:h-16 bg-gradient-to-t from-white to-transparent" />
+                          <button
+                            type="button"
+                            onClick={() => {
+                              bioRef.current?.scrollTo({ top: 0 });
+                              setShowFullBio(true);
+                            }}
+                            aria-controls="bio"
+                            aria-expanded={showFullBio}
+                            className="absolute bottom-2 right-2 text-sm sm:text-base text-blue-600 underline bg-white/90 px-2 py-1 rounded"
+                          >
+                            Read more
+                          </button>
+                        </>
+                      )}
+                    </div>
+                  </div>
                 </div>
               )}
 
@@ -1019,7 +1107,7 @@ export const Mobile = (): JSX.Element => {
           </div>
           <Button
             asChild
-            className="ml-[100px] -mt-4 inline-flex items-center gap-[11px] pl-3 pr-1.5 py-1.5 relative overflow-hidden group rounded-[50px] bg-[#2b2b2b] transition-all duration-300"
+            className="mx-auto -mt-4 inline-flex  items-center gap-[11px] py-1.5 relative overflow-hidden group rounded-[50px] bg-[#2b2b2b] transition-all duration-300 h-auto !px-3 !py-2"
           >
             <a
               href={selectedLocation.directionsUrl}
@@ -1039,44 +1127,115 @@ export const Mobile = (): JSX.Element => {
           </Button>
         </section>
 
-        {/* Footer - Responsive */}
-        {/* Footer - Image only with overlayed button */}
-        <footer className="mt-[400px] w-full px-4 lg:px-8">
-          <div className="max-w-[1900px] mx-auto">
-            <Card className="relative rounded-[30px] shadow-lg overflow-hidden">
-              {/* Full-bleed image (replace with your uploaded filename) */}
-              <img
-                src="/Footer-mob.png" // <-- swap to your new image path if different
-                alt="Footer"
-                className="w-[380px] h-[500px] sm:h-[420px] lg:h-[520px] object-cover"
+        {/* Footer */}
+        <footer className="mt-[300px] w-full px-4 lg:px-8 py-10">
+          <div className="max-w-[520px] mx-auto">
+            {/* No padding on the Card so the logo can hug the left edge */}
+            <Card className="relative rounded-[30px] overflow-hidden shadow-md p-0">
+              {/* Background image built for desktop, made mobile-friendly */}
+              <div
+                className="
+          absolute inset-0
+          bg-[url('/Footer-mob.svg')]  /* <- your wide image */
+          bg-no-repeat bg-cover
+          bg-[position:2%_80%]                /* tweak this to choose focal point */
+          bg-right
+        "
               />
 
-              {/* Overlay button centered (sits ON TOP of the image) */}
-              <div className="absolute inset-0 flex items-end justify-center pb-8 sm:pb-10">
-                <Button
-                  asChild
-                  className="mb-[43px] inline-flex items-center gap-2 px-2 pr-1 py-6 rounded-[50px] bg-[#2B2B2B] relative overflow-hidden group z-10"
-                >
-                  <a
-                    href={`https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MSG}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Book WhatsApp appointment"
-                  >
-                    <div className="absolute inset-0 w-full bg-[#2B2B2B]" />
-                    <div className="absolute inset-0 w-0 bg-gradient-to-r from-[rgba(152,77,149,1)] to-[rgba(211,156,192,1)] transition-all duration-300 ease-in-out group-hover:w-full" />
-                    <span className="font-inter font-light text-[#F5F5F5] text-[20px] group-hover:text-white transition-colors duration-300 relative z-10">
-                      Book Appointment
-                    </span>
-                    <div className="p-3 bg-[#FFFFFF] group-hover:bg-white rounded-full transition-all duration-300 relative z-10 ml-[1px]">
-                      <img src="/arrow.svg" alt="Frame" className="w-3 h-3" />
+              {/* A soft overlay (optional, for readability) */}
+              <div className="absolute inset-0 bg-white/40" />
+
+              {/* Content wrapper (controlled padding) */}
+              <div className="relative pt-7 pb-8 px-5 ">
+                {/* Logo row — no extra left padding; slight negative margin if you want it *extra* flush */}
+                <img
+                  src="/Potwar.svg"
+                  alt="Potwar"
+                  className="w-[250px] h-auto mb-4 -ml-4"
+                />
+
+                {/* Address */}
+                <p className="text-[#747474] font-inter font-extralight text-base leading-7 mb-12">
+                  Address: Om Chambers, Room No. 208, Second Floor, 123, August
+                  Kranti Maidan, Kemps Corner, Mumbai - 400 026.
+                </p>
+
+                {/* Contact block with LEFT separator */}
+                <div className="flex items-start gap-5 mt-1">
+                  {/* Left vertical line (separator) */}
+                  <div className="w-[2px] bg-gray-300 rounded-full self-stretch" />
+
+                  <div className="flex flex-col gap-6">
+                    {/* Phone (bigger, a little lower) */}
+                    <div className="flex items-center gap-4 mt-1">
+                      <div className="w-12 h-12 rounded-full bg-gradient-to-r from-[#984D95] to-[#D39CC0] flex items-center justify-center">
+                        <PhoneIcon className="w-6 h-6 text-white" />
+                      </div>
+                      <div className="space-y-1.5">
+                        <p className="text-[#747474] font-inter font-extralight text-[18px] leading-6">
+                          +91-9833646316
+                        </p>
+                        <p className="text-[#747474] font-inter font-extralight text-[18px] leading-6">
+                          +91-9920414643
+                        </p>
+                      </div>
                     </div>
-                  </a>
-                </Button>
+
+                    {/* Email (bigger with clear gap) */}
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 rounded-full bg-gradient-to-r from-[#984D95] to-[#D39CC0] flex items-center justify-center">
+                        <MailIcon className="w-6 h-6 text-white" />
+                      </div>
+                      <div className="space-y-1.5">
+                        <p className="text-[#747474] font-inter font-light text-[18px] leading-6">
+                          devkidesai@gmail.com
+                        </p>
+                        <p className="text-[#747474] font-inter font-light text-[18px] leading-6">
+                          potwarclinic@gmail.com
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* CTA centered & larger (text left, arrow right) */}
+                <div className="flex justify-center">
+                  <Button
+                    asChild
+                    className="mt-10 inline-flex items-center gap-3 pl-5 pr-3 py-6 rounded-[50px] bg-[#2B2B2B] relative overflow-hidden group"
+                  >
+                    <a
+                      href={`https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MSG}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Book WhatsApp appointment"
+                    >
+                      <div className="absolute inset-0 w-full bg-[#2B2B2B]" />
+                      <div className="absolute inset-0 w-0 bg-gradient-to-r from-[rgba(152,77,149,1)] to-[rgba(211,156,192,1)] transition-all duration-300 ease-in-out group-hover:w-full" />
+                      <span className="font-inter font-light text-[#F5F5F5] text-[20px] leading-none relative z-10">
+                        Book Appointment
+                      </span>
+                      <div className="p-3 bg-white rounded-full relative z-10">
+                        <img
+                          src="/arrow.svg"
+                          alt="arrow"
+                          className="w-3.5 h-3.5"
+                        />
+                      </div>
+                    </a>
+                  </Button>
+                </div>
+
+                {/* Copyright */}
+                <div className="text-center mt-9 pt-6 border-t border-gray-200">
+                  <p className="font-inter font-light text-[#2b2b2b] text-[14px]">
+                    2025 by Dr. Devki Potwar powered and secured by Regis
+                    Digital
+                  </p>
+                </div>
               </div>
             </Card>
-
-            {/* Copyright (optional) */}
           </div>
         </footer>
       </div>
