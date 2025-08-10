@@ -6,6 +6,55 @@ import React, { useState, useEffect } from "react";
 import { Button } from "../../components/ui/button";
 import { Card, CardContent } from "../../components/ui/card";
 
+// ---- CONTACT / WHATSAPP ----
+const PHONE_NUMBER = "+919892954913"; // call target
+const WHATSAPP_NUMBER = "+919892954913"; // WhatsApp target
+const WHATSAPP_MSG = encodeURIComponent(
+  "Hi Dr. Devki, I'd like to book an appointment."
+);
+
+// ---- MAP LOCATIONS ----
+type LocationItem = {
+  id: string;
+  label: string;
+  query: string; // readable address / place
+  embedUrl: string; // for <iframe> embed
+  directionsUrl: string; // for "Get Directions"
+};
+
+// Helper to build embed & directions URLs from a query string
+const mkLoc = (id: string, label: string, query: string): LocationItem => {
+  const q = encodeURIComponent(query);
+  return {
+    id,
+    label,
+    query,
+    embedUrl: `https://www.google.com/maps?q=${q}&output=embed`,
+    directionsUrl: `https://www.google.com/maps/dir/?api=1&destination=${q}`,
+  };
+};
+
+const LOCATIONS: LocationItem[] = [
+  mkLoc(
+    "reliance",
+    "Sir HN Reliance Hospital",
+    "Sir H. N. Reliance Foundation Hospital, Mumbai"
+  ),
+  mkLoc(
+    "breach",
+    "Breach Candy Hospital",
+    "Breach Candy Hospital Trust, Mumbai"
+  ),
+  mkLoc("saifee", "Saifee Hospital", "Saifee Hospital, Mumbai"),
+  mkLoc(
+    "babies",
+    "Babies & Us Fertility and IVF Centre",
+    "Babies and Us Fertility IVF Centre, Mumbai"
+  ),
+  mkLoc("wockhardt", "Wockhardt Hospital", "Wockhardt Hospital Mumbai Central"),
+  mkLoc("seh", "Saint Elizabeth Hospital", "St. Elizabeth's Hospital, Mumbai"),
+];
+
 // Define service data for mapping
 const services = [
   {
@@ -53,6 +102,10 @@ export const Mobile = (): JSX.Element => {
 
   const quoteRef = useRef(null);
   const quoteInView = useInView(quoteRef, { once: true, amount: 0.4 }); // ~40% visible
+
+  const [selectedLocation, setSelectedLocation] = useState<LocationItem>(
+    LOCATIONS[0]
+  );
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -125,7 +178,6 @@ export const Mobile = (): JSX.Element => {
               Dr. Devki Potwar
             </span>
           </div>
-
           {/* Top-right call button */}
           <Button
             data-aos="slide-down"
@@ -134,9 +186,11 @@ export const Mobile = (): JSX.Element => {
             data-aos-easing="ease-in-out"
             className="inline-flex h-[52px] items-center gap-[10px] px-2 py-3 fixed top-[50px] right-2 rounded-[50px] bg-[#F5F5F5] hover:bg-[linear-gradient(90deg,rgba(152,77,149,1)_0%,rgba(211,156,192,1)_100%)] group transition-all duration-300 z-30"
           >
-            <div className="p-3 rounded-full bg-[linear-gradient(90deg,rgba(152,77,149,1)_0%,rgba(211,156,192,1)_100%)] group-hover:bg-none group-hover:bg-white transition-all duration-300">
-              <PhoneIcon className="w-6 h-6 fill-white group-hover:fill-[#984D95] transition-all duration-300" />
-            </div>
+            <a href={`tel:${PHONE_NUMBER}`} aria-label="Call Potwar Clinic">
+              <div className="p-3 rounded-full bg-[linear-gradient(90deg,rgba(152,77,149,1)_0%,rgba(211,156,192,1)_100%)] group-hover:bg-none group-hover:bg-white transition-all duration-300">
+                <PhoneIcon className="w-6 h-6 fill-white group-hover:fill-[#984D95] transition-all duration-300" />
+              </div>
+            </a>
           </Button>
 
           {/* Decorative line behind images */}
@@ -162,7 +216,6 @@ export const Mobile = (): JSX.Element => {
               className="animate-stroke-draw [animation-delay:1s]"
             />
           </svg>
-
           <div className="relative z-10 grid grid-cols-2 grid-rows-2 gap-3 mt-16 mb-8 w-[90vw] max-w-[340px]">
             {/* Top Left — from top */}
             <motion.img
@@ -232,7 +285,6 @@ export const Mobile = (): JSX.Element => {
               className="rounded-[18px] object-cover w-full h-[175px] shadow-md mt-[-130px]"
             />
           </div>
-
           <div
             data-aos="fade-up"
             data-aos-duration="4000"
@@ -250,15 +302,25 @@ export const Mobile = (): JSX.Element => {
             <p className="w-[559px] mt-[-5px] font-inter font-light text-[#747474] text-sm leading-relaxed relative z-10">
               Keep scrolling to know how I can help you.
             </p>
-            <Button className="mt-8 w-fit pl-3 pr-1.5 py-2 ml-20 relative overflow-hidden group rounded-[50px] transition-all duration-300">
-              <div className="absolute inset-0 w-full bg-[#2B2B2B]" />
-              <div className="absolute inset-0 w-0 bg-gradient-to-r from-[rgba(152,77,149,1)] to-[rgba(211,156,192,1)] transition-all duration-300 ease-in-out group-hover:w-full" />
-              <span className="font-inter font-light text-[#F5F5F5] text-base group-hover:text-white transition-colors duration-300 relative z-10">
-                Book Appointment
-              </span>
-              <div className="p-2 bg-[#FFFFFF] group-hover:bg-white rounded-full transition-all duration-300 relative z-10 ml-[1px]">
-                <img src="/arrow.svg" alt="Frame" className="w-2.5 h-2.5" />
-              </div>
+            <Button
+              asChild
+              className="mt-8 w-fit pl-3 pr-1.5 py-2 relative overflow-hidden group rounded-[50px] transition-all duration-300"
+            >
+              <a
+                href={`https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MSG}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Book WhatsApp appointment"
+              >
+                <div className="absolute inset-0 w-full bg-[#2B2B2B]" />
+                <div className="absolute inset-0 w-0 bg-gradient-to-r from-[rgba(152,77,149,1)] to-[rgba(211,156,192,1)] transition-all duration-300 ease-in-out group-hover:w-full" />
+                <span className="font-inter font-light text-[#F5F5F5] text-base group-hover:text-white transition-colors duration-300 relative z-10">
+                  Book Appointment
+                </span>
+                <div className="p-2 bg-[#FFFFFF] group-hover:bg-white rounded-full transition-all duration-300 relative z-10 ml-[1px]">
+                  <img src="/arrow.svg" alt="Frame" className="w-2.5 h-2.5" />
+                </div>
+              </a>
             </Button>
           </div>
         </section>
@@ -399,7 +461,8 @@ export const Mobile = (): JSX.Element => {
                   className="absolute inset-0 flex items-center justify-center mt-[90px] sm:mt-[20px]"
                 >
                   <p className="text-[23px] sm:text-[22px] md:text-[28px] lg:text-[38px] font-inter font-semibold text-[#2b2b2b]">
-                    I created Potwar clinic <br /> out of a simple idea: that<br />
+                    I created Potwar clinic <br /> out of a simple idea: that
+                    <br />
                     <img
                       src="/womendeservecare.svg"
                       alt="Women Deserve Care"
@@ -571,15 +634,29 @@ export const Mobile = (): JSX.Element => {
                 <h1 className="text-[28px] sm:text-[36px] lg:text-[44px] leading-tight font-inter font-semibold text-[#2b2b2b] mb-10 mt-10">
                   Gallery
                 </h1>
-                <Button className="w-fit pl-3 pr-1.5 py-2 relative overflow-hidden group rounded-[50px]">
-                  <div className="absolute inset-0 w-full bg-[#2B2B2B]" />
-                  <div className="absolute inset-0 w-0 bg-gradient-to-r from-[rgba(152,77,149,1)] to-[rgba(211,156,192,1)] transition-all duration-300 ease-in-out group-hover:w-full" />
-                  <span className="font-inter font-light text-[#F5F5F5] text-sm sm:text-base relative z-10">
-                    Book Appointment
-                  </span>
-                  <div className="p-2 bg-white rounded-full relative z-10 ml-[6px]">
-                    <img src="/arrow.svg" alt="→" className="w-2.5 h-2.5" />
-                  </div>
+                <Button
+                  asChild
+                  className="mt-8 w-fit pl-3 pr-1.5 py-2 relative overflow-hidden group rounded-[50px] transition-all duration-300"
+                >
+                  <a
+                    href={`https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MSG}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Book WhatsApp appointment"
+                  >
+                    <div className="absolute inset-0 w-full bg-[#2B2B2B]" />
+                    <div className="absolute inset-0 w-0 bg-gradient-to-r from-[rgba(152,77,149,1)] to-[rgba(211,156,192,1)] transition-all duration-300 ease-in-out group-hover:w-full" />
+                    <span className="font-inter font-light text-[#F5F5F5] text-base group-hover:text-white transition-colors duration-300 relative z-10">
+                      Book Appointment
+                    </span>
+                    <div className="p-2 bg-[#FFFFFF] group-hover:bg-white rounded-full transition-all duration-300 relative z-10 ml-[1px]">
+                      <img
+                        src="/arrow.svg"
+                        alt="Frame"
+                        className="w-2.5 h-2.5"
+                      />
+                    </div>
+                  </a>
                 </Button>
               </div>
 
@@ -675,15 +752,25 @@ export const Mobile = (): JSX.Element => {
               </p>
             </div>
 
-            <Button className="mt-1 lg:mt-0 w-fit pl-3 pr-1.5 py-2 relative overflow-hidden group rounded-[50px] transition-all duration-300">
-              <div className="absolute inset-0 w-full bg-[#2B2B2B]" />
-              <div className="absolute inset-0 w-0 bg-gradient-to-r from-[rgba(152,77,149,1)] to-[rgba(211,156,192,1)] transition-all duration-300 ease-in-out group-hover:w-full" />
-              <span className="font-inter font-light text-[#F5F5F5] text-base relative z-10">
-                Book Appointment
-              </span>
-              <div className="p-2 bg-white rounded-full ml-[1px] relative z-10">
-                <img src="/arrow.svg" alt="→" className="w-2.5 h-2.5" />
-              </div>
+            <Button
+              asChild
+              className="mt-8 w-fit pl-3 pr-1.5 py-2 relative overflow-hidden group rounded-[50px] transition-all duration-300"
+            >
+              <a
+                href={`https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MSG}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Book WhatsApp appointment"
+              >
+                <div className="absolute inset-0 w-full bg-[#2B2B2B]" />
+                <div className="absolute inset-0 w-0 bg-gradient-to-r from-[rgba(152,77,149,1)] to-[rgba(211,156,192,1)] transition-all duration-300 ease-in-out group-hover:w-full" />
+                <span className="font-inter font-light text-[#F5F5F5] text-base group-hover:text-white transition-colors duration-300 relative z-10">
+                  Book Appointment
+                </span>
+                <div className="p-2 bg-[#FFFFFF] group-hover:bg-white rounded-full transition-all duration-300 relative z-10 ml-[1px]">
+                  <img src="/arrow.svg" alt="Frame" className="w-2.5 h-2.5" />
+                </div>
+              </a>
             </Button>
           </div>
 
@@ -805,52 +892,47 @@ export const Mobile = (): JSX.Element => {
                 Address: Om Chambers, Room No. 208, Second <br /> Floor, 123,
                 August Kranti Maidan, Kemps Corner, <br /> Mumbai - 400 026.
               </p>
-              <button className="mt-4 text-blue-600 underline font-inter font-normal text-sm lg:text-base md:text-base sm:text-sm inline-flex items-center gap-2 hover:text-blue-700 transition-colors mx-auto lg:mx-0">
+              <a
+                href="https://www.google.com/maps/dir/?api=1&destination=Om%20Chambers%2C%20Room%20No.%20208%2C%20Second%20Floor%2C%20123%2C%20August%20Kranti%20Maidan%2C%20Kemps%20Corner%2C%20Mumbai%20-%20400%20026"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-4 text-blue-600 underline font-inter font-normal text-sm lg:text-base md:text-base sm:text-sm inline-flex items-center gap-2 hover:text-blue-700 transition-colors mx-auto lg:mx-0"
+              >
                 Get Directions
                 <img
                   src="/arrow.svg"
                   alt="Arrow"
                   className="w-3 h-3 filter brightness-0 saturate-100 invert-[0.4] sepia-[0.5] saturate-[2.5] hue-rotate-[200deg]"
                 />
-              </button>
+              </a>
+
               {/* Affiliated Hospitals Section */}
               <div className="mt-[40px] lg:mt-[30px] md:mt-[25px] sm:mt-[20px]">
-                <h3 className="text-[#984D95] font-semibold text-sm lg:text-base md:text-base sm:text-sm uppercase mb-4">
+                <h3 className="text-[#984D95] font-semibold text-base uppercase mb-4">
                   Affiliated Hospitals
                 </h3>
-                <div className="flex flex-wrap text-left gap-2 lg:gap-3 md:gap-2.5 sm:gap-2 max-w-full lg:max-w-[700px] md:max-w-full sm:max-w-full justify-start lg:justify-start">
-                  {/* Highlighted Hospital - Sir HN Reliance hospital */}
-                  <button className="px-2 lg:px-3 md:px-2.5 sm:px-2 py-1.5 lg:py-2 md:py-1.5 sm:py-1.5 rounded-[15px] lg:rounded-[25px] md:rounded-[20px] sm:rounded-[15px] bg-gradient-to-r from-[#984D95] to-[#D39CC0] text-[#FFFFFF] font-extralight text-xs lg:text-sm md:text-xs sm:text-xs inline-flex items-center gap-2 lg:gap-3 md:gap-2.5 sm:gap-2 hover:shadow-lg transition-all duration-300">
-                    Sir HN Reliance hospital
-                    <div className="p-1.5 lg:p-2 md:p-1.5 sm:p-1.5 bg-white rounded-[25px] lg:rounded-[50px] md:rounded-[35px] sm:rounded-[25px]">
-                      <img
-                        src="/arrow.svg"
-                        alt="Frame"
-                        className="w-2.5 lg:w-3 md:w-2.5 sm:w-2.5 h-2.5 lg:h-3 md:h-2.5 sm:h-2.5"
-                      />
-                    </div>
-                  </button>
 
-                  {/* Other Hospitals */}
-                  {[
-                    "Breach Candy hospital",
-                    "Saifee hospital",
-                    "Babies and Us Fertility and IVF Centre",
-                    "Wockhardt hospital",
-                    "Saint Elizabeth Hospital",
-                  ].map((hospital, index) => (
-                    <button
-                      key={index}
-                      className="px-2 lg:px-3 md:px-2.5 sm:px-2 py-1.5 lg:py-2 md:py-1.5 sm:py-1.5 rounded-[15px] lg:rounded-[25px] md:rounded-[20px] sm:rounded-[15px] bg-[#EEEEEE] text-[#2b2b2b] font-extralight text-xs lg:text-sm md:text-xs sm:text-xs inline-flex items-center gap-2 lg:gap-3 md:gap-2.5 sm:gap-2 hover:bg-gradient-to-r hover:from-[#984D95] hover:to-[#D39CC0] hover:text-white transition-all duration-300 group"
-                    >
-                      {hospital}
-                      <img
-                        src="/arrow.svg"
-                        alt="Arrow"
-                        className="w-2.5 lg:w-3 md:w-2.5 sm:w-2.5 h-2.5 lg:h-3 md:h-2.5 sm:h-2.5 group-hover:filter group-hover:invert transition-all duration-300"
-                      />
-                    </button>
-                  ))}
+                <div className="flex flex-wrap gap-3 max-w-[500px]">
+                  {LOCATIONS.map((loc) => {
+                    const isActive = selectedLocation.id === loc.id;
+                    return (
+                      <button
+                        key={loc.id}
+                        onClick={() => setSelectedLocation(loc)}
+                        className={[
+                          "px-3 py-2 rounded-[25px] text-sm inline-flex items-center gap-3 transition-all duration-300",
+                          isActive
+                            ? "bg-gradient-to-r from-[#984D95] to-[#D39CC0] text-white shadow-lg"
+                            : "bg-[#EEEEEE] text-[#2b2b2b] hover:bg-gradient-to-r hover:from-[#984D95] hover:to-[#D39CC0] hover:text-white",
+                        ].join(" ")}
+                        aria-pressed={isActive}
+                        aria-label={`Show ${loc.label} on map`}
+                      >
+                        {loc.label}
+                        <img src="/arrow.svg" alt="" className="w-3 h-3" />
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
             </div>
@@ -859,10 +941,12 @@ export const Mobile = (): JSX.Element => {
               <CardContent className="p-0 h-full">
                 <div className="w-full h-full rounded-[20px] lg:rounded-[30px] md:rounded-[25px] sm:rounded-[20px] overflow-hidden relative">
                   {/* Map Image */}
-                  <img
-                    src="/Map.svg"
-                    alt="Location Map"
-                    className="w-full h-full object-cover"
+                  <iframe
+                    title={`Map - ${selectedLocation.label}`}
+                    src={selectedLocation.embedUrl}
+                    className="w-full h-full"
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
                   />
 
                   {/* Operating Hours Overlay */}
@@ -884,41 +968,61 @@ export const Mobile = (): JSX.Element => {
               </CardContent>
             </Card>
           </div>
-          <Button className="ml-[100px] -mt-4 inline-flex items-center gap-2 px-4 pr-1.5 py-1.5 rounded-[50px] bg-[#2b2b2b] relative overflow-hidden group">
-            <div className="absolute inset-0 w-full bg-[#2B2B2B]" />
-            <div className="absolute inset-0 w-0 bg-gradient-to-r from-[rgba(152,77,149,1)] to-[rgba(211,156,192,1)] transition-all duration-300 ease-in-out group-hover:w-full" />
-            <span className="font-inter font-light text-white text-sm relative z-10">
-              Get Directions
-            </span>
-            <div className="p-1.5 bg-white rounded-full relative z-10">
-              <img src="/arrow.svg" alt="→" className="w-3 h-3" />
-            </div>
+          <Button
+            asChild
+            className="ml-[100px] -mt-4 inline-flex items-center gap-[11px] pl-3 pr-1.5 py-1.5 relative overflow-hidden group rounded-[50px] bg-[#2b2b2b] transition-all duration-300"
+          >
+            <a
+              href={selectedLocation.directionsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Directions to ${selectedLocation.label}`}
+            >
+              <div className="absolute inset-0 w-full bg-[#2b2b2b]" />
+              <div className="absolute inset-0 w-0 bg-gradient-to-r from-[rgba(152,77,149,1)] to-[rgba(211,156,192,1)] transition-all duration-300 ease-in-out group-hover:w-full" />
+              <span className="font-inter font-light text-[#F5F5F5] text-base group-hover:text-white transition-colors duration-300 relative z-10">
+                Get Directions
+              </span>
+              <div className="p-2 bg-white rounded-[50px] relative z-10">
+                <img src="/arrow.svg" alt="Frame" className="w-3 h-3" />
+              </div>
+            </a>
           </Button>
         </section>
 
         {/* Footer - Responsive */}
         {/* Footer - Image only with overlayed button */}
-        <footer className="mt-[260px] w-full px-4 lg:px-8">
+        <footer className="mt-[400px] w-full px-4 lg:px-8">
           <div className="max-w-[1900px] mx-auto">
             <Card className="relative rounded-[30px] shadow-lg overflow-hidden">
               {/* Full-bleed image (replace with your uploaded filename) */}
               <img
                 src="/Footer-mob.png" // <-- swap to your new image path if different
                 alt="Footer"
-                className="w-[400px] h-[500px] sm:h-[420px] lg:h-[520px] object-cover"
+                className="w-[380px] h-[500px] sm:h-[420px] lg:h-[520px] object-cover"
               />
 
               {/* Overlay button centered (sits ON TOP of the image) */}
               <div className="absolute inset-0 flex items-end justify-center pb-8 sm:pb-10">
-                <Button className="mb-[43px] inline-flex items-center gap-2 px-7 pr-2 py-6 rounded-[50px] bg-[#2B2B2B] relative overflow-hidden group z-10">
-                  <div className="absolute inset-0 w-full bg-[#2B2B2B]" />
-                  <div className="absolute inset-0 w-0 bg-gradient-to-r from-[rgba(152,77,149,1)] to-[rgba(211,156,192,1)] transition-all duration-300 ease-in-out group-hover:w-full" />
-                  <span className="font-inter font-light text-white text-lg relative z-10">
-                    Book Appointment
-                  </span>
-                  <div className="p-2 bg-white rounded-full relative z-10 ml-[2px]">
-                    <img src="/arrow.svg" alt="→" className="w-3 h-3" />
-                  </div>
+                <Button
+                  asChild
+                  className="mb-[43px] inline-flex items-center gap-2 px-2 pr-1 py-6 rounded-[50px] bg-[#2B2B2B] relative overflow-hidden group z-10"
+                >
+                  <a
+                    href={`https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MSG}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Book WhatsApp appointment"
+                  >
+                    <div className="absolute inset-0 w-full bg-[#2B2B2B]" />
+                    <div className="absolute inset-0 w-0 bg-gradient-to-r from-[rgba(152,77,149,1)] to-[rgba(211,156,192,1)] transition-all duration-300 ease-in-out group-hover:w-full" />
+                    <span className="font-inter font-light text-[#F5F5F5] text-[20px] group-hover:text-white transition-colors duration-300 relative z-10">
+                      Book Appointment
+                    </span>
+                    <div className="p-3 bg-[#FFFFFF] group-hover:bg-white rounded-full transition-all duration-300 relative z-10 ml-[1px]">
+                      <img src="/arrow.svg" alt="Frame" className="w-3 h-3" />
+                    </div>
+                  </a>
                 </Button>
               </div>
             </Card>
