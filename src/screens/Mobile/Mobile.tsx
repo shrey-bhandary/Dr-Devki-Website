@@ -999,7 +999,7 @@ export const Mobile = (): JSX.Element => {
               <img
                 src="/Footer-mob.png" // <-- swap to your new image path if different
                 alt="Footer"
-                className="w-[500px] h-[500px] sm:h-[420px] lg:h-[520px] object-cover"
+                className="w-[400px] h-[500px] sm:h-[420px] lg:h-[520px] object-cover"
               />
 
               {/* Overlay button centered (sits ON TOP of the image) */}
