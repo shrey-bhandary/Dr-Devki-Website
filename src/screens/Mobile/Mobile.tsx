@@ -10,7 +10,7 @@ import { Card, CardContent } from "../../components/ui/card";
 const PHONE_1 = "+919833646316";
 const PHONE_2 = "+919920414643";
 
-const WHATSAPP_NUMBER = "+919833646316"; // WhatsApp target
+const WHATSAPP_NUMBER = "+919892954913"; // WhatsApp target
 const WHATSAPP_MSG = encodeURIComponent(
   "Hi Dr. Devki, I'd like to book an appointment."
 );
@@ -178,7 +178,7 @@ export const Mobile = (): JSX.Element => {
               alt="Dr Devki Logo"
               className="h-6 w-auto object-contain"
             />
-            <span className="font-inter font-semibolds text-[#2b2b2b] text-sm">
+            <span className="font-inter font-semibold text-[#2b2b2b] text-sm">
               Dr. Devki Potwar
             </span>
           </div>
@@ -588,7 +588,7 @@ export const Mobile = (): JSX.Element => {
 
               {startSplitSlide && (
                 <div
-                  data-aos="fade-"
+                  data-aos="fade-up"
                   data-aos-duration="1000"
                   data-aos-delay="600"
                   className="relative ml-12 w-[220px] mt-[-525px] sm:mt-8 overflow-visible"
@@ -720,7 +720,6 @@ export const Mobile = (): JSX.Element => {
                     times: [0, 0.55, 0.8, 1], // fast in, quick bounce, settle
                     ease: ["easeOut", "easeInOut", "easeOut"],
                   }}
-                  xs
                   viewport={{ once: true, amount: 0.15 }}
                   className="flex flex-row gap-4 w-max"
                 >
