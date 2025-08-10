@@ -10,7 +10,7 @@ import { Card, CardContent } from "../../components/ui/card";
 const PHONE_1 = "+919833646316";
 const PHONE_2 = "+919920414643";
 
-const WHATSAPP_NUMBER = ""; // WhatsApp target
+const WHATSAPP_NUMBER = "9833646316"; // WhatsApp target
 const WHATSAPP_MSG = encodeURIComponent(
   "Hi Dr. Devki, I'd like to book an appointment."
 );
