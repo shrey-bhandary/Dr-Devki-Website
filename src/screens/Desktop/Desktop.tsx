@@ -1244,6 +1244,13 @@
                 </div>
 
                 <CardContent className="p-10 relative z-10">
+                  <div className="flex justify-start mb-8">
+                    <img
+                     src="/Potwar.svg"
+                     alt="Potwar Clinic logo"
+                     className="h-15 w-auto mb-[-100px]"
+                    />
+                  </div>
                   <div className="flex items-center justify-between">
                     {/* Address Section */}
                     <div className="flex items-center gap-4 mt-[100px]">
