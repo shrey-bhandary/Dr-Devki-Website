@@ -1113,7 +1113,7 @@ export const Desktop = ({}: { isVisible: boolean }): JSX.Element => {
     "
             >
               {/* LEFT: Text/chips — slightly nudged left on wide screens */}
-              <div className="lg:col-span-4 xl:col-span-8 2xl:col-span-9 min-w-0 lg:-ml-4 xl:-ml-8 2xl:-ml-12">
+              <div className="lg:col-span-3.5 xl:col-span-8 2xl:col-span-9 min-w-0 lg:-ml-4 xl:-ml-8 2xl:-ml-12">
                 <h2 className="text-[32px] lg:text-[38px] leading-[1.25] font-inter font-bold text-[#2b2b2b]">
                   Potwar Clinic
                 </h2>
