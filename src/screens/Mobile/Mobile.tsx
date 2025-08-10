@@ -349,7 +349,7 @@ export const Mobile = (): JSX.Element => {
               <br />
               gone digital
             </h1>
-            <p className="w-[559px] mt-[-5px] font-inter font-light text-[#747474] text-sm leading-relaxed relative z-10">
+            <p className="w-[559px] mt-[-15px] font-inter font-light text-[#747474] text-sm leading-relaxed relative z-10">
               Keep scrolling to know how I can help you.
             </p>
             <Button
