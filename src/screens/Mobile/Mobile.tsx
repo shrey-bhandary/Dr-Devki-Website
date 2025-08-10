@@ -1006,7 +1006,7 @@ export const Mobile = (): JSX.Element => {
               <div className="absolute inset-0 flex items-end justify-center pb-8 sm:pb-10">
                 <Button
                   asChild
-                  className="mb-[43px] inline-flex items-center gap-2 px-2 pr-1 py-6 rounded-[50px] bg-[#2B2B2B] relative overflow-hidden group z-10"
+                  className="mb-[43px] inline-flex items-center justify-center gap-2 px-2 pr-1 py-6 rounded-[50px] bg-[#2B2B2B] relative overflow-hidden group z-10"
                 >
                   <a
                     href={`https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MSG}`}
