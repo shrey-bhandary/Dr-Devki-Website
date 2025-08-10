@@ -135,7 +135,7 @@ module.exports = {
         "fade-up": "fade-up 1.5s ease-out forwards",
         "stroke-draw": "stroke-draw 1s ease-out forwards",
         "stroke-draw-reverse": "stroke-draw-reverse 1s ease-out forwards",
-        marquee: "marquee 13s linear infinite",
+        marquee: "marquee 130s linear infinite",
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "slide-in": "slide-in 15s ease-in",
