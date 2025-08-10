@@ -272,49 +272,6 @@
                 </div>
               </a>
             </Button>
-            /* Popup Overlay */}
-            {showCallPopup && (
-              <div
-                className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
-                onClick={() => setShowCallPopup(false)} // click outside to close
-              >
-                {/* Popup Box */}
-                <div
-                  className="bg-white rounded-2xl shadow-lg p-6 w-[320px] animate-fadeIn"
-                  onClick={(e) => e.stopPropagation()} // prevent closing when clicking inside
-                >
-                  <h3 className="text-lg font-semibold mb-4 text-[#2b2b2b]">
-                    Call Potwar Clinic
-                  </h3>
-
-                  <div className="space-y-3">
-                    <a
-                      href={`tel:${PHONE_1}`}
-                      className="w-full flex items-center justify-between rounded-xl border border-gray-200 px-4 py-3 hover:bg-gray-50"
-                    >
-                      <span className="text-[#2b2b2b]">+91 98336 46316</span>
-                      <PhoneIcon className="w-4 h-4 text-[#984D95]" />
-                    </a>
-
-                    <a
-                      href={`tel:${PHONE_2}`}
-                      className="w-full flex items-center justify-between rounded-xl border border-gray-200 px-4 py-3 hover:bg-gray-50"
-                    >
-                      <span className="text-[#2b2b2b]">+91 99204 14643</span>
-                      <PhoneIcon className="w-4 h-4 text-[#984D95]" />
-                    </a>
-                  </div>
-
-                  <button
-                    onClick={() => setShowCallPopup(false)}
-                    className="mt-4 w-full py-2 rounded-xl bg-[#984D95] text-white hover:opacity-90 transition"
-                  >
-                    Close
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
           </header>
 
           {/* Hero Section */}
