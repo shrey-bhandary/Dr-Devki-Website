@@ -1233,7 +1233,7 @@
           {/* Footer */}
           <footer className="w-full px-14 py-1">
             <div className="max-w-8xl mx-auto">
-              <Card className="bg-white rounded-[30px] shadow-lg overflow-hidden relative">
+              <Card className="bg-[#D6A0C229] rounded-[30px] shadow-lg overflow-hidden relative">
                 {/* Background Image */}
                 <div className="absolute inset-0">
                   <img
