@@ -122,43 +122,57 @@ const galleryRef = useRef<HTMLElement>(null);
 const clinicRef = useRef<HTMLElement>(null);
 const testimonialsRef = useRef<HTMLElement>(null);
 
-// Auto-highlight on scroll
 useEffect(() => {
+  const HEADER_OFFSET = 120; // ~ your fixed header height (tweak if needed)
+
   const sections: Array<{ name: string; el: HTMLElement | null }> = [
-    { name: "Home", el: heroRef.current },
-    { name: "About", el: (aboutSectionRef as React.RefObject<HTMLElement>).current },
-    { name: "Services", el: servicesRef.current },
-    { name: "Gallery", el: galleryRef.current },
-    { name: "Clinic", el: clinicRef.current },
+    { name: "Home",         el: heroRef.current },
+    { name: "About",        el: (aboutSectionRef as React.RefObject<HTMLElement>).current },
+    { name: "Services",     el: servicesRef.current },
+    { name: "Gallery",      el: galleryRef.current },
+    { name: "Clinic",       el: clinicRef.current },
     { name: "Testimonials", el: testimonialsRef.current },
   ];
 
-  const obs = new IntersectionObserver(
-    (entries) => {
-      // Pick the entry that is most visible
-      const visible = entries
-        .filter((e) => e.isIntersecting)
-        .sort((a, b) => (b.intersectionRatio ?? 0) - (a.intersectionRatio ?? 0))[0];
+  let ticking = false;
 
-      if (visible) {
-        const matched = sections.find((s) => s.el === visible.target);
-        if (matched) setActiveNav(matched.name);
+  const compute = () => {
+    ticking = false;
+    const marker = window.scrollY + HEADER_OFFSET + 1; // line just below header
+
+    // Find the section whose [top, bottom) contains the marker
+    let current = "Home";
+    for (const s of sections) {
+      if (!s.el) continue;
+      const top = s.el.offsetTop;
+      const bottom = top + s.el.offsetHeight;
+      if (marker >= top && marker < bottom) {
+        current = s.name;
+        break;
       }
-    },
-    {
-      // “center slice” of viewport: easier to activate Services
-      root: null,
-      rootMargin: "-40% 0px -40% 0px",
-      threshold: [0, 0.01, 0.1, 0.25, 0.5],
     }
-  );
+    setActiveNav(current);
+  };
 
-  sections.forEach(({ el }) => {
-    if (el) obs.observe(el);
-  });
+  const onScroll = () => {
+    if (!ticking) {
+      window.requestAnimationFrame(compute);
+      ticking = true;
+    }
+  };
 
-  return () => obs.disconnect();
-}, []); // run once on mount
+  const onResize = () => compute();
+
+  // initial run (after layout)
+  setTimeout(compute, 0);
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onResize);
+  return () => {
+    window.removeEventListener("scroll", onScroll);
+    window.removeEventListener("resize", onResize);
+  };
+}, []);
 
   // Function to scroll to section
   const scrollToSection = (sectionName: string) => {
