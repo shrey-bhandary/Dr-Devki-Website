@@ -1138,7 +1138,6 @@ export const Mobile = (): JSX.Element => {
           absolute inset-0
           bg-[url('/Footer-mob.svg')]  /* <- your wide image */
           bg-no-repeat bg-cover
-          bg-[position:2%_80%]                /* tweak this to choose focal point */
           bg-right
         "
               />
