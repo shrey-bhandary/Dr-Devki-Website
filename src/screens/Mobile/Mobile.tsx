@@ -181,7 +181,7 @@ export const Mobile = (): JSX.Element => {
               alt="Dr Devki Logo"
               className="h-6 w-auto object-contain"
             />
-            <span className="font-inter font-semibold text-[#2b2b2b] text-sm">
+            <span className="font-inter font-normal text-[#2b2b2b] text-base">
               Dr. Devki Potwar
             </span>
           </div>
