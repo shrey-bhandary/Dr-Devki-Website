@@ -122,58 +122,6 @@ const galleryRef = useRef<HTMLElement>(null);
 const clinicRef = useRef<HTMLElement>(null);
 const testimonialsRef = useRef<HTMLElement>(null);
 
-useEffect(() => {
-  const HEADER_OFFSET = 120; // ~ your fixed header height (tweak if needed)
-
-  const sections: Array<{ name: string; el: HTMLElement | null }> = [
-    { name: "Home",         el: heroRef.current },
-    { name: "About",        el: (aboutSectionRef as React.RefObject<HTMLElement>).current },
-    { name: "Services",     el: servicesRef.current },
-    { name: "Gallery",      el: galleryRef.current },
-    { name: "Clinic",       el: clinicRef.current },
-    { name: "Testimonials", el: testimonialsRef.current },
-  ];
-
-  let ticking = false;
-
-  const compute = () => {
-    ticking = false;
-    const marker = window.scrollY + HEADER_OFFSET + 1; // line just below header
-
-    // Find the section whose [top, bottom) contains the marker
-    let current = "Home";
-    for (const s of sections) {
-      if (!s.el) continue;
-      const top = s.el.offsetTop;
-      const bottom = top + s.el.offsetHeight;
-      if (marker >= top && marker < bottom) {
-        current = s.name;
-        break;
-      }
-    }
-    setActiveNav(current);
-  };
-
-  const onScroll = () => {
-    if (!ticking) {
-      window.requestAnimationFrame(compute);
-      ticking = true;
-    }
-  };
-
-  const onResize = () => compute();
-
-  // initial run (after layout)
-  setTimeout(compute, 0);
-
-  window.addEventListener("scroll", onScroll, { passive: true });
-  window.addEventListener("resize", onResize);
-  return () => {
-    window.removeEventListener("scroll", onScroll);
-    window.removeEventListener("resize", onResize);
-  };
-}, []);
-
   // Function to scroll to section
   const scrollToSection = (sectionName: string) => {
     let targetRef: React.RefObject<HTMLElement> | null = null;
@@ -332,6 +280,7 @@ useEffect(() => {
         {/* Hero Section */}
         <section
           ref={heroRef}
+          onViewportEnter={() => setActiveNav("Home")}
           className="pt-[100px] px-4 sm:px-8 md:px-12 lg:px-16 xl:px-24 2xl:px-32 pb-20 flex flex-col xl:flex-row gap-12 xl:gap-0 relative"
         >
           {/* Large gradient spot behind image grid */}
@@ -492,6 +441,7 @@ useEffect(() => {
         {/* Quote Section */}
         <section
           ref={linesRef}
+          onViewportEnter={() => setActiveNav("About")}
           className="ml-[-10px] mr-[10px] my-16 relative z-0 flex justify-start"
         >
           {/* Background lines */}
@@ -815,6 +765,7 @@ useEffect(() => {
         {/* Services Section */}
         <section
           ref={servicesRef}
+          onViewportEnter={() => setActiveNav("Services")}
           className="px-4 sm:px-8 md:px-12 lg:px-16 xl:px-24 2xl:px-32 py-10"
         >
           <h2 className="w-full max-w-[969px] xl:max-w-[1140px] 2xl:max-w-[1280px] mx-auto text-[42px] text-center leading-[52px] font-inter font-bold text-[#2b2b2b] mb-12">
@@ -886,6 +837,7 @@ useEffect(() => {
         {/* Gallery Section */}
         <section
           ref={galleryRef}
+          onViewportEnter={() => setActiveNav("Gallery")}
           className="pt-[100px] ml-[-100px] mr-[10px] pb-20 flex justify-center relative overflow-visible px-2 lg:px-4 xl:px-14 2xl:px-20"
         >
           <div className="w-full max-w-[1800px] 2xl:max-w-[2000px] relative">
@@ -1039,6 +991,7 @@ useEffect(() => {
         {/* Testimonials — FULL-BLEED */}
         <section
           ref={testimonialsRef}
+          onViewportEnter={() => setActiveNav("Testimonials")}
           data-aos="fade-up"
           data-aos-duration="5500"
           data-aos-delay="800"
@@ -1220,6 +1173,7 @@ useEffect(() => {
         {/* Location Section */}
         <section
           ref={clinicRef}
+          onViewportEnter={() => setActiveNav("Clinic")}
           data-aos="fade-up"
           data-aos-duration="5000"
           data-aos-delay="800"
