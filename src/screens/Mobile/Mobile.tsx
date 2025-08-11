@@ -10,7 +10,7 @@ import { Card, CardContent } from "../../components/ui/card";
 const PHONE_1 = "+919833646316";
 const PHONE_2 = "+919920414643";
 
-const WHATSAPP_NUMBER = "+919833646316"; // WhatsApp target
+const WHATSAPP_NUMBER = "+919892954913"; // WhatsApp target
 const WHATSAPP_MSG = encodeURIComponent(
   "Hi Dr. Devki, I'd like to book an appointment."
 );
@@ -511,7 +511,7 @@ export const Mobile = (): JSX.Element => {
                   data-aos="fade-up"
                   data-aos-duration="1800"
                   data-aos-delay="2500"
-                  className="absolute inset-0 flex items-center justify-center mt-[110px] sm:mt-[20px]"
+                  className="absolute inset-0 flex items-center justify-center mt-[90px] sm:mt-[20px]"
                 >
                   <p className="text-[23px] sm:text-[22px] md:text-[28px] lg:text-[38px] font-inter font-semibold text-[#2b2b2b]">
                     14 years ago, I created Potwar clinic <br /> out of a simple
@@ -1105,30 +1105,32 @@ export const Mobile = (): JSX.Element => {
               </CardContent>
             </Card>
           </div>
-          <Button
-            asChild
-            className="mx-auto -mt-4 inline-flex  items-center gap-[11px] py-1.5 relative overflow-hidden group rounded-[50px] bg-[#2b2b2b] transition-all duration-300 h-auto !px-3 !py-2"
-          >
-            <a
-              href={selectedLocation.directionsUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={`Directions to ${selectedLocation.label}`}
+          <div className="flex justify-center">
+            <Button
+              asChild
+              className="inline-flex items-center gap-[11px] py-1.5 relative overflow-hidden group rounded-[50px] bg-[#2b2b2b] transition-all duration-300 h-auto !px-3 !py-2"
             >
-              <div className="absolute inset-0 w-full bg-[#2b2b2b]" />
-              <div className="absolute inset-0 w-0 bg-gradient-to-r from-[rgba(152,77,149,1)] to-[rgba(211,156,192,1)] transition-all duration-300 ease-in-out group-hover:w-full" />
-              <span className="font-inter font-light text-[#F5F5F5] text-base group-hover:text-white transition-colors duration-300 relative z-10">
-                Get Directions
-              </span>
-              <div className="p-2 bg-white rounded-[50px] relative z-10">
-                <img src="/arrow.svg" alt="Frame" className="w-3 h-3" />
-              </div>
-            </a>
-          </Button>
+              <a
+                href={selectedLocation.directionsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Directions to ${selectedLocation.label}`}
+              >
+                <div className="absolute inset-0 w-full bg-[#2b2b2b]" />
+                <div className="absolute inset-0 w-0 bg-gradient-to-r from-[rgba(152,77,149,1)] to-[rgba(211,156,192,1)] transition-all duration-300 ease-in-out group-hover:w-full" />
+                <span className="font-inter font-light text-[#F5F5F5] text-base group-hover:text-white transition-colors duration-300 relative z-10">
+                  Get Directions
+                </span>
+                <div className="p-2 bg-white rounded-[50px] relative z-10">
+                  <img src="/arrow.svg" alt="Frame" className="w-3 h-3" />
+                </div>
+              </a>
+            </Button>
+          </div>
         </section>
 
         {/* Footer */}
-        <footer className="mt-[350px] w-full px-4 lg:px-8 py-10">
+        <footer className="mt-[300px] w-full px-4 lg:px-8 py-10">
           <div className="max-w-[520px] mx-auto">
             {/* No padding on the Card so the logo can hug the left edge */}
             <Card className="relative rounded-[30px] overflow-hidden shadow-md p-0">
@@ -1138,6 +1140,8 @@ export const Mobile = (): JSX.Element => {
           absolute inset-0
           bg-[url('/Footer-mob.svg')]  /* <- your wide image */
           bg-no-repeat bg-cover
+          bg-[position:2%_80%]                /* tweak this to choose focal point */
+          bg-right
         "
               />
 
