@@ -511,7 +511,7 @@ export const Mobile = (): JSX.Element => {
                   data-aos="fade-up"
                   data-aos-duration="1800"
                   data-aos-delay="2500"
-                  className="absolute inset-0 flex items-center justify-center mt-[90px] sm:mt-[20px]"
+                  className="absolute inset-0 flex items-center justify-center mt-110px] sm:mt-[20px]"
                 >
                   <p className="text-[23px] sm:text-[22px] md:text-[28px] lg:text-[38px] font-inter font-semibold text-[#2b2b2b]">
                     14 years ago, I created Potwar clinic <br /> out of a simple
