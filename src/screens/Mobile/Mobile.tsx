@@ -1130,7 +1130,7 @@ export const Mobile = (): JSX.Element => {
         </section>
 
         {/* Footer */}
-        <footer className="mt-[300px] w-full px-4 lg:px-8 py-10">
+        <footer className="mt-[350px] w-full px-4 lg:px-8 py-10">
           <div className="max-w-[520px] mx-auto">
             {/* No padding on the Card so the logo can hug the left edge */}
             <Card className="relative rounded-[30px] overflow-hidden shadow-md p-0">
@@ -1140,8 +1140,6 @@ export const Mobile = (): JSX.Element => {
           absolute inset-0
           bg-[url('/Footer-mob.svg')]  /* <- your wide image */
           bg-no-repeat bg-cover
-          bg-[position:2%_80%]                /* tweak this to choose focal point */
-          bg-right
         "
               />
 
