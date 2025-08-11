@@ -1128,7 +1128,7 @@ export const Mobile = (): JSX.Element => {
         </section>
 
         {/* Footer */}
-        <footer className="mt-[300px] w-full px-4 lg:px-8 py-10">
+        <footer className="mt-[350px] w-full px-4 lg:px-8 py-10">
           <div className="max-w-[520px] mx-auto">
             {/* No padding on the Card so the logo can hug the left edge */}
             <Card className="relative rounded-[30px] overflow-hidden shadow-md p-0">
