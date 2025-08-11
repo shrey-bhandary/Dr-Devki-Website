@@ -122,6 +122,36 @@ const galleryRef = useRef<HTMLElement>(null);
 const clinicRef = useRef<HTMLElement>(null);
 const testimonialsRef = useRef<HTMLElement>(null);
 
+  // put near the top of the component, after refs:
+const HEADER_OFFSET = 120; // adjust to your fixed header height
+
+// In-view states for each top-level section
+const homeInView        = useInView(heroRef,          { amount: 0.6, margin: `-${HEADER_OFFSET}px 0px -40% 0px` });
+const aboutInView       = useInView(aboutSectionRef,   { amount: 0.6, margin: `-${HEADER_OFFSET}px 0px -40% 0px` });
+const servicesInView    = useInView(servicesRef,       { amount: 0.6, margin: `-${HEADER_OFFSET}px 0px -40% 0px` });
+const galleryInView     = useInView(galleryRef,        { amount: 0.6, margin: `-${HEADER_OFFSET}px 0px -40% 0px` });
+const clinicInView      = useInView(clinicRef,         { amount: 0.6, margin: `-${HEADER_OFFSET}px 0px -40% 0px` });
+const testimonInView    = useInView(testimonialsRef,   { amount: 0.6, margin: `-${HEADER_OFFSET}px 0px -40% 0px` });
+
+// Single resolver – choose ONE active tab even if two overlap.
+// Priority goes from bottom to top here; tweak if you want.
+useEffect(() => {
+  if (testimonInView)   return setActiveNav("Testimonials");
+  if (clinicInView)     return setActiveNav("Clinic");
+  if (galleryInView)    return setActiveNav("Gallery");
+  if (servicesInView)   return setActiveNav("Services");
+  if (aboutInView)      return setActiveNav("About");
+  if (homeInView)       return setActiveNav("Home");
+}, [
+  homeInView,
+  aboutInView,
+  servicesInView,
+  galleryInView,
+  clinicInView,
+  testimonInView,
+]);
+
+
   // Function to scroll to section
   const scrollToSection = (sectionName: string) => {
     let targetRef: React.RefObject<HTMLElement> | null = null;
@@ -279,10 +309,9 @@ const testimonialsRef = useRef<HTMLElement>(null);
 
         {/* Hero Section */}
         <section
-          ref={heroRef}
-          onViewportEnter={() => setActiveNav("Home")}
-          className="pt-[100px] px-4 sm:px-8 md:px-12 lg:px-16 xl:px-24 2xl:px-32 pb-20 flex flex-col xl:flex-row gap-12 xl:gap-0 relative"
+          className="pt-[100px] px-4 sm:px-8 md:px-12 lg:px-16 xl:px-24 2xl:px-32 pb-20 flex flex-col xl:flex-row gap-12 xl:gap-0 relative scroll-mt-[120px]"
         >
+          <div ref={heroRef as React.RefObject<HTMLDivElement>} aria-hidden className="absolute top-0 left-0 h-px w-px" />
           {/* Large gradient spot behind image grid */}
           <div
             data-aos="fade-in"
@@ -441,13 +470,13 @@ const testimonialsRef = useRef<HTMLElement>(null);
         {/* Quote Section */}
         <section
           ref={linesRef}
-          onViewportEnter={() => setActiveNav("About")}
-          className="ml-[-10px] mr-[10px] my-16 relative z-0 flex justify-start"
-        >
-          {/* Background lines */}
-          <div className="absolute inset-0 overflow-visible pointer-events-none">
-            {/* Left Line */}
-            <svg
+          className="ml-[-10px] mr-[10px] my-16 relative z-0 flex justify-start  scroll-mt-[120px]"
+          >
+            <div ref={aboutSectionRef as React.RefObject<HTMLDivElement>} aria-hidden className="absolute top-0 left-0 h-px w-px" />
+            {/* Background lines */}
+            <div className="absolute inset-0 overflow-visible pointer-events-none">
+              {/* Left Line */}
+              <svg
               viewBox="0 0 831 252"
               xmlns="http://www.w3.org/2000/svg"
               className={`absolute left-0 -translate-x-[200px] xl:-translate-x-[250px] 2xl:-translate-x-[300px] top-20 w-[800px] h-[300px] ${
@@ -520,7 +549,6 @@ const testimonialsRef = useRef<HTMLElement>(null);
           </div>
 
           <Card
-            ref={aboutSectionRef as React.Ref<HTMLDivElement>}
             data-aos="zoom-in-up"
             data-aos-duration="1000"
             data-aos-delay="700"
@@ -764,10 +792,9 @@ const testimonialsRef = useRef<HTMLElement>(null);
 
         {/* Services Section */}
         <section
-          ref={servicesRef}
-          onViewportEnter={() => setActiveNav("Services")}
-          className="px-4 sm:px-8 md:px-12 lg:px-16 xl:px-24 2xl:px-32 py-10"
+          className="px-4 sm:px-8 md:px-12 lg:px-16 xl:px-24 2xl:px-32 py-10 scroll-mt-[120px]"
         >
+          <div ref={servicesRef as React.RefObject<HTMLDivElement>} aria-hidden className="absolute top-0 left-0 h-px w-px" />
           <h2 className="w-full max-w-[969px] xl:max-w-[1140px] 2xl:max-w-[1280px] mx-auto text-[42px] text-center leading-[52px] font-inter font-bold text-[#2b2b2b] mb-12">
             Our Services
           </h2>
@@ -836,10 +863,9 @@ const testimonialsRef = useRef<HTMLElement>(null);
 
         {/* Gallery Section */}
         <section
-          ref={galleryRef}
-          onViewportEnter={() => setActiveNav("Gallery")}
-          className="pt-[100px] ml-[-100px] mr-[10px] pb-20 flex justify-center relative overflow-visible px-2 lg:px-4 xl:px-14 2xl:px-20"
+          className="pt-[100px] ml-[-100px] mr-[10px] pb-20 flex justify-center relative overflow-visible px-2 lg:px-4 xl:px-14 2xl:px-20 scroll-mt-[120px]"
         >
+            <div ref={galleryRef as React.RefObject<HTMLDivElement>} aria-hidden className="absolute top-0 left-0 h-px w-px" />
           <div className="w-full max-w-[1800px] 2xl:max-w-[2000px] relative">
             {/* Background lines */}
             <div className="absolute inset-0 pointer-events-none z-0">
@@ -990,8 +1016,6 @@ const testimonialsRef = useRef<HTMLElement>(null);
 
         {/* Testimonials — FULL-BLEED */}
         <section
-          ref={testimonialsRef}
-          onViewportEnter={() => setActiveNav("Testimonials")}
           data-aos="fade-up"
           data-aos-duration="5500"
           data-aos-delay="800"
@@ -1000,9 +1024,10 @@ const testimonialsRef = useRef<HTMLElement>(null);
           className="
     relative w-full max-w-[1300px]
     xl:max-w-[1600px] 2xl:max-w-[1800px]
-    mx-auto bg-white py-12 overflow-visible
+    mx-auto bg-white py-12 overflow-visible scroll-mt-[120px]
   "
         >
+            <div ref={testimonialsRef as React.RefObject<HTMLDivElement>} aria-hidden className="absolute top-0 left-0 h-px w-px" />
           {/* Header (centered, with safe max width) */}
           <div className="mx-auto w-full max-w-[1600px] px-6">
             <div className="flex justify-between items-start mb-16">
@@ -1172,14 +1197,13 @@ const testimonialsRef = useRef<HTMLElement>(null);
 
         {/* Location Section */}
         <section
-          ref={clinicRef}
-          onViewportEnter={() => setActiveNav("Clinic")}
           data-aos="fade-up"
           data-aos-duration="5000"
           data-aos-delay="800"
           data-aos-easing="ease-in-out"
-          className="w-full bg-white mt-10"
+          className="w-full bg-white mt-10 scroll-mt-[120px]"
         >
+          <div ref={clinicRef as React.RefObject<HTMLDivElement>} aria-hidden className="absolute top-0 left-0 h-px w-px" />
           <div className="mx-auto max-w-[1120px] xl:max-w-[1760px] 2xl:max-w-[2000px] px-3 sm:px-6 lg:px-8 xl:px-10 2xl:px-12 py-12">
             {/* Grid: left text + right map */}
             <div
