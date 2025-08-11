@@ -893,7 +893,7 @@ export const Mobile = (): JSX.Element => {
 
             <Button
               asChild
-              className="mt-8 w-fit pl-3 pr-1.5 py-2 relative overflow-hidden group rounded-[50px] transition-all duration-300"
+              className="mt-18 w-fit pl-3 pr-1.5 py-2.5 relative overflow-hidden group rounded-[50px] transition-all duration-300"
             >
               <a
                 href={`https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MSG}`}
