@@ -352,9 +352,10 @@ export const Mobile = (): JSX.Element => {
               <br />
               gone digital
             </h1>
-            <p className="w-[559px] mt-[-1px] font-inter font-light text-[#747474] text-sm leading-relaxed relative z-10">
+            <p className="w-[559px] mt-[5px] font-inter font-light text-[#747474] text-sm leading-relaxed relative z-10">
               Keep scrolling to know how I can help you.
             </p>
+            <div className = "flex justify-center">
             <Button
               asChild
               className="mt-8 w-fit pl-3 pr-1.5 py-2 relative overflow-hidden group rounded-[50px] transition-all duration-300"
@@ -375,6 +376,7 @@ export const Mobile = (): JSX.Element => {
                 </div>
               </a>
             </Button>
+           </div>
           </div>
         </section>
 
