@@ -114,47 +114,51 @@ export const Desktop = ({}: { isVisible: boolean }): JSX.Element => {
 
   const [activeNav, setActiveNav] = React.useState("Home");
 
-  useEffect(() => {
-    // Map nav labels to their refs
-    const sectionMap: { name: string; el: HTMLElement | null }[] = [
-      { name: "Home", el: heroRef.current },
-      {
-        name: "About",
-        el: (aboutSectionRef as React.RefObject<HTMLElement>).current,
-      },
-      { name: "Services", el: servicesRef.current },
-      { name: "Gallery", el: galleryRef.current },
-      { name: "Clinic", el: clinicRef.current },
-      { name: "Testimonials", el: testimonialsRef.current },
-    ];
+ // Add refs (move these above any useEffect that needs them)
+const heroRef = useRef<HTMLElement>(null);
+const aboutSectionRef = useRef<HTMLElement>(null);
+const servicesRef = useRef<HTMLElement>(null);
+const galleryRef = useRef<HTMLElement>(null);
+const clinicRef = useRef<HTMLElement>(null);
+const testimonialsRef = useRef<HTMLElement>(null);
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const matched = sectionMap.find((s) => s.el === entry.target);
-            if (matched) setActiveNav(matched.name);
-          }
-        });
-      },
-      // Tweak rootMargin/threshold so the highlight feels right
-      { root: null, rootMargin: "0px 0px -55% 0px", threshold: 0.25 }
-    );
+// Auto-highlight on scroll
+useEffect(() => {
+  const sections: Array<{ name: string; el: HTMLElement | null }> = [
+    { name: "Home", el: heroRef.current },
+    { name: "About", el: (aboutSectionRef as React.RefObject<HTMLElement>).current },
+    { name: "Services", el: servicesRef.current },
+    { name: "Gallery", el: galleryRef.current },
+    { name: "Clinic", el: clinicRef.current },
+    { name: "Testimonials", el: testimonialsRef.current },
+  ];
 
-    sectionMap.forEach(({ el }) => {
-      if (el) observer.observe(el);
-    });
+  const obs = new IntersectionObserver(
+    (entries) => {
+      // Pick the entry that is most visible
+      const visible = entries
+        .filter((e) => e.isIntersecting)
+        .sort((a, b) => (b.intersectionRatio ?? 0) - (a.intersectionRatio ?? 0))[0];
 
-    return () => observer.disconnect();
-  }, []);
+      if (visible) {
+        const matched = sections.find((s) => s.el === visible.target);
+        if (matched) setActiveNav(matched.name);
+      }
+    },
+    {
+      // “center slice” of viewport: easier to activate Services
+      root: null,
+      rootMargin: "-40% 0px -40% 0px",
+      threshold: [0, 0.01, 0.1, 0.25, 0.5],
+    }
+  );
 
-  // Add refs for each section
-  const heroRef = useRef<HTMLElement>(null);
-  const aboutSectionRef = useRef<HTMLElement>(null);
-  const servicesRef = useRef<HTMLElement>(null);
-  const galleryRef = useRef<HTMLElement>(null);
-  const clinicRef = useRef<HTMLElement>(null);
-  const testimonialsRef = useRef<HTMLElement>(null);
+  sections.forEach(({ el }) => {
+    if (el) obs.observe(el);
+  });
+
+  return () => obs.disconnect();
+}, []); // run once on mount
 
   // Function to scroll to section
   const scrollToSection = (sectionName: string) => {
