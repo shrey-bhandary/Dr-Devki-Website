@@ -114,6 +114,40 @@ export const Desktop = ({}: { isVisible: boolean }): JSX.Element => {
 
   const [activeNav, setActiveNav] = React.useState("Home");
 
+  useEffect(() => {
+    // Map nav labels to their refs
+    const sectionMap: { name: string; el: HTMLElement | null }[] = [
+      { name: "Home", el: heroRef.current },
+      {
+        name: "About",
+        el: (aboutSectionRef as React.RefObject<HTMLElement>).current,
+      },
+      { name: "Services", el: servicesRef.current },
+      { name: "Gallery", el: galleryRef.current },
+      { name: "Clinic", el: clinicRef.current },
+      { name: "Testimonials", el: testimonialsRef.current },
+    ];
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const matched = sectionMap.find((s) => s.el === entry.target);
+            if (matched) setActiveNav(matched.name);
+          }
+        });
+      },
+      // Tweak rootMargin/threshold so the highlight feels right
+      { root: null, rootMargin: "0px 0px -55% 0px", threshold: 0.25 }
+    );
+
+    sectionMap.forEach(({ el }) => {
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   // Add refs for each section
   const heroRef = useRef<HTMLElement>(null);
   const aboutSectionRef = useRef<HTMLElement>(null);
@@ -1113,10 +1147,17 @@ export const Desktop = ({}: { isVisible: boolean }): JSX.Element => {
 
           {/* Explore All Link */}
           <div className="mt-[50px] text-center">
-            <button className="text-base text-[#000000] font-inter font-light inline-flex items-center gap-2 hover:underline">
-              Explore All
-              <img src="/arrow.svg" alt="Frame" className="w-3 h-3" />
-            </button>
+            <a
+              href="https://www.google.com/search?client=safari&sca_esv=6db176930c53557b&hl=en-us&biw=375&bih=637&sxsrf=AE3TifOkmfxSz340JKyvYpWRSpGscycRFw:1750859493622&q=dr+devki+potwar+reviews&uds=AOm0WdFY0GdalVU1UsU-tNmlAtO_bsXUnYPsSKMvIl0gS1w-rLIYFusuMl3p-Tjp9oLC1aGO5bP_WcB1cCBPiOgb8DHT1ieJWQYPlkf3FxhyXbHynb47DpOq8ca-7QMOIO0Ow86YvGjNOpjyTEs5r-fEm0ySZTITJVVHzk6LmB54gGHEp7J7dHmj5HL5VnN5imNEq2hnjxbRXIX5_cOdCeffMx5rRe-HvpiBsak4pxm_4lExPcd7yi_imPrzzt3njuyMJnpGkpoEmW8bNBn44_xVz968eYT8Gt6FwPQ8sEz7stwzLc0lMOlDv4YzYqp4HmN8hIR7R4im_KuhNznOoDr8fhPQxBdC7vDP8TNgGugoznVJKMVJiZvta0fDuu6nFG8GeFZKXMZGxczqNEW0BNTCOs-VrqLEt8pj3M21xhsqfkEwALitwuB_1a6C8cyT48f-L0MuLCSITxQmALD8W7osNaKwUPr8Gw&si=AMgyJEtREmoPL4P1I5IDCfuA8gybfVI2d5Uj7QMwYCZHKDZ-E66d_c9x3anzXlA7SKuVG2UiYHKwSapILqgEWGQjQxM5-Ze0VRqX6j9MIKtj3goJ8macmfK7ufumAeYZb7jjUEYGDkmr&sa=X&ved=2ahUKEwi54Kzx24yOAxUmh1YBHajEH3QQk8gLegQIIxAB&ictx=1&stq=1&cs=1&lei=5f5baPnZJaaO2roPqIn_oAc#ebo=2"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block"
+            >
+              <button className="text-base text-[#000000] font-inter font-light inline-flex items-center gap-2 hover:underline">
+                Explore All
+                <img src="/arrow.svg" alt="Frame" className="w-3 h-3" />
+              </button>
+            </a>
           </div>
         </section>
 
