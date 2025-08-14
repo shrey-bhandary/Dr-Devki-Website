@@ -258,13 +258,13 @@ useEffect(() => {
           data-aos-easing="ease-in-out"
           className="fixed top-[30px] left-0 right-0 z-50 flex justify-center"
         >
-          <div className="flex w-[250px] h-[60px] items-center justify-center px-4 py-2 bg-[#F5F5F5] rounded-[50px] absolute left-16">
+          <div className="flex w-[210px] h-[60px] items-center justify-center px-4 py-2 bg-[#F5F5F5] rounded-[50px] absolute left-16">
             <img
               src="/Dr Devki Logo.svg"
               alt="Dr Devki Logo"
-              className="h-[30px] w-auto object-contain"
+              className="h-[35px] w-auto object-contain"
             />
-            <span className="ml-2 font-inter font-semibold text-[#2b2b2b] text-base">
+            <span className="ml-2 font-inter font-semibold text-[#2b2b2b] text-[14px]">
               Dr. Devki Potwar
             </span>
           </div>
@@ -331,9 +331,8 @@ useEffect(() => {
             {/* Text gradient spots */}
             <div className="absolute bottom-[-10%] left-[-40%] w-[900px] h-[500px] rounded-full bg-[radial-gradient(circle,rgba(211,156,192,0.3)_0%,rgba(152,77,149,0.2)_40%,transparent_100%)] blur-xl pointer-events-none" />
 
-            <h1 className="text-[48px] leading-[64px] font-inter font-semibold text-[#2b2b2b] relative z-10 max-w-[700px]">
-              Where women’s health meets 
-              <br />
+            <h1 className="text-[44px] leading-[64px] font-inter font-semibold text-[#2b2b2b] relative z-10 max-w-[700px]">
+              Where women’s health meets
               understanding and expertise
             </h1>
             <p className="w-[559px] mt-6 font-inter font-light text-[#747474] text-base leading-relaxed relative z-10">
