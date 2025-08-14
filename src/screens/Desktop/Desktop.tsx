@@ -262,9 +262,9 @@ useEffect(() => {
             <img
               src="/Dr Devki Logo.svg"
               alt="Dr Devki Logo"
-              className="h-[35px] w-auto object-contain"
+              className="h-[40px] w-auto object-contain"
             />
-            <span className="ml-2 font-inter font-semibold text-[#2b2b2b] text-[20px]">
+            <span className="ml-2 font-inter font-semibold text-[#2b2b2b] text-[18px]">
               Dr. Devki Potwar
             </span>
           </div>
