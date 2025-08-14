@@ -258,7 +258,7 @@ useEffect(() => {
           data-aos-easing="ease-in-out"
           className="fixed top-[30px] left-0 right-0 z-50 flex justify-center"
         >
-          <div className="flex w-[220px] h-[60px] items-center justify-center px-4 py-2 bg-[#F5F5F5] rounded-[50px] absolute left-16">
+          <div className="flex w-[230px] h-[60px] items-center justify-center px-4 py-2 bg-[#F5F5F5] rounded-[50px] absolute left-16">
             <img
               src="/Dr Devki Logo.svg"
               alt="Dr Devki Logo"
