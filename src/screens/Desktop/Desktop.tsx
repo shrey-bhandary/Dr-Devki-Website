@@ -264,7 +264,7 @@ useEffect(() => {
               alt="Dr Devki Logo"
               className="h-[35px] w-auto object-contain"
             />
-            <span className="ml-2 font-inter font-semibold text-[#2b2b2b] text-[14px]">
+            <span className="ml-2 font-inter font-semibold text-[#2b2b2b] text-[20px]">
               Dr. Devki Potwar
             </span>
           </div>
