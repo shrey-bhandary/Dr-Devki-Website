@@ -674,21 +674,6 @@ export const Mobile = (): JSX.Element => {
                   </div>
                 </div>
               )}
-
-              {startSplitSlide && (
-                <div
-                  data-aos="fade-up"
-                  data-aos-duration="1000"
-                  data-aos-delay="600"
-                  className="relative ml-12 w-[220px] mt-[-525px] sm:mt-8 overflow-visible"
-                >
-                  <img
-                    src="/About(top).svg"
-                    alt="About A"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              )}
             </CardContent>
           </Card>
         </section>
