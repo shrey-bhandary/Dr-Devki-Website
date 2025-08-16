@@ -348,9 +348,8 @@ export const Mobile = (): JSX.Element => {
             <div className="absolute bottom-[-10%] left-[-40%] w-full h-[500px] rounded-full bg-[radial-gradient(circle,rgba(211,156,192,0.3)_0%,rgba(152,77,149,0.2)_40%,transparent_100%)] blur-xl pointer-events-none" />
 
             <h1 className="text-[35px] font-semibold text-[#2b2b2b] leading-tight mt-[-10px]">
-              Just your gynaec,
-              <br />
-              gone digital
+              Where women’s health meets
+              understanding and expertise
             </h1>
             <p className="w-[559px] mt-[5px] font-inter font-light text-[#747474] text-sm leading-relaxed relative z-10">
               Keep scrolling to know how I can help you.
