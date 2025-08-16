@@ -174,7 +174,7 @@ export const Mobile = (): JSX.Element => {
             data-aos-duration="1000"
             data-aos-delay="200"
             data-aos-easing="ease-in-out"
-            className="absolute top-14 left-5 z-20 flex items-center bg-[#F5F5F5] rounded-full px-2 py-2 shadow-md gap-2"
+            className="absolute top-14 left-5 z-20 flex items-center bg-[#F5F5F5] rounded-full px-2 py-2 shadow-md gap-1"
           >
             <img
               src="/Dr Devki Logo.svg"
