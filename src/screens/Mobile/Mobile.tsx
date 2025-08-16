@@ -174,14 +174,14 @@ export const Mobile = (): JSX.Element => {
             data-aos-duration="1000"
             data-aos-delay="200"
             data-aos-easing="ease-in-out"
-            className="absolute top-14 left-5 z-20 flex items-center bg-[#F5F5F5] rounded-full px-2 py-2 shadow-md gap-1"
+            className="absolute top-14 left-5 z-20 flex items-center bg-[#F5F5F5] rounded-full px-2 py-2 shadow-md gap-0"
           >
             <img
               src="/Dr Devki Logo.svg"
               alt="Dr Devki Logo"
               className="h-7 w-auto object-contain"
             />
-            <span className="ml-1 font-inter font-semibold text-[#2b2b2b] text-[16px]">
+            <span className="ml-1 font-inter font-semibold text-[#2b2b2b] text-[17px]">
               Dr. Devki Potwar
             </span>
           </div>
