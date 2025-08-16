@@ -766,15 +766,6 @@ useEffect(() => {
                   data-aos-easing="ease-in-out"
                   className="absolute inset-0 flex items-center justify-center gap-6 mt-[500px] pointer-events-none" // adjust mt and gap as needed
                 >
-                  {/* First Image */}
-                  <div className="w-[260px] h-[150px]rounded-[20px] overflow-hidden ml-[-590px] mt-[-1030px]">
-                    <img
-                      src="/About(top).svg"
-                      alt="Obstetrics Icon"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-
                   {/* Second Image */}
                   <div className="w-[260px] h-[130px]rounded-[20px] overflow-hidden ml-[-600px] mt-[-80px]">
                     <img
