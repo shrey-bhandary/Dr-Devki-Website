@@ -1,6 +1,8 @@
 import { lazy, Suspense, useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
 import AOS from "aos";
+import { SpeedInsights } from "@vercel/speed-insights/next"
+import { Analytics } from "@vercel/analytics/next"
 import "aos/dist/aos.css";
 
 const Desktop = lazy(() =>
