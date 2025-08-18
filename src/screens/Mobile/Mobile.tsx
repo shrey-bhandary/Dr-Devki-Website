@@ -327,7 +327,7 @@ export const Mobile = (): JSX.Element => {
                 times: [0.1, 0.4, 0.7, 0.85, 1],
                 ease: "easeInOut",
               }}
-              src="/SecondCol(1).webp"
+              src="/SecondCol(3).webp"
               alt="Clinic 4"
               className="rounded-[18px] object-cover w-full h-[175px] shadow-md mt-[-130px]"
             />
@@ -555,15 +555,22 @@ export const Mobile = (): JSX.Element => {
                   data-aos-delay="500"
                   className="text-left max-w-[92%] sm:max-w-[560px] md:max-w-[680px] lg:max-w-[620px] mt-6 sm:mt-8 lg:text-left">
                   <div className="relative w-full max-w-[620px] md:w-[620px] mx-auto">
-                    <div className="font-inter text-[15px] sm:text-[16px] md:text-[17px] font-thin text-black leading-relaxed text-left w-full">
+                    <div className="font-inter text-[15px] sm:text-[16px] md:text-[17px] font-thin text-black leading-relaxed text-left w-full max-h-[300px] overflow-y-auto">
                       {!showFullBio ? (
                         <p className="whitespace-pre-line">
                           M.S. (Obstetrics & Gynaecology), DNB (Obstetrics &
                           Gynaecology), DGO, Diploma in Reproductive Medicine
                           (Germany)
                           {"\n\n"}
-                          I’m an Obstetrician and Gynaecologist with over a
+                          I'm an Obstetrician and Gynaecologist with over a
                           decade of experience
+                          {"\n\n"}
+                          <button
+                            type="button"
+                            onClick={() => setShowFullBio(true)}
+                            className="text-blue-600 underline">
+                            Read more
+                          </button>
                         </p>
                       ) : (
                         <p className="whitespace-pre-line">
@@ -571,22 +578,22 @@ export const Mobile = (): JSX.Element => {
                           Gynaecology), DGO, Diploma in Reproductive Medicine
                           (Germany)
                           {"\n\n"}
-                          I’m an Obstetrician and Gynaecologist with over a
-                          decade of experience dedicated to women’s health, from
-                          adolescence to motherhood and beyond. Whether it’s
+                          I'm an Obstetrician and Gynaecologist with over a
+                          decade of experience dedicated to women's health, from
+                          adolescence to motherhood and beyond. Whether it's
                           guiding a high-risk pregnancy, performing advanced
                           gynaecological surgeries, or supporting couples on
-                          their fertility journey, I’m passionate about
+                          their fertility journey, I'm passionate about
                           providing compassionate and evidence-based care to
                           each patient.
                           {"\n\n"}I specialise in High-risk Obstetrics,
                           Minimally Invasive Gynaecological Surgeries,
-                          Infertility and IVF, and Vaginal Aesthetics. I’m the
+                          Infertility and IVF, and Vaginal Aesthetics. I'm the
                           first in Mumbai to use Arvati-ThermiVa, an advanced,
                           non-surgical technology which helps women with sexual
                           dysfunction, urinary incontinence and vaginal laxity.
                           {"\n\n"}
-                          I’m also a member of Mumbai Obstetric and
+                          I'm also a member of Mumbai Obstetric and
                           Gynaecological Society (MOGS), Federation of Obstetric
                           and Gynaecological Societies of India (FOGSI) and the
                           Indian Association of Gynecological Endoscopist
@@ -594,16 +601,15 @@ export const Mobile = (): JSX.Element => {
                           {"\n\n"}
                           Thanks for stopping by! I look forward to supporting
                           you through your healthcare journey.
+                          {"\n\n"}
+                          <button
+                            type="button"
+                            onClick={() => setShowFullBio(false)}
+                            className="text-blue-600 underline">
+                            Read less
+                          </button>
                         </p>
                       )}
-                      <div className="mt-3 text-right">
-                        <button
-                          type="button"
-                          onClick={() => setShowFullBio((v) => !v)}
-                          className="text-blue-600 underline">
-                          {showFullBio ? "Read less" : "Read more"}
-                        </button>
-                      </div>
                     </div>
                   </div>
                 </div>

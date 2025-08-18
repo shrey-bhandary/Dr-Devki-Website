@@ -648,13 +648,13 @@ export const Desktop = ({}: { isVisible: boolean }): JSX.Element => {
                   className="absolute inset-0 flex items-center justify-center mt-[-40px]">
                   <p className="text-[26px] sm:text-[28px] md:text-[36px] lg:text-[48px] leading-[32px] sm:leading-[36px] md:leading-[44px] lg:leading-[56px] font-inter font-bold text-[#2b2b2b] px-4 lg:px-0 md:px-4 sm:px-4 flex items-center gap-[8px] flex-nowrap justify-center">
                     <motion.span
-                      animate={startSplitSlide ? { x: -205 } : { x: 0 }}
+                      animate={startSplitSlide ? { x: -180 } : { x: 0 }}
                       transition={{ duration: 1.5, ease: "easeInOut" }}>
                       Hi, I'm
                     </motion.span>
 
                     <motion.span
-                      animate={startSplitSlide ? { x: 165 } : { x: 0 }}
+                      animate={startSplitSlide ? { x: 170 } : { x: 0 }}
                       transition={{ duration: 1.5, ease: "easeInOut" }}>
                       Dr. Devki Potwar
                     </motion.span>
@@ -680,23 +680,32 @@ export const Desktop = ({}: { isVisible: boolean }): JSX.Element => {
                   data-aos-duration="1500"
                   data-aos-delay="400"
                   data-aos-easing="ease-in-out"
-                  className="absolute inset-0 flex items-center justify-center mt-[265px] mr-[-800px] px-4 z-[60]">
+                  className="absolute inset-0 flex items-center justify-center mt-[330px] mr-[-810px] px-4 z-[60]">
                   <div className="relative w-[700px] max-w-[90vw] xl:max-w-[1200px]">
-                    <div className="font-inter text-[17px] font-thin text-[#000000] leading-relaxed text-left">
+                    <div className="font-inter text-[17px] font-thin text-[#000000] leading-relaxed text-left max-h-[400px] overflow-y-auto">
                       {!showFullBio ? (
                         <p className="whitespace-pre-line">
-                          M.S. (Obstetrics & Gynaecology), DNB (Obstetrics &
-                          Gynaecology), DGO, Diploma in Reproductive Medicine
+                          M.S. (Obstetrics & Gynaecology), DNB (Obstetrics &{" "}
+                          <br />
+                          Gynaecology), DGO, Diploma in Reproductive Medicine{" "}
+                          <br />
                           (Germany)
-                          {"\n\n"}
-                          I’m an Obstetrician and Gynaecologist with over a
-                          decade of experience dedicated to women’s health, from
-                          adolescence to motherhood and beyond. Whether it’s
-                          guiding a high-risk pregnancy, performing advanced
-                          gynaecological surgeries, or supporting couples on
-                          their fertility journey, I’m passionate about
-                          providing compassionate and evidence-based care to
-                          each patient.
+                          <br /> <br />
+                          I'm an Obstetrician and Gynaecologist with over a
+                          decade of <br /> experience dedicated to women's
+                          health, from adolescence to <br /> motherhood and
+                          beyond. Whether it's guiding a high-risk <br />{" "}
+                          pregnancy, performing advanced gynaecological
+                          surgeries, or <br /> supporting couples on their
+                          fertility journey, I'm passionate about providing
+                          compassionate and evidence-based care to each patient.
+                          <br /> <br />
+                          <button
+                            type="button"
+                            onClick={() => setShowFullBio(true)}
+                            className="text-blue-600 underline">
+                            Read more
+                          </button>
                         </p>
                       ) : (
                         <p className="whitespace-pre-line">
@@ -704,22 +713,22 @@ export const Desktop = ({}: { isVisible: boolean }): JSX.Element => {
                           Gynaecology), DGO, Diploma in Reproductive Medicine
                           (Germany)
                           {"\n\n"}
-                          I’m an Obstetrician and Gynaecologist with over a
-                          decade of experience dedicated to women’s health, from
-                          adolescence to motherhood and beyond. Whether it’s
+                          I'm an Obstetrician and Gynaecologist with over a
+                          decade of experience dedicated to women's health, from
+                          adolescence to motherhood and beyond. Whether it's
                           guiding a high-risk pregnancy, performing advanced
                           gynaecological surgeries, or supporting couples on
-                          their fertility journey, I’m passionate about
+                          their fertility journey, I'm passionate about
                           providing compassionate and evidence-based care to
                           each patient.
                           {"\n\n"}I specialise in High-risk Obstetrics,
                           Minimally Invasive Gynaecological Surgeries,
-                          Infertility and IVF, and Vaginal Aesthetics. I’m the
+                          Infertility and IVF, and Vaginal Aesthetics. I'm the
                           first in Mumbai to use Arvati-ThermiVa, an advanced,
                           non-surgical technology which helps women with sexual
                           dysfunction, urinary incontinence and vaginal laxity.
                           {"\n\n"}
-                          I’m also a member of Mumbai Obstetric and
+                          I'm also a member of Mumbai Obstetric and
                           Gynaecological Society (MOGS), Federation of Obstetric
                           and Gynaecological Societies of India (FOGSI) and the
                           Indian Association of Gynecological Endoscopist
@@ -727,16 +736,15 @@ export const Desktop = ({}: { isVisible: boolean }): JSX.Element => {
                           {"\n\n"}
                           Thanks for stopping by! I look forward to supporting
                           you through your healthcare journey.
+                          {"\n\n"}
+                          <button
+                            type="button"
+                            onClick={() => setShowFullBio(false)}
+                            className="text-blue-600 underline">
+                            Read less
+                          </button>
                         </p>
                       )}
-                    </div>
-                    <div className="mt-3 text-right">
-                      <button
-                        type="button"
-                        onClick={() => setShowFullBio((v) => !v)}
-                        className="text-blue-600 underline">
-                        {showFullBio ? "Read less" : "Read more"}
-                      </button>
                     </div>
                   </div>
                 </div>
@@ -1204,7 +1212,7 @@ export const Desktop = ({}: { isVisible: boolean }): JSX.Element => {
                   rel="noopener noreferrer"
                   className="mt-4 inline-flex items-center gap-2 text-blue-600 underline font-inter font-normal text-sm lg:text-base hover:text-blue-700 transition-colors">
                   Get Directions
-                  <div className="p-2 bg-[#FFFFFF] group-hover:bg-white rounded-full transition-all duration-300 relative z-10 ml-[-5px]">
+                  <div className="p-2 bg-[#FFFFFF] group-hover:bg-white rounded-full transition-all duration-300 relative z-10 ml-[1px]">
                     <img
                       src="/arrow.webp"
                       alt="Frame"
