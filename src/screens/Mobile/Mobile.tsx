@@ -458,7 +458,7 @@ export const Mobile = (): JSX.Element => {
             data-aos-delay="1800"
             data-aos-easing="ease-in-out"
             className="w-[92vw] max-w-[340px] sm:max-w-[560px] md:max-w-[720px] lg:max-w-[960px]
-               h-[620px] sm:h-[620px] md:h-[680px] lg:h-[740px]
+               h-[680px] sm:h-[620px] md:h-[680px] lg:h-[740px]
                bg-[#D6A0C229] rounded-[20px] sm:rounded-[24px] lg:rounded-[30px]
                mx-auto relative overflow-hidden backdrop-blur-[25px] backdrop-saturate-150">
             <CardContent className="w-full h-full text-center px-3 sm:px-6 md:px-10 lg:px-12 mt-6 sm:mt-8">
@@ -517,7 +517,7 @@ export const Mobile = (): JSX.Element => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{
                     opacity: 1,
-                    y: startSplitSlide ? -160 : 0, // go higher when the old “split” would happen
+                    y: startSplitSlide ? -200 : 0, // go higher when the old “split” would happen
                   }}
                   transition={{
                     duration: 1.1,
