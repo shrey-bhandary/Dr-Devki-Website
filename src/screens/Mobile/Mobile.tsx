@@ -950,11 +950,9 @@ export const Mobile = (): JSX.Element => {
                 rel="noopener noreferrer"
                 className="mt-4 text-blue-600 underline font-inter font-normal text-sm lg:text-base md:text-base sm:text-sm inline-flex items-center gap-2 hover:text-blue-700 transition-colors mx-auto lg:mx-0">
                 Get Directions
-                <img
-                  src="/arrow.webp"
-                  alt="Arrow"
-                  className="w-3 h-3 filter brightness-0 saturate-100 invert-[0.4] sepia-[0.5] saturate-[2.5] hue-rotate-[200deg]"
-                />
+                <div className="p-2 bg-[#FFFFFF] group-hover:bg-white rounded-full transition-all duration-300 relative z-10 ml-[-5px]">
+                  <img src="/arrow.webp" alt="Frame" className="w-2.5 h-2.5" />
+                </div>
               </a>
 
               {/* Affiliated Hospitals Section */}
@@ -979,7 +977,13 @@ export const Mobile = (): JSX.Element => {
                         aria-pressed={isActive}
                         aria-label={`Show ${loc.label} on map`}>
                         {loc.label}
-                        <img src="/arrow.webp" alt="" className="w-3 h-3" />
+                        <div className="p-2 bg-[#FFFFFF] group-hover:bg-white rounded-full transition-all duration-300 relative z-10 ml-[1px]">
+                          <img
+                            src="/arrow.webp"
+                            alt="Frame"
+                            className="w-2.5 h-2.5"
+                          />
+                        </div>
                       </button>
                     );
                   })}
@@ -1041,7 +1045,7 @@ export const Mobile = (): JSX.Element => {
         </section>
 
         {/* Footer */}
-        <footer className="mt-[350px] w-full px-4 lg:px-8 py-10">
+        <footer className="mt-[400px] w-full px-4 lg:px-8 py-10">
           <div className="max-w-[520px] mx-auto">
             {/* No padding on the Card so the logo can hug the left edge */}
             <Card className="relative rounded-[30px] overflow-hidden shadow-md p-0">
@@ -1049,7 +1053,7 @@ export const Mobile = (): JSX.Element => {
               <div
                 className="
           absolute inset-0
-          bg-[url('/Footer-mob.webp')]  /* <- your wide image */
+          bg-[url('/Footer.webp')]  /* <- your wide image */
           bg-no-repeat bg-cover
         "
               />
