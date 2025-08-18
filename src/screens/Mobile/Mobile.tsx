@@ -174,10 +174,9 @@ export const Mobile = (): JSX.Element => {
             data-aos-duration="1000"
             data-aos-delay="200"
             data-aos-easing="ease-in-out"
-            className="absolute top-14 left-5 z-20 flex items-center bg-[#F5F5F5] rounded-full px-2 py-2 shadow-md gap-0"
-          >
+            className="absolute top-14 left-5 z-20 flex items-center bg-[#F5F5F5] rounded-full px-2 py-2 shadow-md gap-0">
             <img
-              src="/Dr Devki Logo.svg"
+              src="/Dr Devki Logo.png"
               alt="Dr Devki Logo"
               className="h-7 w-auto object-contain"
             />
@@ -195,8 +194,7 @@ export const Mobile = (): JSX.Element => {
               data-aos-easing="ease-in-out"
               onClick={() => setShowCallPopup(true)}
               className="inline-flex h-[52px] items-center gap-[10px] px-2 py-3 fixed top-[50px] right-2 rounded-[50px] bg-[#F5F5F5] hover:bg-[linear-gradient(90deg,rgba(152,77,149,1)_0%,rgba(211,156,192,1)_100%)] group transition-all duration-300 z-30"
-              aria-label="Open call options"
-            >
+              aria-label="Open call options">
               <div className="p-3 rounded-full bg-[linear-gradient(90deg,rgba(152,77,149,1)_0%,rgba(211,156,192,1)_100%)] group-hover:bg-none group-hover:bg-white transition-all duration-300">
                 <PhoneIcon className="w-6 h-6 fill-white group-hover:fill-[#984D95] transition-all duration-300" />
               </div>
@@ -220,16 +218,14 @@ export const Mobile = (): JSX.Element => {
                   <div className="space-y-3">
                     <a
                       href={`tel:${PHONE_1}`}
-                      className="w-full flex items-center justify-between rounded-xl border border-gray-200 px-4 py-3 hover:bg-gray-50"
-                    >
+                      className="w-full flex items-center justify-between rounded-xl border border-gray-200 px-4 py-3 hover:bg-gray-50">
                       <span className="text-[#2b2b2b]">+91 98336 46316</span>
                       <PhoneIcon className="w-4 h-4 text-[#984D95]" />
                     </a>
 
                     <a
                       href={`tel:${PHONE_2}`}
-                      className="w-full flex items-center justify-between rounded-xl border border-gray-200 px-4 py-3 hover:bg-gray-50"
-                    >
+                      className="w-full flex items-center justify-between rounded-xl border border-gray-200 px-4 py-3 hover:bg-gray-50">
                       <span className="text-[#2b2b2b]">+91 99204 14643</span>
                       <PhoneIcon className="w-4 h-4 text-[#984D95]" />
                     </a>
@@ -237,8 +233,7 @@ export const Mobile = (): JSX.Element => {
 
                   <button
                     onClick={() => setShowCallPopup(false)}
-                    className="mt-4 w-full py-2 rounded-xl bg-[#984D95] text-white hover:opacity-90 transition"
-                  >
+                    className="mt-4 w-full py-2 rounded-xl bg-[#984D95] text-white hover:opacity-90 transition">
                     Close
                   </button>
                 </div>
@@ -255,8 +250,7 @@ export const Mobile = (): JSX.Element => {
     md:right-[-35%] xl:right-[-85%] 2xl:right-[-90%]
     translate-x-[100vw]            /* subtle nudge */
     w-[min(1000px,200vw)] h-auto z-0
-  "
-          >
+  ">
             <path
               d="M-116.674 11.7329C-88.6493 5.34126 -1.554 5.37179 30.8898 49.8833C64.9312 96.5867 55.8406 131.132 106.69 223.683C157.878 316.85 307.179 355.005 347.139 364.77"
               stroke="#D39CC0" // <-- solid color for test
@@ -282,7 +276,7 @@ export const Mobile = (): JSX.Element => {
                 times: [0.1, 0.4, 0.7, 0.85, 1],
                 ease: "easeInOut",
               }}
-              src="/FirstCol(1).jpg"
+              src="/FirstCol(1).webp"
               alt="Clinic 1"
               className="rounded-[18px] object-cover w-full h-[175px] shadow-md mt-10"
             />
@@ -299,7 +293,7 @@ export const Mobile = (): JSX.Element => {
                 times: [0.1, 0.4, 0.7, 0.85, 1],
                 ease: "easeInOut",
               }}
-              src="/SecondCol(2).jpg"
+              src="/SecondCol(2).webp"
               alt="Clinic 2"
               className="rounded-[18px] object-cover w-full h-[185px] shadow-md mt-[-100px]"
             />
@@ -316,7 +310,7 @@ export const Mobile = (): JSX.Element => {
                 times: [0.1, 0.4, 0.7, 0.85, 1],
                 ease: "easeInOut",
               }}
-              src="/FirstCol(2).jpg"
+              src="/FirstCol(2).webp"
               alt="Clinic 3"
               className="rounded-[18px] object-cover w-full h-[175px] shadow-md mt-2"
             />
@@ -333,7 +327,7 @@ export const Mobile = (): JSX.Element => {
                 times: [0.1, 0.4, 0.7, 0.85, 1],
                 ease: "easeInOut",
               }}
-              src="/SecondCol(1).jpg"
+              src="/SecondCol(1).webp"
               alt="Clinic 4"
               className="rounded-[18px] object-cover w-full h-[175px] shadow-md mt-[-130px]"
             />
@@ -343,47 +337,46 @@ export const Mobile = (): JSX.Element => {
             data-aos-duration="4000"
             data-aos-delay="100"
             data-aos-easing="ease-in-out"
-            className="relative z-10 flex flex-col w-full px-2 py-6"
-          >
+            className="relative z-10 flex flex-col w-full px-2 py-6">
             <div className="absolute bottom-[-10%] left-[-40%] w-full h-[500px] rounded-full bg-[radial-gradient(circle,rgba(211,156,192,0.3)_0%,rgba(152,77,149,0.2)_40%,transparent_100%)] blur-xl pointer-events-none" />
 
             <h1 className="text-[35px] font-semibold text-[#2b2b2b] leading-tight mt-[-10px]">
-              Where women’s health meets
-              understanding and expertise
+              Where women’s health meets understanding and expertise
             </h1>
             <p className="w-[559px] mt-[5px] font-inter font-light text-[#747474] text-sm leading-relaxed relative z-10">
               Keep scrolling to know how I can help you.
             </p>
-            <div className = "flex justify-center">
-            <Button
-              asChild
-              className="mt-8 w-fit pl-3 pr-1.5 py-2 relative overflow-hidden group rounded-[50px] transition-all duration-300"
-            >
-              <a
-                href={`https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MSG}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Book WhatsApp appointment"
-              >
-                <div className="absolute inset-0 w-full bg-[#2B2B2B]" />
-                <div className="absolute inset-0 w-0 bg-gradient-to-r from-[rgba(152,77,149,1)] to-[rgba(211,156,192,1)] transition-all duration-300 ease-in-out group-hover:w-full" />
-                <span className="font-inter font-light text-[#F5F5F5] text-base group-hover:text-white transition-colors duration-300 relative z-10">
-                  Book Appointment
-                </span>
-                <div className="p-2 bg-[#FFFFFF] group-hover:bg-white rounded-full transition-all duration-300 relative z-10 ml-[1px]">
-                  <img src="/arrow.svg" alt="Frame" className="w-2.5 h-2.5" />
-                </div>
-              </a>
-            </Button>
-           </div>
+            <div className="flex justify-center">
+              <Button
+                asChild
+                className="mt-8 w-fit pl-3 pr-1.5 py-2 relative overflow-hidden group rounded-[50px] transition-all duration-300">
+                <a
+                  href={`https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MSG}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Book WhatsApp appointment">
+                  <div className="absolute inset-0 w-full bg-[#2B2B2B]" />
+                  <div className="absolute inset-0 w-0 bg-gradient-to-r from-[rgba(152,77,149,1)] to-[rgba(211,156,192,1)] transition-all duration-300 ease-in-out group-hover:w-full" />
+                  <span className="font-inter font-light text-[#F5F5F5] text-base group-hover:text-white transition-colors duration-300 relative z-10">
+                    Book Appointment
+                  </span>
+                  <div className="p-2 bg-[#FFFFFF] group-hover:bg-white rounded-full transition-all duration-300 relative z-10 ml-[1px]">
+                    <img
+                      src="/arrow.webp"
+                      alt="Frame"
+                      className="w-2.5 h-2.5"
+                    />
+                  </div>
+                </a>
+              </Button>
+            </div>
           </div>
         </section>
 
         {/* Quote Section (mobile-first, no horizontal overflow) */}
         <section
           ref={linesRef}
-          className="relative z-0 px-4 sm:px-6 md:px-10 lg:px-16 py-10"
-        >
+          className="relative z-0 px-4 sm:px-6 md:px-10 lg:px-16 py-10">
           {/* Background lines */}
           <div className="pointer-events-none absolute inset-0 overflow-x-clip overflow-y-visible">
             {/* Left Line */}
@@ -392,8 +385,7 @@ export const Mobile = (): JSX.Element => {
               xmlns="http://www.w3.org/2000/svg"
               className="absolute top-[300px] left-0
                w-[70vw] sm:w-[120vw] md:w-[110vw] lg:w-[900px] h-auto
-               -translate-x-[10vw] sm:-translate-x-[6vw] md:-translate-x-[8vw] lg:-translate-x-[18vw]"
-            >
+               -translate-x-[10vw] sm:-translate-x-[6vw] md:-translate-x-[8vw] lg:-translate-x-[18vw]">
               <defs>
                 <linearGradient
                   id="leftLineGradient_q"
@@ -401,8 +393,7 @@ export const Mobile = (): JSX.Element => {
                   y1="136.467"
                   x2="815.279"
                   y2="113.473"
-                  gradientUnits="userSpaceOnUse"
-                >
+                  gradientUnits="userSpaceOnUse">
                   <stop stopColor="#984D95" />
                   <stop offset="1" stopColor="#D39CC0" />
                 </linearGradient>
@@ -429,8 +420,7 @@ export const Mobile = (): JSX.Element => {
               xmlns="http://www.w3.org/2000/svg"
               className="absolute bottom-40 right-0
                w-[70vw] sm:w-[120vw] md:w-[110vw] lg:w-[900px] h-auto
-               translate-x-[10vw] sm:translate-x-[6vw] md:translate-x-[8vw] lg:translate-x-[18vw]"
-            >
+               translate-x-[10vw] sm:translate-x-[6vw] md:translate-x-[8vw] lg:translate-x-[18vw]">
               <defs>
                 <linearGradient
                   id="rightLineGradient_q"
@@ -438,8 +428,7 @@ export const Mobile = (): JSX.Element => {
                   y1="110.82"
                   x2="943.84"
                   y2="216.685"
-                  gradientUnits="userSpaceOnUse"
-                >
+                  gradientUnits="userSpaceOnUse">
                   <stop stopColor="#984D95" />
                   <stop offset="1" stopColor="#D39CC0" />
                 </linearGradient>
@@ -471,30 +460,27 @@ export const Mobile = (): JSX.Element => {
             className="w-[92vw] max-w-[340px] sm:max-w-[560px] md:max-w-[720px] lg:max-w-[960px]
                h-[600px] sm:h-[620px] md:h-[680px] lg:h-[740px]
                bg-[#D6A0C229] rounded-[20px] sm:rounded-[24px] lg:rounded-[30px]
-               mx-auto relative overflow-hidden backdrop-blur-[25px] backdrop-saturate-150"
-          >
+               mx-auto relative overflow-hidden backdrop-blur-[25px] backdrop-saturate-150">
             <CardContent className="w-full h-full text-center px-3 sm:px-6 md:px-10 lg:px-12 mt-6 sm:mt-8">
               {/* Icons */}
               <motion.div
                 animate={{ opacity: startSplitSlide ? 0 : 1 }}
-                transition={{ duration: 1, ease: "easeInOut" }}
-              >
+                transition={{ duration: 1, ease: "easeInOut" }}>
                 <div
                   data-aos="fade-up"
                   data-aos-duration="1800"
                   data-aos-delay="2500"
-                  className="flex gap-3 sm:gap-4 justify-center mb-[-2px] sm:mb-2 mt-[200px]"
-                >
+                  className="flex gap-3 sm:gap-4 justify-center mb-[-2px] sm:mb-2 mt-[200px]">
                   <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[linear-gradient(90deg,rgba(152,77,149,1)_0%,rgba(211,156,192,1)_100%)] flex items-center justify-center">
                     <img
-                      src="/phone.svg"
+                      src="/phone.webp"
                       alt="Phone"
                       className="w-4 h-4 sm:w-5 sm:h-5"
                     />
                   </div>
                   <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[linear-gradient(90deg,rgba(152,77,149,1)_0%,rgba(211,156,192,1)_100%)] flex items-center justify-center">
                     <img
-                      src="/message.svg"
+                      src="/message.webp"
                       alt="Message"
                       className="w-5 h-5 sm:w-6 sm:h-6"
                     />
@@ -506,20 +492,18 @@ export const Mobile = (): JSX.Element => {
               <div
                 className={`relative transition-opacity duration-700 ${
                   fadeOut ? "opacity-0" : "opacity-100"
-                }`}
-              >
+                }`}>
                 <div
                   data-aos="fade-up"
                   data-aos-duration="1800"
                   data-aos-delay="2500"
-                  className="absolute inset-0 flex items-center justify-center mt-[110px] sm:mt-[20px]"
-                >
+                  className="absolute inset-0 flex items-center justify-center mt-[110px] sm:mt-[20px]">
                   <p className="text-[23px] sm:text-[22px] md:text-[28px] lg:text-[38px] font-inter font-semibold text-[#2b2b2b]">
                     14 years ago, I created Potwar clinic <br /> out of a simple
                     idea: that
                     <br />
                     <img
-                      src="/womendeservecare.svg"
+                      src="/womendeservecare.webp"
                       alt="Women Deserve Care"
                       className="ml-[30px] w-[250px] h-[40px] lg:h-[60px]"
                     />
@@ -540,8 +524,7 @@ export const Mobile = (): JSX.Element => {
                     duration: 1.1,
                     ease: "easeInOut",
                   }}
-                  className="absolute inset-0 flex items-center justify-center mt-[-50px] sm:mt-[10px]"
-                >
+                  className="absolute inset-0 flex items-center justify-center mt-[-50px] sm:mt-[10px]">
                   <p className="text-[23px] sm:text-[28px] md:text-[36px] lg:text-[48px] leading-tight font-inter font-bold text-[#2b2b2b] px-4 text-center">
                     {/* plain text (no per-word x animations) */}
                     Hi, I’m <span>Dr. Devki Potwar</span>
@@ -556,10 +539,9 @@ export const Mobile = (): JSX.Element => {
                   data-aos-duration="1000"
                   data-aos-delay="500"
                   className="w-[180px] sm:w-[320px] md:w-[360px] h-[240px] sm:h-[380px] md:h-[420px]
-                     overflow-hidden rounded-[16px] sm:rounded-[20px] mx-auto mt-[-100px] sm:mt-[160px]"
-                >
+                     overflow-hidden rounded-[16px] sm:rounded-[20px] mx-auto mt-[-100px] sm:mt-[160px]">
                   <img
-                    src="/DrDevki.svg"
+                    src="/DrDevki.webp"
                     alt="Dr. Devki Potwar"
                     className="w-full h-full object-cover"
                   />
@@ -572,104 +554,63 @@ export const Mobile = (): JSX.Element => {
                   data-aos="fade-up"
                   data-aos-duration="1000"
                   data-aos-delay="500"
-                  className="text-left max-w-[92%] sm:max-w-[560px] md:max-w-[680px] lg:max-w-[620px]
-                     mt-6 sm:mt-8 lg:text-left"
-                >
+                  className="text-left max-w-[92%] sm:max-w-[560px] md:max-w-[680px] lg:max-w-[620px] mt-6 sm:mt-8 lg:text-left">
                   <div className="relative w-full max-w-[620px] md:w-[620px] mx-auto">
-                    {/* Close (shows only when expanded). Stays visible and tappable on mobile */}
-                    {showFullBio && (
-                      <button
-                        type="button"
-                        onClick={() => {
-                          bioRef.current?.scrollTo({ top: 0 });
-                          setShowFullBio(false);
-                        }}
-                        aria-controls="bio"
-                        aria-expanded={showFullBio}
-                        className="absolute top-2 right-2 z-[70] text-xs sm:text-sm text-blue-600 underline bg-white/90 backdrop-blur px-2 py-1 rounded"
-                      >
-                        Close
-                      </button>
-                    )}
-
-                    <div
-                      ref={bioRef}
-                      id="bio"
-                      className="
-      relative
-      font-inter text-[15px] sm:text-[16px] md:text-[17px] font-thin text-black leading-relaxed text-left
-      w-full
-      max-h-[160px] sm:max-h-[200px] md:max-h-[240px] lg:max-h-[260px]
-      overflow-y-auto pr-3 sm:pr-4
-      bio-scroll
-    "
-                      style={{
-                        // keeps content from shifting when scrollbar appears
-                        scrollbarGutter: "stable both-edges",
-                        // smooth iOS scroll
-                        WebkitOverflowScrolling: "touch",
-                      }}
-                    >
-                      {/* Content */}
-                      <p className="whitespace-normal">
-                        I’m an Obstetrician and Gynaecologist with over 14 years
-                        of <br />
-                        experience dedicated to women’s health, from adolescence
-                        to <br />
-                        motherhood and beyond. Whether it’s guiding a high-risk{" "}
-                        <br />
-                        pregnancy, performing advanced gynaecological surgeries,
-                        or <br />
-                        supporting couples on their fertility journey, I’m
-                        passionate <br />
-                        about providing compassionate and evidence-based care to{" "}
-                        <br />
-                        each patient.{" "}
-                        {!showFullBio ? (
-                          <span className="sr-only">
-                            (Tap “Read more” to expand)
-                          </span>
-                        ) : (
-                          <span className="inline">
-                            &nbsp;I specialise in High-risk Obstetrics,
-                            Minimally Invasive Gynaecological Surgeries,
-                            Infertility and IVF, and Vaginal Aesthetics. I’m the
-                            first in Mumbai to use Arvati-ThermiVa, an advanced,
-                            non-surgical technology which helps women with
-                            sexual dysfunction, urinary incontinence and vaginal
-                            laxity. <br />
-                            <br />
-                            I’m also a member of Mumbai Obstetric and
-                            Gynaecological Society (MOGS), Federation of
-                            Obstetric and Gynaecological Societies of India
-                            (FOGSI) and the Indian Association of Gynecological
-                            Endoscopist (IAGE). <br />
-                            <br />
-                            <strong>Thanks for stopping by!</strong> I look
-                            forward to supporting you through your healthcare
-                            journey.
-                          </span>
-                        )}
-                      </p>
-
-                      {/* Fade + Read more (only when collapsed) */}
-                      {!showFullBio && (
-                        <>
-                          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-14 sm:h-16 bg-gradient-to-t from-white to-transparent" />
-                          <button
-                            type="button"
-                            onClick={() => {
-                              bioRef.current?.scrollTo({ top: 0 });
-                              setShowFullBio(true);
-                            }}
-                            aria-controls="bio"
-                            aria-expanded={showFullBio}
-                            className="absolute bottom-2 right-2 text-sm sm:text-base text-blue-600 underline bg-white/90 px-2 py-1 rounded"
-                          >
-                            Read more
-                          </button>
-                        </>
+                    <div className="font-inter text-[15px] sm:text-[16px] md:text-[17px] font-thin text-black leading-relaxed text-left w-full">
+                      {!showFullBio ? (
+                        <p className="whitespace-pre-line">
+                          M.S. (Obstetrics & Gynaecology), DNB (Obstetrics &
+                          Gynaecology), DGO, Diploma in Reproductive Medicine
+                          (Germany)
+                          {"\n\n"}
+                          I’m an Obstetrician and Gynaecologist with over a
+                          decade of experience dedicated to women’s health, from
+                          adolescence to motherhood and beyond. Whether it’s
+                          guiding a high-risk pregnancy, performing advanced
+                          gynaecological surgeries, or supporting couples on
+                          their fertility journey, I’m passionate about
+                          providing compassionate and evidence-based care to
+                          each patient.
+                        </p>
+                      ) : (
+                        <p className="whitespace-pre-line">
+                          M.S. (Obstetrics & Gynaecology), DNB (Obstetrics &
+                          Gynaecology), DGO, Diploma in Reproductive Medicine
+                          (Germany)
+                          {"\n\n"}
+                          I’m an Obstetrician and Gynaecologist with over a
+                          decade of experience dedicated to women’s health, from
+                          adolescence to motherhood and beyond. Whether it’s
+                          guiding a high-risk pregnancy, performing advanced
+                          gynaecological surgeries, or supporting couples on
+                          their fertility journey, I’m passionate about
+                          providing compassionate and evidence-based care to
+                          each patient.
+                          {"\n\n"}I specialise in High-risk Obstetrics,
+                          Minimally Invasive Gynaecological Surgeries,
+                          Infertility and IVF, and Vaginal Aesthetics. I’m the
+                          first in Mumbai to use Arvati-ThermiVa, an advanced,
+                          non-surgical technology which helps women with sexual
+                          dysfunction, urinary incontinence and vaginal laxity.
+                          {"\n\n"}
+                          I’m also a member of Mumbai Obstetric and
+                          Gynaecological Society (MOGS), Federation of Obstetric
+                          and Gynaecological Societies of India (FOGSI) and the
+                          Indian Association of Gynecological Endoscopist
+                          (IAGE).
+                          {"\n\n"}
+                          Thanks for stopping by! I look forward to supporting
+                          you through your healthcare journey.
+                        </p>
                       )}
+                      <div className="mt-3 text-right">
+                        <button
+                          type="button"
+                          onClick={() => setShowFullBio((v) => !v)}
+                          className="text-blue-600 underline">
+                          {showFullBio ? "Read less" : "Read more"}
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -684,8 +625,7 @@ export const Mobile = (): JSX.Element => {
           data-aos-duration="5500"
           data-aos-delay="800"
           data-aos-easing="ease-in-out"
-          className="px-4 lg:px-16 md:px-8 sm:px-4 py-6 lg:py-10 md:py-8 sm:py-6"
-        >
+          className="px-4 lg:px-16 md:px-8 sm:px-4 py-6 lg:py-10 md:py-8 sm:py-6">
           <h2 className="w-full lg:w-[969px] mx-auto text-[24px] lg:text-[42px] md:text-[32px] sm:text-[24px] text-center leading-[28px] lg:leading-[52px] md:leading-[38px] sm:leading-[28px] font-inter font-bold text-[#2b2b2b] mb-6 lg:mb-12">
             Our Services
           </h2>
@@ -709,7 +649,7 @@ export const Mobile = (): JSX.Element => {
                           {/* Icon */}
                           <div className="w-12 h-12 lg:w-12 lg:h-12 rounded-full bg-gradient-to-r from-[#984D95] to-[#D39CC0] flex items-center justify-center flex-shrink-0">
                             <img
-                              src={`/Service${index + 1}.svg`}
+                              src={`/Service${index + 1}.webp`}
                               alt={`Service ${index + 1}`}
                               className="w-5 h-5 lg:w-6 lg:h-6 object-contain"
                             />
@@ -734,7 +674,7 @@ export const Mobile = (): JSX.Element => {
           {/* Background lines */}
           <div className="absolute inset-0 pointer-events-none">
             <img
-              src="/Galleryline.svg"
+              src="/Galleryline.webp"
               alt="Background line"
               className="absolute top-[60%] left-0 -translate-y-1/2 h-[200px] w-[1100px] object-cover"
             />
@@ -745,29 +685,25 @@ export const Mobile = (): JSX.Element => {
             data-aos-duration="1000"
             data-aos-delay="200"
             data-aos-easing="ease-in-out"
-            className="w-full bg-[#D6A0C229] rounded-[30px] flex flex-col lg:flex-row items-start lg:items-center relative overflow-hidden backdrop-blur-[25px] backdrop-saturate-150 p-6 sm:p-10 lg:px-16"
-          >
+            className="w-full bg-[#D6A0C229] rounded-[30px] flex flex-col lg:flex-row items-start lg:items-center relative overflow-hidden backdrop-blur-[25px] backdrop-saturate-150 p-6 sm:p-10 lg:px-16">
             <CardContent className="p-0 w-full">
               {/* LEFT — text */}
               <div
                 data-aos="fade-up"
                 data-aos-duration="900"
                 data-aos-delay="800"
-                className="w-full lg:w-1/2 flex flex-col justify-center mb-6 lg:mb-0"
-              >
+                className="w-full lg:w-1/2 flex flex-col justify-center mb-6 lg:mb-0">
                 <h1 className="text-[28px] sm:text-[36px] lg:text-[44px] leading-tight font-inter font-semibold text-[#2b2b2b] mb-10 mt-10">
                   Gallery
                 </h1>
                 <Button
                   asChild
-                  className="mt-8 w-fit pl-3 pr-1.5 py-2 relative overflow-hidden group rounded-[50px] transition-all duration-300"
-                >
+                  className="mt-8 w-fit pl-3 pr-1.5 py-2 relative overflow-hidden group rounded-[50px] transition-all duration-300">
                   <a
                     href={`https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MSG}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    aria-label="Book WhatsApp appointment"
-                  >
+                    aria-label="Book WhatsApp appointment">
                     <div className="absolute inset-0 w-full bg-[#2B2B2B]" />
                     <div className="absolute inset-0 w-0 bg-gradient-to-r from-[rgba(152,77,149,1)] to-[rgba(211,156,192,1)] transition-all duration-300 ease-in-out group-hover:w-full" />
                     <span className="font-inter font-light text-[#F5F5F5] text-base group-hover:text-white transition-colors duration-300 relative z-10">
@@ -775,7 +711,7 @@ export const Mobile = (): JSX.Element => {
                     </span>
                     <div className="p-2 bg-[#FFFFFF] group-hover:bg-white rounded-full transition-all duration-300 relative z-10 ml-[1px]">
                       <img
-                        src="/arrow.svg"
+                        src="/arrow.webp"
                         alt="Frame"
                         className="w-2.5 h-2.5"
                       />
@@ -795,12 +731,11 @@ export const Mobile = (): JSX.Element => {
                     ease: ["easeOut", "easeInOut", "easeOut"],
                   }}
                   viewport={{ once: true, amount: 0.15 }}
-                  className="flex flex-row gap-4 w-max"
-                >
+                  className="flex flex-row gap-4 w-max">
                   {/* Gallery Image 1 */}
                   <div className="w-[250px] h-[350px] bg-gray-300 rounded-[30px] overflow-hidden shadow-lg shrink-0">
                     <img
-                      src="/Gallerylarge(1).svg"
+                      src="/Gallerylarge(1).webp"
                       alt="Gallery Image 1"
                       className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                     />
@@ -810,14 +745,14 @@ export const Mobile = (): JSX.Element => {
                   <div className="flex flex-col gap-6 shrink-0">
                     <div className="w-[250px] h-[162px] bg-gray-200 rounded-[30px] overflow-hidden shadow-lg">
                       <img
-                        src="/Gallerysmall(1).svg"
+                        src="/Gallerysmall(1).webp"
                         alt="Gallery Image 2"
                         className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                       />
                     </div>
                     <div className="w-[250px] h-[162px] bg-gray-200 rounded-[30px] overflow-hidden shadow-lg">
                       <img
-                        src="/Gallerysmall(2).svg"
+                        src="/Gallerysmall(2).webp"
                         alt="Gallery Image 2"
                         className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                       />
@@ -827,7 +762,7 @@ export const Mobile = (): JSX.Element => {
                   {/* Gallery Image 3 */}
                   <div className="w-[230px] h-[350px] bg-gray-300 rounded-[30px] overflow-hidden shadow-lg shrink-0">
                     <img
-                      src="/Gallerylarge(2).svg"
+                      src="/Gallerylarge(2).webp"
                       alt="Gallery Image 3"
                       className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                     />
@@ -836,7 +771,7 @@ export const Mobile = (): JSX.Element => {
                   {/* Gallery Image 4 */}
                   <div className="w-[290px] h-[350px] bg-gray-300 rounded-[30px] overflow-hidden shadow-lg shrink-0">
                     <img
-                      src="/Gallerylarge(3).svg"
+                      src="/Gallerylarge(3).webp"
                       alt="Gallery Image 4"
                       className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                     />
@@ -845,7 +780,7 @@ export const Mobile = (): JSX.Element => {
                   {/* Gallery Image 5 */}
                   <div className="w-[290px] h-[350px] bg-gray-300 rounded-[30px] overflow-hidden shadow-lg shrink-0">
                     <img
-                      src="/Gallerylarge(4).svg"
+                      src="/Gallerylarge(4).webp"
                       alt="Gallery Image 5"
                       className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                     />
@@ -861,8 +796,7 @@ export const Mobile = (): JSX.Element => {
           data-aos-duration="1500"
           data-aos-delay="200"
           data-aos-easing="ease-in-out"
-          className="px-6 sm:px-10 lg:px-16 py-12 bg-white"
-        >
+          className="px-6 sm:px-10 lg:px-16 py-12 bg-white">
           {/* Header */}
           <div className="flex flex-col lg:flex-row justify-between items-start gap-6 mb-12">
             <div className="text-left">
@@ -877,21 +811,19 @@ export const Mobile = (): JSX.Element => {
 
             <Button
               asChild
-              className="mt-18 w-fit pl-3 pr-1.5 py-2.5 relative overflow-hidden group rounded-[50px] transition-all duration-300"
-            >
+              className="mt-18 w-fit pl-3 pr-1.5 py-2.5 relative overflow-hidden group rounded-[50px] transition-all duration-300">
               <a
                 href={`https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MSG}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Book WhatsApp appointment"
-              >
+                aria-label="Book WhatsApp appointment">
                 <div className="absolute inset-0 w-full bg-[#2B2B2B]" />
                 <div className="absolute inset-0 w-0 bg-gradient-to-r from-[rgba(152,77,149,1)] to-[rgba(211,156,192,1)] transition-all duration-300 ease-in-out group-hover:w-full" />
                 <span className="font-inter font-light text-[#F5F5F5] text-base group-hover:text-white transition-colors duration-300 relative z-10">
                   Book Appointment
                 </span>
                 <div className="p-2 bg-[#FFFFFF] group-hover:bg-white rounded-full transition-all duration-300 relative z-10 ml-[1px]">
-                  <img src="/arrow.svg" alt="Frame" className="w-2.5 h-2.5" />
+                  <img src="/arrow.webp" alt="Frame" className="w-2.5 h-2.5" />
                 </div>
               </a>
             </Button>
@@ -904,50 +836,49 @@ export const Mobile = (): JSX.Element => {
               <div className="flex gap-6 lg:gap-10 w-max  items-center justify-center">
                 {[
                   {
-                    src: "/Testimonial(1).svg",
+                    src: "/Testimonial(1).webp",
                     w: "w-[220px]",
                     h: "h-[320px]",
                   },
                   {
-                    src: "/Testimonial(3).jpg",
+                    src: "/Testimonial(3).webp",
                     w: "w-[300px]",
                     h: "h-[450px]",
                   },
                   {
-                    src: "/Testimonial(5).svg",
+                    src: "/Testimonial(5).webp",
                     w: "w-[300px]",
                     h: "h-[320px]",
                   },
                   {
-                    src: "/Testimonial(7).jpg",
+                    src: "/Testimonial(7).webp",
                     w: "w-[300px]",
                     h: "h-[210px]",
                   },
                   {
-                    src: "/Testimonial(2).jpg",
+                    src: "/Testimonial(2).webp",
                     w: "w-[300px]",
                     h: "h-[300px]",
                   },
                   {
-                    src: "/Testimonial(4).svg",
+                    src: "/Testimonial(4).webp",
                     w: "w-[300px]",
                     h: "h-[300px]",
                   },
                   {
-                    src: "/Testimonial(6).svg",
+                    src: "/Testimonial(6).webp",
                     w: "w-[300px]",
                     h: "h-[300px]",
                   },
                   {
-                    src: "/Testimonial(8).svg",
+                    src: "/Testimonial(8).webp",
                     w: "w-[300px]",
                     h: "h-[570px]",
                   },
                 ].map((item, idx) => (
                   <div
                     key={idx}
-                    className={`snap-start shrink-0 ${item.w} ${item.h} rounded-[37px] overflow-hidden shadow-md`}
-                  >
+                    className={`snap-start shrink-0 ${item.w} ${item.h} rounded-[37px] overflow-hidden shadow-md`}>
                     <img
                       src={item.src}
                       alt={`Testimonial ${idx + 1}`}
@@ -968,27 +899,27 @@ export const Mobile = (): JSX.Element => {
               {Array(100).fill(
                 <>
                   <img
-                    src="/RelianceBL1.svg"
+                    src="/RelianceBL1.webp"
                     alt="Client 1"
                     className="w-[150px] h-[150px] lg:w-[220px] lg:h-[220px] md:w-[165px] md:h-[165px] sm:w-[110px] sm:h-[110px] object-contain"
                   />
                   <img
-                    src="/BCTrustBL2.svg"
+                    src="/BCTrustBL2.webp"
                     alt="Client 2"
                     className="w-[150px] h-[150px] lg:w-[220px] lg:h-[220px] md:w-[165px] md:h-[165px] sm:w-[110px] sm:h-[110px] object-contain"
                   />
                   <img
-                    src="/SaifeeBL3.svg"
+                    src="/SaifeeBL3.webp"
                     alt="Client 3"
                     className="w-[150px] h-[150px] lg:w-[220px] lg:h-[220px] md:w-[165px] md:h-[165px] sm:w-[110px] sm:h-[110px] object-contain"
                   />
                   <img
-                    src="/WorkhardBL4.svg"
+                    src="/WorkhardBL4.webp"
                     alt="Client 4"
                     className="w-[150px] h-[150px] lg:w-[220px] lg:h-[220px] md:w-[165px] md:h-[165px] sm:w-[110px] sm:h-[110px] object-contain"
                   />
                   <img
-                    src="/SEHBL5.svg"
+                    src="/SEHBL5.webp"
                     alt="Client 5"
                     className="w-[150px] h-[150px] lg:w-[220px] lg:h-[220px] md:w-[165px] md:h-[165px] sm:w-[110px] sm:h-[110px] object-contain"
                   />
@@ -1004,8 +935,7 @@ export const Mobile = (): JSX.Element => {
           data-aos-duration="5000"
           data-aos-delay="800"
           data-aos-easing="ease-in-out"
-          className="w-full h-[600px] lg:h-[840px] md:h-[700px] sm:h-[600px] bg-[#FFFFFF] mt-8 lg:mt-10 md:mt-9 sm:mt-8"
-        >
+          className="w-full h-[600px] lg:h-[840px] md:h-[700px] sm:h-[600px] bg-[#FFFFFF] mt-8 lg:mt-10 md:mt-9 sm:mt-8">
           <div className="px-4 lg:px-16 md:px-8 sm:px-4 py-8 lg:py-16 md:py-12 sm:py-8 flex flex-col lg:flex-row justify-between gap-8 lg:gap-0 md:gap-6 sm:gap-8">
             <div className="w-full lg:max-w-[475px] md:w-full sm:w-full lg:mt-[140px] md:mt-[70px] sm:mt-[35px] text-left lg:text-left">
               <h2 className="text-[28px] lg:text-[38px] md:text-[32px] sm:text-[28px] leading-[32px] lg:leading-[50px] md:leading-[40px] sm:leading-[32px] font-inter font-bold text-[#2b2b2b]">
@@ -1019,11 +949,10 @@ export const Mobile = (): JSX.Element => {
                 href="https://www.google.com/maps/dir/?api=1&destination=Om%20Chambers%2C%20Room%20No.%20208%2C%20Second%20Floor%2C%20123%2C%20August%20Kranti%20Maidan%2C%20Kemps%20Corner%2C%20Mumbai%20-%20400%20026"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-4 text-blue-600 underline font-inter font-normal text-sm lg:text-base md:text-base sm:text-sm inline-flex items-center gap-2 hover:text-blue-700 transition-colors mx-auto lg:mx-0"
-              >
+                className="mt-4 text-blue-600 underline font-inter font-normal text-sm lg:text-base md:text-base sm:text-sm inline-flex items-center gap-2 hover:text-blue-700 transition-colors mx-auto lg:mx-0">
                 Get Directions
                 <img
-                  src="/arrow.svg"
+                  src="/arrow.webp"
                   alt="Arrow"
                   className="w-3 h-3 filter brightness-0 saturate-100 invert-[0.4] sepia-[0.5] saturate-[2.5] hue-rotate-[200deg]"
                 />
@@ -1049,10 +978,9 @@ export const Mobile = (): JSX.Element => {
                             : "bg-[#EEEEEE] text-[#2b2b2b] hover:bg-gradient-to-r hover:from-[#984D95] hover:to-[#D39CC0] hover:text-white",
                         ].join(" ")}
                         aria-pressed={isActive}
-                        aria-label={`Show ${loc.label} on map`}
-                      >
+                        aria-label={`Show ${loc.label} on map`}>
                         {loc.label}
-                        <img src="/arrow.svg" alt="" className="w-3 h-3" />
+                        <img src="/arrow.webp" alt="" className="w-3 h-3" />
                       </button>
                     );
                   })}
@@ -1094,21 +1022,19 @@ export const Mobile = (): JSX.Element => {
           <div className="flex justify-center">
             <Button
               asChild
-              className="inline-flex items-center gap-[11px] py-1.5 relative overflow-hidden group rounded-[50px] bg-[#2b2b2b] transition-all duration-300 h-auto !px-3 !py-2"
-            >
+              className="inline-flex items-center gap-[11px] py-1.5 relative overflow-hidden group rounded-[50px] bg-[#2b2b2b] transition-all duration-300 h-auto !px-3 !py-2">
               <a
                 href={selectedLocation.directionsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label={`Directions to ${selectedLocation.label}`}
-              >
+                aria-label={`Directions to ${selectedLocation.label}`}>
                 <div className="absolute inset-0 w-full bg-[#2b2b2b]" />
                 <div className="absolute inset-0 w-0 bg-gradient-to-r from-[rgba(152,77,149,1)] to-[rgba(211,156,192,1)] transition-all duration-300 ease-in-out group-hover:w-full" />
                 <span className="font-inter font-light text-[#F5F5F5] text-base group-hover:text-white transition-colors duration-300 relative z-10">
                   Get Directions
                 </span>
                 <div className="p-2 bg-white rounded-[50px] relative z-10">
-                  <img src="/arrow.svg" alt="Frame" className="w-3 h-3" />
+                  <img src="/arrow.webp" alt="Frame" className="w-3 h-3" />
                 </div>
               </a>
             </Button>
@@ -1124,7 +1050,7 @@ export const Mobile = (): JSX.Element => {
               <div
                 className="
           absolute inset-0
-          bg-[url('/Footer-mob.svg')]  /* <- your wide image */
+          bg-[url('/Footer-mob.webp')]  /* <- your wide image */
           bg-no-repeat bg-cover
         "
               />
@@ -1136,7 +1062,7 @@ export const Mobile = (): JSX.Element => {
               <div className="relative pt-7 pb-8 px-5 ">
                 {/* Logo row — no extra left padding; slight negative margin if you want it *extra* flush */}
                 <img
-                  src="/Potwar.svg"
+                  src="/Potwar.webp"
                   alt="Potwar"
                   className="w-[250px] h-auto mb-4 -ml-4"
                 />
@@ -1189,14 +1115,12 @@ export const Mobile = (): JSX.Element => {
                 <div className="flex justify-center">
                   <Button
                     asChild
-                    className="mt-10 inline-flex items-center gap-3 pl-5 pr-3 py-6 rounded-[50px] bg-[#2B2B2B] relative overflow-hidden group"
-                  >
+                    className="mt-10 inline-flex items-center gap-3 pl-5 pr-3 py-6 rounded-[50px] bg-[#2B2B2B] relative overflow-hidden group">
                     <a
                       href={`https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MSG}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      aria-label="Book WhatsApp appointment"
-                    >
+                      aria-label="Book WhatsApp appointment">
                       <div className="absolute inset-0 w-full bg-[#2B2B2B]" />
                       <div className="absolute inset-0 w-0 bg-gradient-to-r from-[rgba(152,77,149,1)] to-[rgba(211,156,192,1)] transition-all duration-300 ease-in-out group-hover:w-full" />
                       <span className="font-inter font-light text-[#F5F5F5] text-[20px] leading-none relative z-10">
@@ -1204,7 +1128,7 @@ export const Mobile = (): JSX.Element => {
                       </span>
                       <div className="p-3 bg-white rounded-full relative z-10">
                         <img
-                          src="/arrow.svg"
+                          src="/arrow.webp"
                           alt="arrow"
                           className="w-3.5 h-3.5"
                         />

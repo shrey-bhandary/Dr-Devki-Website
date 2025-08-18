@@ -114,43 +114,61 @@ export const Desktop = ({}: { isVisible: boolean }): JSX.Element => {
 
   const [activeNav, setActiveNav] = React.useState("Home");
 
- // Add refs (move these above any useEffect that needs them)
-const heroRef = useRef<HTMLElement>(null);
-const aboutSectionRef = useRef<HTMLElement>(null);
-const servicesRef = useRef<HTMLElement>(null);
-const galleryRef = useRef<HTMLElement>(null);
-const clinicRef = useRef<HTMLElement>(null);
-const testimonialsRef = useRef<HTMLElement>(null);
+  // Add refs (move these above any useEffect that needs them)
+  const heroRef = useRef<HTMLElement>(null);
+  const aboutSectionRef = useRef<HTMLElement>(null);
+  const servicesRef = useRef<HTMLElement>(null);
+  const galleryRef = useRef<HTMLElement>(null);
+  const clinicRef = useRef<HTMLElement>(null);
+  const testimonialsRef = useRef<HTMLElement>(null);
 
   // put near the top of the component, after refs:
-const HEADER_OFFSET = 120; // adjust to your fixed header height
+  const HEADER_OFFSET = 120; // adjust to your fixed header height
 
-// In-view states for each top-level section
-const homeInView        = useInView(heroRef,          { amount: 0.6, margin: `-${HEADER_OFFSET}px 0px -40% 0px` });
-const aboutInView       = useInView(aboutSectionRef,   { amount: 0.6, margin: `-${HEADER_OFFSET}px 0px -40% 0px` });
-const servicesInView    = useInView(servicesRef,       { amount: 0.6, margin: `-${HEADER_OFFSET}px 0px -40% 0px` });
-const galleryInView     = useInView(galleryRef,        { amount: 0.6, margin: `-${HEADER_OFFSET}px 0px -40% 0px` });
-const clinicInView      = useInView(clinicRef,         { amount: 0.6, margin: `-${HEADER_OFFSET}px 0px -40% 0px` });
-const testimonInView    = useInView(testimonialsRef,   { amount: 0.6, margin: `-${HEADER_OFFSET}px 0px -40% 0px` });
+  // In-view states for each top-level section
+  const homeInView = useInView(heroRef, {
+    amount: 0.1,
+    margin: `0px 0px -60% 0px`,
+  });
+  const aboutInView = useInView(aboutSectionRef, {
+    amount: 0.3,
+    margin: `-${HEADER_OFFSET}px 0px -50% 0px`,
+  });
+  const servicesInView = useInView(servicesRef, {
+    amount: 0.3,
+    margin: `-${HEADER_OFFSET}px 0px -50% 0px`,
+  });
+  const galleryInView = useInView(galleryRef, {
+    amount: 0.3,
+    margin: `-${HEADER_OFFSET}px 0px -50% 0px`,
+  });
+  const clinicInView = useInView(clinicRef, {
+    amount: 0.3,
+    margin: `-${HEADER_OFFSET}px 0px -50% 0px`,
+  });
+  const testimonInView = useInView(testimonialsRef, {
+    amount: 0.3,
+    margin: `-${HEADER_OFFSET}px 0px -50% 0px`,
+  });
 
-// Single resolver – choose ONE active tab even if two overlap.
-// Priority goes from bottom to top here; tweak if you want.
-useEffect(() => {
-  if (testimonInView)   return setActiveNav("Testimonials");
-  if (clinicInView)     return setActiveNav("Clinic");
-  if (galleryInView)    return setActiveNav("Gallery");
-  if (servicesInView)   return setActiveNav("Services");
-  if (aboutInView)      return setActiveNav("About");
-  if (homeInView)       return setActiveNav("Home");
-}, [
-  homeInView,
-  aboutInView,
-  servicesInView,
-  galleryInView,
-  clinicInView,
-  testimonInView,
-]);
-
+  // Single resolver – prefer the section closest to the top (Home has highest priority).
+  useEffect(() => {
+    // Force Home when near absolute top to avoid About pre-activating
+    if (window.scrollY < 10) return setActiveNav("Home");
+    if (homeInView) return setActiveNav("Home");
+    if (aboutInView) return setActiveNav("About");
+    if (servicesInView) return setActiveNav("Services");
+    if (galleryInView) return setActiveNav("Gallery");
+    if (clinicInView) return setActiveNav("Clinic");
+    if (testimonInView) return setActiveNav("Testimonials");
+  }, [
+    homeInView,
+    aboutInView,
+    servicesInView,
+    galleryInView,
+    clinicInView,
+    testimonInView,
+  ]);
 
   // Function to scroll to section
   const scrollToSection = (sectionName: string) => {
@@ -178,10 +196,10 @@ useEffect(() => {
     }
 
     if (targetRef?.current) {
-      targetRef.current.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
+      const element = targetRef.current as HTMLElement;
+      const targetY =
+        element.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET;
+      window.scrollTo({ top: targetY, behavior: "smooth" });
     }
   };
 
@@ -256,11 +274,10 @@ useEffect(() => {
           data-aos-duration="1000"
           data-aos-delay="200"
           data-aos-easing="ease-in-out"
-          className="fixed top-[30px] left-0 right-0 z-50 flex justify-center"
-        >
+          className="fixed top-[30px] left-0 right-0 z-50 flex justify-center">
           <div className="flex w-[230px] h-[60px] items-center justify-center px-4 py-2 bg-[#F5F5F5] rounded-[50px] absolute left-16">
             <img
-              src="/Dr Devki Logo.svg"
+              src="/Dr Devki Logo.png"
               alt="Dr Devki Logo"
               className="h-[36px] w-auto object-contain"
             />
@@ -283,8 +300,7 @@ useEffect(() => {
                       activeNav === item.label
                         ? "rounded-[50px] bg-[linear-gradient(90deg,rgba(152,77,149,1)_0%,rgba(211,156,192,1)_100%)] text-white font-inter font-light px-4 py-2 text-base hover:bg-[linear-gradient(90deg,rgba(152,77,149,0.9)_0%,rgba(211,156,192,0.9)_100%)]"
                         : "rounded-[50px] bg-transparent text-[#2b2b2b] font-inter font-light px-4 py-2 text-base hover:bg-[linear-gradient(90deg,rgba(152,77,149,1)_0%,rgba(211,156,192,1)_100%)] hover:text-white transition-all duration-200"
-                    }
-                  >
+                    }>
                     {item.label}
                   </Button>
                 </NavigationMenuItem>
@@ -294,8 +310,7 @@ useEffect(() => {
 
           <Button
             asChild
-            className="inline-flex h-[50px] items-center gap-[10px] px-3 py-2 fixed top-[5px] right-14 rounded-[50px] bg-[#F5F5F5] hover:bg-[linear-gradient(90deg,rgba(152,77,149,1)_0%,rgba(211,156,192,1)_100%)] group transition-all duration-300"
-          >
+            className="inline-flex h-[50px] items-center gap-[10px] px-3 py-2 fixed top-[5px] right-14 rounded-[50px] bg-[#F5F5F5] hover:bg-[linear-gradient(90deg,rgba(152,77,149,1)_0%,rgba(211,156,192,1)_100%)] group transition-all duration-300">
             <a href={`tel:${PHONE_NUMBER}`} aria-label="Call Potwar Clinic">
               <span className="font-inter font-thin text-[#2b2b2b] text-base group-hover:text-white transition-colors duration-300">
                 Contact Us
@@ -308,10 +323,12 @@ useEffect(() => {
         </header>
 
         {/* Hero Section */}
-        <section
-          className="pt-[100px] px-4 sm:px-8 md:px-12 lg:px-16 xl:px-24 2xl:px-32 pb-20 flex flex-col xl:flex-row gap-12 xl:gap-0 relative scroll-mt-[120px]"
-        >
-          <div ref={heroRef as React.RefObject<HTMLDivElement>} aria-hidden className="absolute top-0 left-0 h-px w-px" />
+        <section className="pt-[100px] px-4 sm:px-8 md:px-12 lg:px-16 xl:px-24 2xl:px-32 pb-20 flex flex-col xl:flex-row gap-12 xl:gap-0 relative scroll-mt-[120px]">
+          <div
+            ref={heroRef as React.RefObject<HTMLDivElement>}
+            aria-hidden
+            className="absolute top-0 left-0 h-px w-px"
+          />
           {/* Large gradient spot behind image grid */}
           <div
             data-aos="fade-in"
@@ -326,35 +343,31 @@ useEffect(() => {
             data-aos-duration="4000"
             data-aos-delay="100"
             data-aos-easing="ease-in-out"
-            className="w-full lg:flex-1 max-w-full lg:max-w-[700px] xl:max-w-[800px] 2xl:max-w-[900px] flex flex-col justify-center relative pr-0 lg:pr-6 xl:pr-12 -ml-10 md:-ml-20 xl:-ml-36 2xl:-ml-48"
-          >
+            className="w-full lg:flex-1 max-w-full lg:max-w-[700px] xl:max-w-[800px] 2xl:max-w-[900px] flex flex-col justify-center relative pr-0 lg:pr-6 xl:pr-12 -ml-10 md:-ml-20 xl:-ml-36 2xl:-ml-48">
             {/* Text gradient spots */}
             <div className="absolute bottom-[-10%] left-[-40%] w-[900px] h-[500px] rounded-full bg-[radial-gradient(circle,rgba(211,156,192,0.3)_0%,rgba(152,77,149,0.2)_40%,transparent_100%)] blur-xl pointer-events-none" />
 
             <h1 className="text-[44px] leading-[64px] font-inter font-semibold text-[#2b2b2b] relative z-10 max-w-[700px]">
-              Where women’s health meets
-              understanding and expertise
+              Where women’s health meets understanding and expertise
             </h1>
             <p className="w-[559px] mt-6 font-inter font-light text-[#747474] text-base leading-relaxed relative z-10">
               Keep scrolling to know how I can help you.
             </p>
             <Button
               asChild
-              className="mt-8 w-fit pl-3 pr-1.5 py-2 relative overflow-hidden group rounded-[50px] transition-all duration-300"
-            >
+              className="mt-8 w-fit pl-3 pr-1.5 py-2 relative overflow-hidden group rounded-[50px] transition-all duration-300">
               <a
                 href={`https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MSG}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Book WhatsApp appointment"
-              >
+                aria-label="Book WhatsApp appointment">
                 <div className="absolute inset-0 w-full bg-[#2B2B2B]" />
                 <div className="absolute inset-0 w-0 bg-gradient-to-r from-[rgba(152,77,149,1)] to-[rgba(211,156,192,1)] transition-all duration-300 ease-in-out group-hover:w-full" />
                 <span className="font-inter font-light text-[#F5F5F5] text-base group-hover:text-white transition-colors duration-300 relative z-10">
                   Book Appointment
                 </span>
                 <div className="p-2 bg-[#FFFFFF] group-hover:bg-white rounded-full transition-all duration-300 relative z-10 ml-[1px]">
-                  <img src="/arrow.svg" alt="Frame" className="w-2.5 h-2.5" />
+                  <img src="/arrow.webp" alt="Frame" className="w-2.5 h-2.5" />
                 </div>
               </a>
             </Button>
@@ -366,8 +379,7 @@ useEffect(() => {
             <svg
               viewBox="0 0 806 1011"
               xmlns="http://www.w3.org/2000/svg"
-              className="absolute top-[-10%] right-[-35%] xl:right-[-40%] 2xl:right-[-52%] w-[850px] h-[1011px] z-0"
-            >
+              className="absolute top-[-10%] right-[-35%] xl:right-[-40%] 2xl:right-[-52%] w-[850px] h-[1011px] z-0">
               <defs>
                 <linearGradient
                   id="heroLineGradient"
@@ -375,8 +387,7 @@ useEffect(() => {
                   y1="991.298"
                   x2="788.872"
                   y2="260.086"
-                  gradientUnits="userSpaceOnUse"
-                >
+                  gradientUnits="userSpaceOnUse">
                   <stop stopColor="#984D95" />
                   <stop offset="1" stopColor="#D39CC0" />
                 </linearGradient>
@@ -408,18 +419,17 @@ useEffect(() => {
                   times: [0.1, 0.4, 0.7, 0.85, 1], // ⏳ phase split: slow fade → fast roll
                   ease: "easeInOut",
                 }}
-                className="flex flex-col gap-6 mt-[50px] animation-delay-0"
-              >
+                className="flex flex-col gap-6 mt-[50px] animation-delay-0">
                 <div className="w-[300px] h-[410px] bg-gray-100 rounded-[30px] overflow-hidden shadow-lg">
                   <img
-                    src="/FirstCol(1).svg"
+                    src="/FirstCol(1).webp"
                     alt="Clinic Interior"
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                   />
                 </div>
                 <div className="w-[300px] h-[410px] bg-gray-100 rounded-[30px] overflow-hidden shadow-lg">
                   <img
-                    src="/FirstCol(2).svg"
+                    src="/FirstCol(2).webp"
                     alt="Clinic Consultation"
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                   />
@@ -438,25 +448,24 @@ useEffect(() => {
                   times: [0.1, 0.4, 0.7, 0.85, 1],
                   ease: "easeInOut",
                 }}
-                className="flex flex-col gap-6 -mt-[465px] animation-delay-0"
-              >
+                className="flex flex-col gap-6 -mt-[465px] animation-delay-0">
                 <div className="w-[312px] h-[414px] bg-gray-100 rounded-[30px] overflow-hidden shadow-lg">
                   <img
-                    src="/SecondCol(1).svg"
+                    src="/SecondCol(1).webp"
                     alt="Medical Equipment"
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                   />
                 </div>
                 <div className="w-[312px] h-[415px] bg-gray-100 rounded-[30px] overflow-hidden shadow-lg">
                   <img
-                    src="/SecondCol(2).svg"
+                    src="/SecondCol(2).webp"
                     alt="Clinic Reception"
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                   />
                 </div>
                 <div className="w-[312px] h-[414px] bg-gray-100 rounded-[30px] overflow-hidden shadow-lg">
                   <img
-                    src="/SecondCol(3).svg"
+                    src="/SecondCol(3).webp"
                     alt="Clinic Reception"
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                   />
@@ -469,19 +478,21 @@ useEffect(() => {
         {/* Quote Section */}
         <section
           ref={linesRef}
-          className="ml-[-10px] mr-[10px] my-16 relative z-0 flex justify-start  scroll-mt-[120px]"
-          >
-            <div ref={aboutSectionRef as React.RefObject<HTMLDivElement>} aria-hidden className="absolute top-0 left-0 h-px w-px" />
-            {/* Background lines */}
-            <div className="absolute inset-0 overflow-visible pointer-events-none">
-              {/* Left Line */}
-              <svg
+          className="ml-[-10px] mr-[10px] my-16 relative z-0 flex justify-start  scroll-mt-[120px]">
+          <div
+            ref={aboutSectionRef as React.RefObject<HTMLDivElement>}
+            aria-hidden
+            className="absolute top-0 left-0 h-px w-px"
+          />
+          {/* Background lines */}
+          <div className="absolute inset-0 overflow-visible pointer-events-none">
+            {/* Left Line */}
+            <svg
               viewBox="0 0 831 252"
               xmlns="http://www.w3.org/2000/svg"
               className={`absolute left-0 -translate-x-[200px] xl:-translate-x-[250px] 2xl:-translate-x-[300px] top-20 w-[800px] h-[300px] ${
                 isLinesInView ? "animate-stroke-draw" : ""
-              }`}
-            >
+              }`}>
               <defs>
                 <linearGradient
                   id="leftLineGradient"
@@ -489,8 +500,7 @@ useEffect(() => {
                   y1="136.467"
                   x2="815.279"
                   y2="113.473"
-                  gradientUnits="userSpaceOnUse"
-                >
+                  gradientUnits="userSpaceOnUse">
                   <stop stopColor="#984D95" />
                   <stop offset="1" stopColor="#D39CC0" />
                 </linearGradient>
@@ -516,8 +526,7 @@ useEffect(() => {
               xmlns="http://www.w3.org/2000/svg"
               className={`absolute right-0 translate-x-[200px] xl:translate-x-[250px] 2xl:translate-x-[300px] bottom-10 w-[800px] h-[300px] scale-y-[1] ${
                 isLinesInView ? "animate-stroke-draw-reverse" : ""
-              }`}
-            >
+              }`}>
               <defs>
                 <linearGradient
                   id="rightLineGradient"
@@ -525,8 +534,7 @@ useEffect(() => {
                   y1="110.82"
                   x2="943.84"
                   y2="216.685"
-                  gradientUnits="userSpaceOnUse"
-                >
+                  gradientUnits="userSpaceOnUse">
                   <stop stopColor="#984D95" />
                   <stop offset="1" stopColor="#D39CC0" />
                 </linearGradient>
@@ -552,35 +560,39 @@ useEffect(() => {
             data-aos-duration="1000"
             data-aos-delay="700"
             data-aos-easing="ease-in-out"
-            className="
-              w-[1500px] sm:w-[1200px] md:w-[92vw] lg:w-[90vw] xl:w-[88vw] 2xl:w-[86vw]
+            className={`
+              w-[1500px] sm:w-[1200px] md:w-[92vw] lg:w-[92vw] xl:w-[90vw] 2xl:w-[88vw]
               max-w-[2500px]
-              h-[640px] md:h-[680px] lg:h-[720px]
               bg-[#D6A0C229] rounded-[30px]
               flex flex-col items-center justify-center
-              overflow-hidden backdrop-blur-[25px] backdrop-saturate-150
-            "
-          >
+              overflow-visible backdrop-blur-[25px] backdrop-saturate-150
+              ${
+                showFullBio
+                  ? "h-auto py-8"
+                  : "h-[640px] md:h-[680px] lg:h-[720px]"
+              }
+            `}>
             <CardContent
               ref={quoteRef}
-              className="w-full text-center p-0 mt-[50px] max-w-[90%] md:max-w-[1000px] lg:max-w-[1100px] xl:max-w-[1200px]"
-            >
+              className="w-full text-center p-0 mt-[50px] max-w-[90%] md:max-w-[1000px] lg:max-w-[1100px] xl:max-w-[1200px]">
               <motion.div
                 animate={{ opacity: startSplitSlide ? 0 : 1 }}
-                transition={{ duration: 1, ease: "easeInOut" }}
-              >
+                transition={{ duration: 1, ease: "easeInOut" }}>
                 <div
                   data-aos="fade-up"
                   data-aos-duration="1400"
                   data-aos-delay="1250"
                   data-aos-easing="ease-in-out"
-                  className="flex gap-4 mt-[-180px] justify-center"
-                >
+                  className="flex gap-4 mt-[-180px] justify-center">
                   <div className="w-12 h-12 rounded-full bg-[linear-gradient(90deg,rgba(152,77,149,1)_0%,rgba(211,156,192,1)_100%)] flex items-center justify-center">
-                    <img src="/phone.svg" alt="Phone" className="w-5 h-5" />
+                    <img src="/phone.webp" alt="Phone" className="w-5 h-5" />
                   </div>
                   <div className="w-12 h-12 rounded-full bg-[linear-gradient(90deg,rgba(152,77,149,1)_0%,rgba(211,156,192,1)_100%)] flex items-center justify-center">
-                    <img src="/message.svg" alt="Message" className="w-6 h-6" />
+                    <img
+                      src="/message.webp"
+                      alt="Message"
+                      className="w-6 h-6"
+                    />
                   </div>
                 </div>
               </motion.div>
@@ -588,17 +600,15 @@ useEffect(() => {
               <div
                 className={`relative transition-opacity duration-1000 ${
                   fadeOut ? "opacity-0" : "opacity-100"
-                }`}
-              >
+                }`}>
                 <div
                   data-aos="fade-up"
                   data-aos-duration="1400"
                   data-aos-delay="1250"
                   data-aos-easing="ease-in-out"
-                  className="absolute inset-0 flex items-center justify-center mt-[40px]"
-                >
+                  className="absolute inset-0 flex items-center justify-center mt-[40px]">
                   <p className="text-[20px] lg:text-[38px] font-inter font-semibold text-[#2b2b2b]">
-                    14 years ago, I created Potwar clinic out of a simple <br />
+                    I created Potwar clinic out of a simple <br />
                   </p>
                 </div>
 
@@ -607,12 +617,11 @@ useEffect(() => {
                   data-aos-duration="2000"
                   data-aos-delay="2150"
                   data-aos-easing="ease-in-out"
-                  className="absolute inset-0 flex items-center justify-center mt-[90px]"
-                >
+                  className="absolute inset-0 flex items-center justify-center mt-[90px]">
                   <p className="text-[20px] lg:text-[38px] font-inter font-semibold text-[#2b2b2b] flex items-center gap-4">
                     idea:
                     <img
-                      src="/womendeservecare.svg"
+                      src="/womendeservecare.webp"
                       alt="Women Deserve Care"
                       className="w-auto h-[40px] lg:h-[60px]"
                     />
@@ -625,8 +634,7 @@ useEffect(() => {
                   data-aos-duration="2000"
                   data-aos-delay="3000"
                   data-aos-easing="ease-in-out"
-                  className="absolute inset-0 flex items-center justify-center mt-[140px]"
-                >
+                  className="absolute inset-0 flex items-center justify-center mt-[140px]">
                   <p className="text-[20px] lg:text-[38px] font-inter font-semibold text-[#2b2b2b]">
                     safe, and never rushed.
                   </p>
@@ -637,20 +645,17 @@ useEffect(() => {
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 1.5, ease: "easeInOut" }}
-                  className="absolute inset-0 flex items-center justify-center mt-[-40px]"
-                >
+                  className="absolute inset-0 flex items-center justify-center mt-[-40px]">
                   <p className="text-[26px] sm:text-[28px] md:text-[36px] lg:text-[48px] leading-[32px] sm:leading-[36px] md:leading-[44px] lg:leading-[56px] font-inter font-bold text-[#2b2b2b] px-4 lg:px-0 md:px-4 sm:px-4 flex items-center gap-[8px] flex-nowrap justify-center">
                     <motion.span
                       animate={startSplitSlide ? { x: -205 } : { x: 0 }}
-                      transition={{ duration: 1.5, ease: "easeInOut" }}
-                    >
+                      transition={{ duration: 1.5, ease: "easeInOut" }}>
                       Hi, I'm
                     </motion.span>
 
                     <motion.span
                       animate={startSplitSlide ? { x: 165 } : { x: 0 }}
-                      transition={{ duration: 1.5, ease: "easeInOut" }}
-                    >
+                      transition={{ duration: 1.5, ease: "easeInOut" }}>
                       Dr. Devki Potwar
                     </motion.span>
                   </p>
@@ -661,10 +666,9 @@ useEffect(() => {
                   initial={{ width: 0, opacity: 0 }}
                   animate={{ width: "29%", opacity: 1 }}
                   transition={{ duration: 1.2, ease: "easeInOut", delay: 0.5 }}
-                  className="w-[500px] h-[500px] overflow-hidden rounded-[20px] ml-[285px] mt-[140px]"
-                >
+                  className="w-[500px] h-[500px] overflow-hidden rounded-[20px] ml-[285px] mt-[140px]">
                   <img
-                    src="/DrDevki.svg"
+                    src="/DrDevki.webp"
                     alt="Dr. Devki Potwar"
                     className="w-full h-full object-cover"
                   />
@@ -676,85 +680,64 @@ useEffect(() => {
                   data-aos-duration="1500"
                   data-aos-delay="400"
                   data-aos-easing="ease-in-out"
-                  className="absolute inset-0 flex items-center justify-center mt-[255px] mr-[-700px] px-4 z-[60]"
-                >
-                  <div className="relative">
-                    {/* Close (appears only when expanded). Absolutely positioned so it doesn't reflow anything */}
-                    {showFullBio && (
-                      <button
-                        type="button"
-                        onClick={() => {
-                          bioRef.current?.scrollTo({ top: 0 });
-                          setShowFullBio(false);
-                        }}
-                        className="absolute -top-6 right-0 text-xs md:text-sm text-blue-600 underline z-[70]"
-                      >
-                        Close
-                      </button>
-                    )}
-
-                    <p
-                      ref={bioRef}
-                      className="
-                      relative
-                      font-inter text-[17px] font-thin text-[#000000] leading-relaxed text-left
-                      w-[620px] max-w-[620px]
-                      max-h-[240px] lg:max-h-[260px]
-                      overflow-y-scroll pr-4
-                      bio-scroll
-                    "
-                      style={{
-                        // prevents the content width from shrinking when the scrollbar appears
-                        scrollbarGutter: "stable both-edges",
-                        // smooth iOS scroll
-                        WebkitOverflowScrolling: "touch",
-                      }}
-                    >
-                      I’m an Obstetrician and Gynaecologist with over 14 years
-                      of <br />
-                      experience dedicated to women’s health, from adolescence
-                      to <br />
-                      motherhood and beyond. Whether it’s guiding a high-risk{" "}
-                      <br />
-                      pregnancy, performing advanced gynaecological surgeries,
-                      or <br />
-                      supporting couples on their fertility journey, I’m
-                      passionate <br />
-                      about providing compassionate and evidence-based care to{" "}
-                      <br />
-                      each patient.{" "}
+                  className="absolute inset-0 flex items-center justify-center mt-[255px] mr-[-700px] px-4 z-[60]">
+                  <div className="relative w-[700px] max-w-[90vw] xl:max-w-[1200px]">
+                    <div className="font-inter text-[17px] font-thin text-[#000000] leading-relaxed text-left">
                       {!showFullBio ? (
-                        <button
-                          type="button"
-                          onClick={() => {
-                            bioRef.current?.scrollTo({ top: 0 });
-                            setShowFullBio(true);
-                          }}
-                          className="text-blue-500 underline cursor-pointer"
-                        >
-                          Read more
-                        </button>
+                        <p className="whitespace-pre-line">
+                          M.S. (Obstetrics & Gynaecology), DNB (Obstetrics &
+                          Gynaecology), DGO, Diploma in Reproductive Medicine
+                          (Germany)
+                          {"\n\n"}
+                          I’m an Obstetrician and Gynaecologist with over a
+                          decade of experience dedicated to women’s health, from
+                          adolescence to motherhood and beyond. Whether it’s
+                          guiding a high-risk pregnancy, performing advanced
+                          gynaecological surgeries, or supporting couples on
+                          their fertility journey, I’m passionate about
+                          providing compassionate and evidence-based care to
+                          each patient.
+                        </p>
                       ) : (
-                        <span className="inline">
-                          &nbsp;I specialise in High-risk Obstetrics, Minimally
-                          Invasive Gynaecological Surgeries, Infertility and
-                          IVF, and Vaginal Aesthetics. I’m the first in Mumbai
-                          to use Arvati-ThermiVa, an advanced, non-surgical
-                          technology which helps women with sexual dysfunction,
-                          urinary incontinence and vaginal laxity. <br />
-                          <br />
+                        <p className="whitespace-pre-line">
+                          M.S. (Obstetrics & Gynaecology), DNB (Obstetrics &
+                          Gynaecology), DGO, Diploma in Reproductive Medicine
+                          (Germany)
+                          {"\n\n"}
+                          I’m an Obstetrician and Gynaecologist with over a
+                          decade of experience dedicated to women’s health, from
+                          adolescence to motherhood and beyond. Whether it’s
+                          guiding a high-risk pregnancy, performing advanced
+                          gynaecological surgeries, or supporting couples on
+                          their fertility journey, I’m passionate about
+                          providing compassionate and evidence-based care to
+                          each patient.
+                          {"\n\n"}I specialise in High-risk Obstetrics,
+                          Minimally Invasive Gynaecological Surgeries,
+                          Infertility and IVF, and Vaginal Aesthetics. I’m the
+                          first in Mumbai to use Arvati-ThermiVa, an advanced,
+                          non-surgical technology which helps women with sexual
+                          dysfunction, urinary incontinence and vaginal laxity.
+                          {"\n\n"}
                           I’m also a member of Mumbai Obstetric and
                           Gynaecological Society (MOGS), Federation of Obstetric
                           and Gynaecological Societies of India (FOGSI) and the
                           Indian Association of Gynecological Endoscopist
-                          (IAGE). <br />
-                          <br />
-                          <strong>Thanks for stopping by!</strong> I look
-                          forward to supporting you through your healthcare
-                          journey.
-                        </span>
+                          (IAGE).
+                          {"\n\n"}
+                          Thanks for stopping by! I look forward to supporting
+                          you through your healthcare journey.
+                        </p>
                       )}
-                    </p>
+                    </div>
+                    <div className="mt-3 text-right">
+                      <button
+                        type="button"
+                        onClick={() => setShowFullBio((v) => !v)}
+                        className="text-blue-600 underline">
+                        {showFullBio ? "Read less" : "Read more"}
+                      </button>
+                    </div>
                   </div>
                 </div>
               )}
@@ -767,9 +750,9 @@ useEffect(() => {
                   className="absolute inset-0 flex items-center justify-center gap-6 mt-[500px] pointer-events-none" // adjust mt and gap as needed
                 >
                   {/* Second Image */}
-                  <div className="w-[260px] h-[130px]rounded-[20px] overflow-hidden ml-[-600px] mt-[-80px]">
+                  <div className="w-[220px] h-[100px]rounded-[20px] overflow-hidden ml-[-850px] mt-[-80px]">
                     <img
-                      src="/About(left).svg"
+                      src="/About(left).png"
                       alt="Obstetrics Icon"
                       className="w-full h-full object-cover"
                     />
@@ -781,10 +764,12 @@ useEffect(() => {
         </section>
 
         {/* Services Section */}
-        <section
-          className="px-4 sm:px-8 md:px-12 lg:px-16 xl:px-24 2xl:px-32 py-10 scroll-mt-[120px]"
-        >
-          <div ref={servicesRef as React.RefObject<HTMLDivElement>} aria-hidden className="absolute top-0 left-0 h-px w-px" />
+        <section className="px-4 sm:px-8 md:px-12 lg:px-16 xl:px-24 2xl:px-32 py-10 scroll-mt-[120px] relative">
+          <div
+            ref={servicesRef as React.RefObject<HTMLDivElement>}
+            aria-hidden
+            className="absolute top-0 left-0 h-px w-px"
+          />
           <h2 className="w-full max-w-[969px] xl:max-w-[1140px] 2xl:max-w-[1280px] mx-auto text-[42px] text-center leading-[52px] font-inter font-bold text-[#2b2b2b] mb-12">
             Our Services
           </h2>
@@ -804,19 +789,17 @@ useEffect(() => {
                     <div
                       className={`absolute w-[650px] h-[320px] bg-[#F5F5F5] rounded-l-[50px] px-12 py-10 flex items-center justify-center z-10 shadow-[0_4px_0_rgba(0,0,0,0.2)] transition-transform duration-500 ease-out ${
                         isRevealed ? "-translate-x-[300px]" : "translate-x-0"
-                      }`}
-                    >
+                      }`}>
                       <div
                         data-aos="fade-up"
                         data-aos-duration="1200"
                         data-aos-delay="350"
                         data-aos-easing="ease-in-out"
-                        className="flex items-center gap-8 w-full justify-center"
-                      >
+                        className="flex items-center gap-8 w-full justify-center">
                         {/* Icon */}
                         <div className="w-20 h-20 rounded-full bg-gradient-to-r from-[#984D95] to-[#D39CC0] flex items-center justify-center flex-shrink-0">
                           <img
-                            src={`/Service${index + 1}.svg`}
+                            src={`/Service${index + 1}.webp`}
                             alt={`Service ${index + 1}`}
                             className="w-10 h-10 object-contain"
                           />
@@ -835,8 +818,7 @@ useEffect(() => {
                     <div
                       className={`w-[650px] h-[327px] bg-[#d6a0c2] rounded-[50px] flex flex-col justify-center items-center text-center z-20 transition-transform duration-500 ease-out ${
                         isRevealed ? "translate-x-[300px]" : "translate-x-0"
-                      }`}
-                    >
+                      }`}>
                       <p className="text-white/70 text-lg mb-1">
                         We are here for
                       </p>
@@ -852,15 +834,17 @@ useEffect(() => {
         </section>
 
         {/* Gallery Section */}
-        <section
-          className="pt-[100px] ml-[-100px] mr-[10px] pb-20 flex justify-center relative overflow-visible px-2 lg:px-4 xl:px-14 2xl:px-20 scroll-mt-[120px]"
-        >
-            <div ref={galleryRef as React.RefObject<HTMLDivElement>} aria-hidden className="absolute top-0 left-0 h-px w-px" />
+        <section className="pt-[100px] ml-[-100px] mr-[10px] pb-20 flex justify-center relative overflow-visible px-2 lg:px-4 xl:px-14 2xl:px-20 scroll-mt-[120px]">
+          <div
+            ref={galleryRef as React.RefObject<HTMLDivElement>}
+            aria-hidden
+            className="absolute top-0 left-0 h-px w-px"
+          />
           <div className="w-full max-w-[1800px] 2xl:max-w-[2000px] relative">
             {/* Background lines */}
             <div className="absolute inset-0 pointer-events-none z-0">
               <img
-                src="/Galleryline.svg"
+                src="/Galleryline.webp"
                 alt="Background line"
                 className="absolute left-[-14vw] top-1/2 -translate-y-1/2
                 w-[62vw] min-w-[820px] max-w-[1200px] h-auto object-contain"
@@ -877,8 +861,7 @@ useEffect(() => {
               min-h-[630px] xl:min-h-[700px] 2xl:min-h-[760px]
               bg-[#D6A0C229] rounded-[30px] backdrop-blur-[25px] backdrop-saturate-150
               flex items-center justify-start overflow-hidden
-              px-2 lg:px-14 xl:px-16 2xl:px-20 pt-10 pb-12"
-            >
+              px-2 lg:px-14 xl:px-16 2xl:px-20 pt-10 pb-12">
               <CardContent className="p-0 w-full h-full">
                 <div className="flex flex-row w-full h-full gap-8 xl:gap-10">
                   {/* LEFT SIDE - Text content */}
@@ -887,21 +870,18 @@ useEffect(() => {
                     data-aos-duration="1200"
                     data-aos-delay="1500"
                     data-aos-easing="ease-in-out"
-                    className="w-[50%] max-w-[600px] relative z-10 ml-4 flex flex-col justify-center mt-[-100px]"
-                  >
+                    className="w-[50%] max-w-[600px] relative z-10 ml-4 flex flex-col justify-center mt-[-100px]">
                     <h1 className="text-[44px] leading-[64px] font-inter font-semibold text-[#2b2b2b] mb-4">
                       Gallery
                     </h1>
                     <Button
                       asChild
-                      className="mt-8 w-fit pl-3 pr-1.5 py-2 relative overflow-hidden group rounded-[50px] transition-all duration-300"
-                    >
+                      className="mt-8 w-fit pl-3 pr-1.5 py-2 relative overflow-hidden group rounded-[50px] transition-all duration-300">
                       <a
                         href={`https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MSG}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        aria-label="Book WhatsApp appointment"
-                      >
+                        aria-label="Book WhatsApp appointment">
                         <div className="absolute inset-0 w-full bg-[#2B2B2B]" />
                         <div className="absolute inset-0 w-0 bg-gradient-to-r from-[rgba(152,77,149,1)] to-[rgba(211,156,192,1)] transition-all duration-300 ease-in-out group-hover:w-full" />
                         <span className="font-inter font-light text-[#F5F5F5] text-base group-hover:text-white transition-colors duration-300 relative z-10">
@@ -909,7 +889,7 @@ useEffect(() => {
                         </span>
                         <div className="p-2 bg-[#FFFFFF] group-hover:bg-white rounded-full transition-all duration-300 relative z-10 ml-[1px]">
                           <img
-                            src="/arrow.svg"
+                            src="/arrow.webp"
                             alt="Frame"
                             className="w-2.5 h-2.5"
                           />
@@ -932,12 +912,11 @@ useEffect(() => {
                         times: [0.1, 0.4, 0.65, 0.85, 1],
                       }}
                       viewport={{ once: true, amount: 0.4 }}
-                      className="flex flex-row gap-6"
-                    >
+                      className="flex flex-row gap-6">
                       {/* Gallery Image 1 */}
                       <div className="w-[330px] h-[480px] bg-gray-300 rounded-[30px] overflow-hidden shadow-lg shrink-0">
                         <img
-                          src="/Gallerylarge(1).svg"
+                          src="/Gallerylarge(1).webp"
                           alt="Gallery Image 1"
                           className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                         />
@@ -947,14 +926,14 @@ useEffect(() => {
                       <div className="flex flex-col gap-6 shrink-0">
                         <div className="w-[400px] h-[225px] bg-gray-200 rounded-[30px] overflow-hidden shadow-lg">
                           <img
-                            src="/Gallerysmall(1).svg"
+                            src="/Gallerysmall(1).webp"
                             alt="Gallery Image 2"
                             className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                           />
                         </div>
                         <div className="w-[400px] h-[225px] bg-gray-200 rounded-[30px] overflow-hidden shadow-lg">
                           <img
-                            src="/Gallerysmall(2).svg"
+                            src="/Gallerysmall(2).webp"
                             alt="Gallery Image 2"
                             className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                           />
@@ -964,7 +943,7 @@ useEffect(() => {
                       {/* Gallery Image 3 */}
                       <div className="w-[300px] h-[480px] bg-gray-300 rounded-[30px] overflow-hidden shadow-lg shrink-0">
                         <img
-                          src="/Gallerylarge(2).svg"
+                          src="/Gallerylarge(2).webp"
                           alt="Gallery Image 3"
                           className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                         />
@@ -973,7 +952,7 @@ useEffect(() => {
                       {/* Gallery Image 4 */}
                       <div className="w-[300px] h-[480px] bg-gray-300 rounded-[30px] overflow-hidden shadow-lg shrink-0">
                         <img
-                          src="/Gallerylarge(3).svg"
+                          src="/Gallerylarge(3).webp"
                           alt="Gallery Image 4"
                           className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                         />
@@ -982,7 +961,7 @@ useEffect(() => {
                       {/* Gallery Image 5 */}
                       <div className="w-[300px] h-[480px] bg-gray-300 rounded-[30px] overflow-hidden shadow-lg shrink-0">
                         <img
-                          src="/Gallerylarge(4).svg"
+                          src="/Gallerylarge(4).webp"
                           alt="Gallery Image 5"
                           className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                         />
@@ -991,7 +970,7 @@ useEffect(() => {
                       {/* Gallery Image 6 */}
                       <div className="w-[300px] h-[480px] bg-gray-300 rounded-[30px] overflow-hidden shadow-lg shrink-0">
                         <img
-                          src="/Gallerylarge(5).svg"
+                          src="/Gallerylarge(5).webp"
                           alt="Gallery Image 6"
                           className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                         />
@@ -1015,9 +994,12 @@ useEffect(() => {
     relative w-full max-w-[1300px]
     xl:max-w-[1600px] 2xl:max-w-[1800px]
     mx-auto bg-white py-12 overflow-visible scroll-mt-[120px]
-  "
-        >
-            <div ref={testimonialsRef as React.RefObject<HTMLDivElement>} aria-hidden className="absolute top-0 left-0 h-px w-px" />
+  ">
+          <div
+            ref={testimonialsRef as React.RefObject<HTMLDivElement>}
+            aria-hidden
+            className="absolute top-0 left-0 h-px w-px"
+          />
           {/* Header (centered, with safe max width) */}
           <div className="mx-auto w-full max-w-[1600px] px-6">
             <div className="flex justify-between items-start mb-16">
@@ -1033,21 +1015,23 @@ useEffect(() => {
 
               <Button
                 asChild
-                className="mt-8 w-fit pl-3 pr-1.5 py-2 relative overflow-hidden group rounded-[50px] transition-all duration-300"
-              >
+                className="mt-8 w-fit pl-3 pr-1.5 py-2 relative overflow-hidden group rounded-[50px] transition-all duration-300">
                 <a
                   href={`https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MSG}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label="Book WhatsApp appointment"
-                >
+                  aria-label="Book WhatsApp appointment">
                   <div className="absolute inset-0 w-full bg-[#2B2B2B]" />
                   <div className="absolute inset-0 w-0 bg-gradient-to-r from-[rgba(152,77,149,1)] to-[rgba(211,156,192,1)] transition-all duration-300 ease-in-out group-hover:w-full" />
                   <span className="font-inter font-light text-[#F5F5F5] text-base group-hover:text-white transition-colors duration-300 relative z-10">
                     Book Appointment
                   </span>
                   <div className="p-2 bg-[#FFFFFF] group-hover:bg-white rounded-full transition-all duration-300 relative z-10 ml-[1px]">
-                    <img src="/arrow.svg" alt="Frame" className="w-2.5 h-2.5" />
+                    <img
+                      src="/arrow.webp"
+                      alt="Frame"
+                      className="w-2.5 h-2.5"
+                    />
                   </div>
                 </a>
               </Button>
@@ -1058,72 +1042,72 @@ useEffect(() => {
           <div className="w-full px-0">
             <div className="grid grid-cols-4 gap-10 auto-rows-auto w-full max-w-none px-6 2xl:px-8">
               {/* 1. Liked our service (Purple) */}
-              <div className="rounded-[50px] overflow-hidden shadow-md w-[300px] h-[420px] translate-y-5 ml-[-24px]">
+              <div className="rounded-[50px] overflow-hidden shadow-md w-[280px] h-[420px] translate-y-5 ml-[-28px]">
                 <img
-                  src="/Testimonial(1).svg"
+                  src="/Testimonial(1).webp"
                   alt="Column 1 Row 1"
                   className="w-full h-full object-cover"
                 />
               </div>
 
               {/* 2. Anil Poojari */}
-              <div className="rounded-[50px] overflow-hidden shadow-sm w-[300px] h-[450px] mt-[160px] ml-[-12px]">
+              <div className="rounded-[50px] overflow-hidden shadow-sm w-[280px] h-[450px] mt-[160px] ml-[-12px]">
                 <img
-                  src="/Testimonial(3).jpg"
+                  src="/Testimonial(3).webp"
                   alt="Column 2 Row 1"
                   className="w-full h-full object-cover"
                 />
               </div>
 
               {/* 3. Clinic ipad */}
-              <div className="rounded-[50px] overflow-hidden shadow-sm w-[300px] h-[320px] mt-[70px] ml-[-10px]">
+              <div className="rounded-[50px] overflow-hidden shadow-sm w-[280px] h-[320px] mt-[70px] ml-[-10px]">
                 <img
-                  src="/Testimonial(5).svg"
+                  src="/Testimonial(5).webp"
                   alt="Column 3 Row 1"
                   className="w-full h-full object-cover"
                 />
               </div>
 
               {/* 4. Priyanka Lingawale */}
-              <div className="rounded-[50px] overflow-hidden shadow-sm w-[300px] h-[210px] mt-[-20px] ml-[-1px]">
+              <div className="rounded-[50px] overflow-hidden shadow-sm w-[280px] h-[210px] mt-[-20px] ml-[-1px]">
                 <img
-                  src="/Testimonial(7).jpg"
+                  src="/Testimonial(7).webp"
                   alt="Column 4 Row 1"
                   className="w-full h-full object-cover"
                 />
               </div>
 
               {/* 5. Sonali Bansode */}
-              <div className="rounded-[50px] overflow-hidden shadow-sm w-[300px] h-[300px] mt-[-190px] ml-[-24px]">
+              <div className="rounded-[50px] overflow-hidden shadow-sm w-[280px] h-[300px] mt-[-190px] ml-[-28px]">
                 <img
-                  src="/Testimonial(2).jpg"
+                  src="/Testimonial(2).webp"
                   alt="Column 1 Row 2"
                   className="w-full h-full object-cover"
                 />
               </div>
 
               {/* 6. 2 Girls with Ipad */}
-              <div className="rounded-[50px] overflow-hidden shadow-sm w-[300px] h-[300px] translate-y-0 ml-[-12px]">
+              <div className="rounded-[50px] overflow-hidden shadow-sm w-[280px] h-[300px] translate-y-0 ml-[-12px]">
                 <img
-                  src="/Testimonial(4).svg"
+                  src="/Testimonial(4).webp"
                   alt="Column 2 Row 2"
                   className="w-full h-full object-cover"
                 />
               </div>
 
               {/* 7. Alok Pardeshi */}
-              <div className="rounded-[50px] overflow-hidden shadow-sm w-[300px] h-[300px] mt-[-235px] ml-[-10px]">
+              <div className="rounded-[50px] overflow-hidden shadow-sm w-[280px] h-[300px] mt-[-235px] ml-[-10px]">
                 <img
-                  src="/Testimonial(6).svg"
+                  src="/Testimonial(6).webp"
                   alt="Column 3 Row 2"
                   className="w-full h-full object-cover"
                 />
               </div>
 
               {/* 8. Anil Vazirani */}
-              <div className="rounded-[50px] overflow-hidden shadow-sm w-[300px] h-[570px] mt-[-440px] ml-[-1px]">
+              <div className="rounded-[50px] overflow-hidden shadow-sm w-[280px] h-[570px] mt-[-440px] ml-[-1px]">
                 <img
-                  src="/Testimonial(8).svg"
+                  src="/Testimonial(8).webp"
                   alt="Column 4 Row 2"
                   className="w-full h-full object-cover"
                 />
@@ -1137,11 +1121,10 @@ useEffect(() => {
               href="https://www.google.com/search?client=safari&sca_esv=6db176930c53557b&hl=en-us&biw=375&bih=637&sxsrf=AE3TifOkmfxSz340JKyvYpWRSpGscycRFw:1750859493622&q=dr+devki+potwar+reviews&uds=AOm0WdFY0GdalVU1UsU-tNmlAtO_bsXUnYPsSKMvIl0gS1w-rLIYFusuMl3p-Tjp9oLC1aGO5bP_WcB1cCBPiOgb8DHT1ieJWQYPlkf3FxhyXbHynb47DpOq8ca-7QMOIO0Ow86YvGjNOpjyTEs5r-fEm0ySZTITJVVHzk6LmB54gGHEp7J7dHmj5HL5VnN5imNEq2hnjxbRXIX5_cOdCeffMx5rRe-HvpiBsak4pxm_4lExPcd7yi_imPrzzt3njuyMJnpGkpoEmW8bNBn44_xVz968eYT8Gt6FwPQ8sEz7stwzLc0lMOlDv4YzYqp4HmN8hIR7R4im_KuhNznOoDr8fhPQxBdC7vDP8TNgGugoznVJKMVJiZvta0fDuu6nFG8GeFZKXMZGxczqNEW0BNTCOs-VrqLEt8pj3M21xhsqfkEwALitwuB_1a6C8cyT48f-L0MuLCSITxQmALD8W7osNaKwUPr8Gw&si=AMgyJEtREmoPL4P1I5IDCfuA8gybfVI2d5Uj7QMwYCZHKDZ-E66d_c9x3anzXlA7SKuVG2UiYHKwSapILqgEWGQjQxM5-Ze0VRqX6j9MIKtj3goJ8macmfK7ufumAeYZb7jjUEYGDkmr&sa=X&ved=2ahUKEwi54Kzx24yOAxUmh1YBHajEH3QQk8gLegQIIxAB&ictx=1&stq=1&cs=1&lei=5f5baPnZJaaO2roPqIn_oAc#ebo=2"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block"
-            >
+              className="inline-block">
               <button className="text-base text-[#000000] font-inter font-light inline-flex items-center gap-2 hover:underline">
                 Explore All
-                <img src="/arrow.svg" alt="Frame" className="w-3 h-3" />
+                <img src="/arrow.webp" alt="Frame" className="w-3 h-3" />
               </button>
             </a>
           </div>
@@ -1155,27 +1138,27 @@ useEffect(() => {
               {Array(100).fill(
                 <>
                   <img
-                    src="/RelianceBL1.svg"
+                    src="/RelianceBL1.webp"
                     alt="Client 1"
                     className="w-[220px] h-[220px] object-contain"
                   />
                   <img
-                    src="/BCTrustBL2.svg"
+                    src="/BCTrustBL2.webp"
                     alt="Client 2"
                     className="w-[220px] h-[220px] object-contain"
                   />
                   <img
-                    src="/SaifeeBL3.svg"
+                    src="/SaifeeBL3.webp"
                     alt="Client 3"
                     className="w-[220px] h-[220px] object-contain"
                   />
                   <img
-                    src="/WorkhardBL4.svg"
+                    src="/WorkhardBL4.webp"
                     alt="Client 4"
                     className="w-[220px] h-[220px] object-contain"
                   />
                   <img
-                    src="/SEHBL5.svg"
+                    src="/SEHBL5.webp"
                     alt="Client 5"
                     className="w-[220px] h-[220px] object-contain"
                   />
@@ -1191,17 +1174,19 @@ useEffect(() => {
           data-aos-duration="5000"
           data-aos-delay="800"
           data-aos-easing="ease-in-out"
-          className="w-full bg-white mt-10 scroll-mt-[120px]"
-        >
-          <div ref={clinicRef as React.RefObject<HTMLDivElement>} aria-hidden className="absolute top-0 left-0 h-px w-px" />
+          className="w-full bg-white mt-10 scroll-mt-[120px] relative">
+          <div
+            ref={clinicRef as React.RefObject<HTMLDivElement>}
+            aria-hidden
+            className="absolute top-0 left-0 h-px w-px"
+          />
           <div className="mx-auto max-w-[1120px] xl:max-w-[1760px] 2xl:max-w-[2000px] px-3 sm:px-6 lg:px-8 xl:px-10 2xl:px-12 py-12">
             {/* Grid: left text + right map */}
             <div
               className="
         grid grid-cols-1 lg:grid-cols-12 gap-1 lg:gap-18 xl:gap-14 2xl:gap-16
         items-start
-      "
-            >
+      ">
               {/* LEFT: Text/chips — slightly nudged left on wide screens */}
               <div className="lg:col-span-2 xl:col-span-5 2xl:col-span-6 min-w-0 lg:-ml-4 xl:-ml-8 2xl:-ml-12">
                 <h2 className="text-[32px] lg:text-[38px] leading-[1.25] font-inter font-bold text-[#2b2b2b]">
@@ -1217,14 +1202,15 @@ useEffect(() => {
                   href="https://www.google.com/maps/dir/?api=1&destination=Om%20Chambers%2C%20Room%20No.%20208%2C%20Second%20Floor%2C%20123%2C%20August%20Kranti%20Maidan%2C%20Kemps%20Corner%2C%20Mumbai%20-%20400%20026"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-4 inline-flex items-center gap-2 text-blue-600 underline font-inter font-normal text-sm lg:text-base hover:text-blue-700 transition-colors"
-                >
+                  className="mt-4 inline-flex items-center gap-2 text-blue-600 underline font-inter font-normal text-sm lg:text-base hover:text-blue-700 transition-colors">
                   Get Directions
-                  <img
-                    src="/arrow.svg"
-                    alt="Arrow"
-                    className="w-3 h-3 filter brightness-0 saturate-100 invert-[0.4] sepia-[0.5] saturate-[2.5] hue-rotate-[200deg]"
-                  />
+                  <div className="p-2 bg-[#FFFFFF] group-hover:bg-white rounded-full transition-all duration-300 relative z-10 ml-[-5px]">
+                    <img
+                      src="/arrow.webp"
+                      alt="Frame"
+                      className="w-2.5 h-2.5"
+                    />
+                  </div>
                 </a>
 
                 {/* Affiliated Hospitals */}
@@ -1248,14 +1234,15 @@ useEffect(() => {
                               : "bg-[#EEEEEE] text-[#2b2b2b] hover:bg-gradient-to-r hover:from-[#984D95] hover:to-[#D39CC0] hover:text-white",
                           ].join(" ")}
                           aria-pressed={isActive}
-                          aria-label={`Show ${loc.label} on map`}
-                        >
+                          aria-label={`Show ${loc.label} on map`}>
                           <span className="truncate">{loc.label}</span>
-                          <img
-                            src="/arrow.svg"
-                            alt=""
-                            className="w-3 h-3 flex-shrink-0"
-                          />
+                          <div className="p-2 bg-[#FFFFFF] group-hover:bg-white rounded-full transition-all duration-300 relative z-10 ml-[1px]">
+                            <img
+                              src="/arrow.webp"
+                              alt="Frame"
+                              className="w-2.5 h-2.5"
+                            />
+                          </div>
                         </button>
                       );
                     })}
@@ -1272,8 +1259,7 @@ useEffect(() => {
                 w-full
                 h-[440px] sm:h-[520px] lg:h-[620px] xl:h-[680px] 2xl:h-[740px]
                 rounded-[30px] overflow-hidden relative
-              "
-                    >
+              ">
                       <iframe
                         title={`Map - ${selectedLocation.label}`}
                         src={selectedLocation.embedUrl}
@@ -1298,14 +1284,13 @@ useEffect(() => {
                           target="_blank"
                           rel="noopener noreferrer"
                           aria-label={`Directions to ${selectedLocation.label}`}
-                          className="inline-flex items-center gap-[11px] pl-3 pr-1.5 py-1.5 rounded-[50px] bg-[#2b2b2b] text-white transition-all duration-300"
-                        >
+                          className="inline-flex items-center gap-[11px] pl-3 pr-1.5 py-1.5 rounded-[50px] bg-[#2b2b2b] text-white transition-all duration-300">
                           <span className="font-inter font-light text-base">
                             Get Directions
                           </span>
                           <div className="p-2 bg-white rounded-[50px]">
                             <img
-                              src="/arrow.svg"
+                              src="/arrow.webp"
                               alt="Frame"
                               className="w-3 h-3"
                             />
@@ -1321,13 +1306,13 @@ useEffect(() => {
         </section>
 
         {/* Footer */}
-        <footer className="w-full px-14 py-1">
+        <footer className="w-full px-4 py-10">
           <div className="max-w-8xl mx-auto">
             <Card className="bg-[#f9f0f5] rounded-[30px] shadow-lg overflow-hidden relative">
               {/* Background Image */}
               <div className="absolute inset-0">
                 <img
-                  src="/Footer.svg"
+                  src="/Footer.webp"
                   alt="Footer Background"
                   className="w-full h-full object-cover"
                 />
@@ -1336,9 +1321,9 @@ useEffect(() => {
               <CardContent className="p-10 relative z-10">
                 <div className="flex justify-start mb-8">
                   <img
-                    src="/Potwar.svg"
+                    src="/Potwar.webp"
                     alt="Potwar Clinic logo"
-                    className="h-15 w-auto mb-[-100px]"
+                    className="h-20 w-auto mb-[-100px] ml-[-20px]"
                   />
                 </div>
                 <div className="flex items-center justify-between">
@@ -1351,14 +1336,12 @@ useEffect(() => {
                       </p>
                       <Button
                         asChild
-                        className="mt-8 w-fit pl-3 pr-1.5 py-2 relative overflow-hidden group rounded-[50px] transition-all duration-300"
-                      >
+                        className="mt-8 w-fit pl-3 pr-1.5 py-2 relative overflow-hidden group rounded-[50px] transition-all duration-300">
                         <a
                           href={`https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MSG}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          aria-label="Book WhatsApp appointment"
-                        >
+                          aria-label="Book WhatsApp appointment">
                           <div className="absolute inset-0 w-full bg-[#2B2B2B]" />
                           <div className="absolute inset-0 w-0 bg-gradient-to-r from-[rgba(152,77,149,1)] to-[rgba(211,156,192,1)] transition-all duration-300 ease-in-out group-hover:w-full" />
                           <span className="font-inter font-light text-[#F5F5F5] text-base group-hover:text-white transition-colors duration-300 relative z-10">
@@ -1366,7 +1349,7 @@ useEffect(() => {
                           </span>
                           <div className="p-2 bg-[#FFFFFF] group-hover:bg-white rounded-full transition-all duration-300 relative z-10 ml-[1px]">
                             <img
-                              src="/arrow.svg"
+                              src="/arrow.webp"
                               alt="Frame"
                               className="w-2.5 h-2.5"
                             />
