@@ -1054,7 +1054,7 @@ export const Mobile = (): JSX.Element => {
                 className="
           absolute inset-0
           bg-[url('/Footer.webp')]  /* <- your wide image */
-          bg-no-repeat bg-cover
+          bg-right bg-cover
         "
               />
 
