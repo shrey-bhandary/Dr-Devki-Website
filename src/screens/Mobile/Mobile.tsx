@@ -180,7 +180,7 @@ export const Mobile = (): JSX.Element => {
               alt="Dr Devki Logo"
               className="h-7 w-auto object-contain"
             />
-            <span className="ml-1 font-inter font-semibold text-[#2b2b2b] text-[17px]">
+            <span className="ml-1 font-inter font-semibold text-[#2b2b2b] text-[16px]">
               Dr. Devki Potwar
             </span>
           </div>
@@ -458,7 +458,7 @@ export const Mobile = (): JSX.Element => {
             data-aos-delay="1800"
             data-aos-easing="ease-in-out"
             className="w-[92vw] max-w-[340px] sm:max-w-[560px] md:max-w-[720px] lg:max-w-[960px]
-               h-[600px] sm:h-[620px] md:h-[680px] lg:h-[740px]
+               h-[620px] sm:h-[620px] md:h-[680px] lg:h-[740px]
                bg-[#D6A0C229] rounded-[20px] sm:rounded-[24px] lg:rounded-[30px]
                mx-auto relative overflow-hidden backdrop-blur-[25px] backdrop-saturate-150">
             <CardContent className="w-full h-full text-center px-3 sm:px-6 md:px-10 lg:px-12 mt-6 sm:mt-8">
@@ -499,8 +499,7 @@ export const Mobile = (): JSX.Element => {
                   data-aos-delay="2500"
                   className="absolute inset-0 flex items-center justify-center mt-[110px] sm:mt-[20px]">
                   <p className="text-[23px] sm:text-[22px] md:text-[28px] lg:text-[38px] font-inter font-semibold text-[#2b2b2b]">
-                    14 years ago, I created Potwar clinic <br /> out of a simple
-                    idea: that
+                    I created Potwar clinic <br /> out of a simple idea: that
                     <br />
                     <img
                       src="/womendeservecare.webp"
@@ -564,13 +563,7 @@ export const Mobile = (): JSX.Element => {
                           (Germany)
                           {"\n\n"}
                           I’m an Obstetrician and Gynaecologist with over a
-                          decade of experience dedicated to women’s health, from
-                          adolescence to motherhood and beyond. Whether it’s
-                          guiding a high-risk pregnancy, performing advanced
-                          gynaecological surgeries, or supporting couples on
-                          their fertility journey, I’m passionate about
-                          providing compassionate and evidence-based care to
-                          each patient.
+                          decade of experience
                         </p>
                       ) : (
                         <p className="whitespace-pre-line">
