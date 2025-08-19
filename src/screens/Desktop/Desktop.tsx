@@ -451,7 +451,7 @@ export const Desktop = ({}: { isVisible: boolean }): JSX.Element => {
                 className="flex flex-col gap-6 -mt-[465px] animation-delay-0">
                 <div className="w-[312px] h-[414px] bg-gray-100 rounded-[30px] overflow-hidden shadow-lg">
                   <img
-                    src="/SecondCol(1).webp"
+                    src="/SecondCol(1&3).webp"
                     alt="Medical Equipment"
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                   />
@@ -465,7 +465,7 @@ export const Desktop = ({}: { isVisible: boolean }): JSX.Element => {
                 </div>
                 <div className="w-[312px] h-[414px] bg-gray-100 rounded-[30px] overflow-hidden shadow-lg">
                   <img
-                    src="/SecondCol(3).webp"
+                    src="/SecondCol(1&3).webp"
                     alt="Clinic Reception"
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                   />
@@ -680,9 +680,13 @@ export const Desktop = ({}: { isVisible: boolean }): JSX.Element => {
                   data-aos-duration="1500"
                   data-aos-delay="400"
                   data-aos-easing="ease-in-out"
-                  className="absolute inset-0 flex items-center justify-center mt-[330px] mr-[-810px] px-4 z-[60]">
+                  className="absolute inset-0 flex items-center justify-center mt-[335px] mr-[-810px] px-4 z-[60]">
                   <div className="relative w-[700px] max-w-[90vw] xl:max-w-[1200px]">
-                    <div className="font-inter text-[17px] font-thin text-[#000000] leading-relaxed text-left max-h-[400px] overflow-y-auto">
+                    <div
+                      className="font-inter text-[17px] font-thin text-[#000000] leading-relaxed text-left 
+                  h-[400px] overflow-y-auto pr-3">
+                      {" "}
+                      {/* fixed height + scrollbar */}
                       {!showFullBio ? (
                         <p className="whitespace-pre-line">
                           M.S. (Obstetrics & Gynaecology), DNB (Obstetrics &{" "}

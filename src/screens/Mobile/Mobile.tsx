@@ -327,7 +327,7 @@ export const Mobile = (): JSX.Element => {
                 times: [0.1, 0.4, 0.7, 0.85, 1],
                 ease: "easeInOut",
               }}
-              src="/SecondCol(3).webp"
+              src="/SecondCol(1&3).webp"
               alt="Clinic 4"
               className="rounded-[18px] object-cover w-full h-[175px] shadow-md mt-[-130px]"
             />
