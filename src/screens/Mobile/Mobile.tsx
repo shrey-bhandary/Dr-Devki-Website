@@ -608,6 +608,7 @@ export const Mobile = (): JSX.Element => {
                             className="text-blue-600 underline">
                             Read less
                           </button>
+                          {"\n\n\n\n"}
                         </p>
                       )}
                     </div>
@@ -695,6 +696,10 @@ export const Mobile = (): JSX.Element => {
                 <h1 className="text-[28px] sm:text-[36px] lg:text-[44px] leading-tight font-inter font-semibold text-[#2b2b2b] mb-10 mt-10">
                   Gallery
                 </h1>
+                <p className="text-[#747474] text-base font-light leading-6 -mt-4 w-[300px]">
+                  Take a look at the welcoming space where I care for my
+                  patients every day.
+                </p>
                 <Button
                   asChild
                   className="mt-8 w-fit pl-3 pr-1.5 py-2 relative overflow-hidden group rounded-[50px] transition-all duration-300">

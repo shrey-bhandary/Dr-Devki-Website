@@ -210,7 +210,6 @@ export const Desktop = ({}: { isVisible: boolean }): JSX.Element => {
   const quoteInView = useInView(quoteRef, { once: true, amount: 0.4 }); // ~40% visible
 
   const [showFullBio, setShowFullBio] = useState(false);
-  const bioRef = useRef<HTMLParagraphElement | null>(null);
 
   const [selectedLocation, setSelectedLocation] = useState<LocationItem>(
     LOCATIONS[0]
@@ -566,11 +565,7 @@ export const Desktop = ({}: { isVisible: boolean }): JSX.Element => {
               bg-[#D6A0C229] rounded-[30px]
               flex flex-col items-center justify-center
               overflow-hidden backdrop-blur-[25px] backdrop-saturate-150
-              ${
-                showFullBio
-                  ? "h-auto py-8"
-                  : "h-[640px] md:h-[680px] lg:h-[720px]"
-              }
+              h-[640px] md:h-[680px] lg:h-[720px]
             `}>
             <CardContent
               ref={quoteRef}
@@ -648,7 +643,7 @@ export const Desktop = ({}: { isVisible: boolean }): JSX.Element => {
                   className="absolute inset-0 flex items-center justify-center mt-[-40px]">
                   <p className="text-[26px] sm:text-[28px] md:text-[36px] lg:text-[48px] leading-[32px] sm:leading-[36px] md:leading-[44px] lg:leading-[56px] font-inter font-bold text-[#2b2b2b] px-4 lg:px-0 md:px-4 sm:px-4 flex items-center gap-[8px] flex-nowrap justify-center">
                     <motion.span
-                      animate={startSplitSlide ? { x: -180 } : { x: 0 }}
+                      animate={startSplitSlide ? { x: -185 } : { x: 0 }}
                       transition={{ duration: 1.5, ease: "easeInOut" }}>
                       Hi, I'm
                     </motion.span>
@@ -680,7 +675,7 @@ export const Desktop = ({}: { isVisible: boolean }): JSX.Element => {
                   data-aos-duration="1500"
                   data-aos-delay="400"
                   data-aos-easing="ease-in-out"
-                  className="absolute inset-0 flex items-center justify-center mt-[335px] mr-[-810px] px-4 z-[60]">
+                  className="absolute inset-0 flex items-center justify-center mt-[410px] mr-[-815px] px-4 z-[60]">
                   <div className="relative w-[700px] max-w-[90vw] xl:max-w-[1200px]">
                     <div
                       className="font-inter text-[17px] font-thin text-[#000000] leading-relaxed text-left 
@@ -713,33 +708,38 @@ export const Desktop = ({}: { isVisible: boolean }): JSX.Element => {
                         </p>
                       ) : (
                         <p className="whitespace-pre-line">
-                          M.S. (Obstetrics & Gynaecology), DNB (Obstetrics &
-                          Gynaecology), DGO, Diploma in Reproductive Medicine
+                          M.S. (Obstetrics & Gynaecology), DNB (Obstetrics &{" "}
+                          <br />
+                          Gynaecology), DGO, Diploma in Reproductive Medicine{" "}
+                          <br />
                           (Germany)
-                          {"\n\n"}
+                          <br /> <br />
                           I'm an Obstetrician and Gynaecologist with over a
-                          decade of experience dedicated to women's health, from
-                          adolescence to motherhood and beyond. Whether it's
-                          guiding a high-risk pregnancy, performing advanced
-                          gynaecological surgeries, or supporting couples on
-                          their fertility journey, I'm passionate about
-                          providing compassionate and evidence-based care to
-                          each patient.
-                          {"\n\n"}I specialise in High-risk Obstetrics,
-                          Minimally Invasive Gynaecological Surgeries,
-                          Infertility and IVF, and Vaginal Aesthetics. I'm the
-                          first in Mumbai to use Arvati-ThermiVa, an advanced,
-                          non-surgical technology which helps women with sexual
+                          decade of <br /> experience dedicated to women's
+                          health, from adolescence to <br /> motherhood and
+                          beyond. Whether it's guiding a high-risk <br />{" "}
+                          pregnancy, performing advanced gynaecological
+                          surgeries, or <br /> supporting couples on their their
+                          fertility journey, I'm passionate <br /> about
+                          providing compassionate and evidence-based care to{" "}
+                          <br />
+                          each patient. <br /> <br /> I specialise in High-risk
+                          Obstetrics, Minimally Invasive <br /> Gynaecological
+                          Surgeries, Infertility and IVF, and Vaginal <br />
+                          Aesthetics. I'm the first in Mumbai to use
+                          Arvati-ThermiVa, <br /> an advanced, non-surgical
+                          technology which helps women with <br /> sexual
                           dysfunction, urinary incontinence and vaginal laxity.
                           {"\n\n"}
                           I'm also a member of Mumbai Obstetric and
-                          Gynaecological Society (MOGS), Federation of Obstetric
-                          and Gynaecological Societies of India (FOGSI) and the
-                          Indian Association of Gynecological Endoscopist
-                          (IAGE).
+                          Gynaecological
+                          <br /> Society (MOGS), Federation of Obstetric and
+                          Gynaecological <br /> Societies of India (FOGSI) and
+                          the Indian Association of <br /> Gynecological
+                          Endoscopist (IAGE).
                           {"\n\n"}
                           Thanks for stopping by! I look forward to supporting
-                          you through your healthcare journey.
+                          you <br /> through your healthcare journey.
                           {"\n\n"}
                           <button
                             type="button"
@@ -747,6 +747,7 @@ export const Desktop = ({}: { isVisible: boolean }): JSX.Element => {
                             className="text-blue-600 underline">
                             Read less
                           </button>
+                          {"\n\n\n\n"}
                         </p>
                       )}
                     </div>
@@ -886,6 +887,10 @@ export const Desktop = ({}: { isVisible: boolean }): JSX.Element => {
                     <h1 className="text-[44px] leading-[64px] font-inter font-semibold text-[#2b2b2b] mb-4">
                       Gallery
                     </h1>
+                    <p className="text-[#747474] text-base font-light leading-6 -mt-2 w-[400px]">
+                      Take a look at the welcoming space <br />
+                      where I care for my patients every day.
+                    </p>
                     <Button
                       asChild
                       className="mt-8 w-fit pl-3 pr-1.5 py-2 relative overflow-hidden group rounded-[50px] transition-all duration-300">
