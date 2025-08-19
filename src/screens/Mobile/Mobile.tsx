@@ -1070,7 +1070,7 @@ export const Mobile = (): JSX.Element => {
               <div className="relative pt-7 pb-8 px-5 ">
                 {/* Logo row — no extra left padding; slight negative margin if you want it *extra* flush */}
                 <img
-                  src="/Potwar.webp"
+                  src="/Potwar.svg"
                   alt="Potwar"
                   className="w-[250px] h-auto mb-4 -ml-4"
                 />

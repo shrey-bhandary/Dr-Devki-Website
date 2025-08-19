@@ -1338,7 +1338,7 @@ export const Desktop = ({}: { isVisible: boolean }): JSX.Element => {
               <CardContent className="p-10 relative z-10">
                 <div className="flex justify-start mb-8">
                   <img
-                    src="/Potwar.webp"
+                    src="/Potwar.svg"
                     alt="Potwar Clinic logo"
                     className="h-20 w-auto mb-[-100px] ml-[-20px]"
                   />
